@@ -118,10 +118,11 @@ h1 em{font-style:normal;color:var(--accent);}
 /* ARCHITEKTUR — Interaktiver Stack */
 #arch{}
 .layer-stack{margin-top:3rem;}
-.layer{display:grid;grid-template-columns:80px 200px 1fr;border:1px solid var(--navy-border);border-bottom:none;cursor:pointer;transition:background .2s;position:relative;}
+.layer{border:1px solid var(--navy-border);border-bottom:none;cursor:pointer;transition:background .2s;position:relative;}
 .layer:last-child{border-bottom:1px solid var(--navy-border);}
 .layer:hover,.layer.open{background:rgba(23,165,137,.05);}
 .layer.open{border-left:3px solid var(--teal);}
+.layer-top{display:grid;grid-template-columns:80px 200px 1fr auto;}
 .layer-nr{background:var(--navy-panel);border-right:1px solid var(--navy-border);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:1.4rem .8rem;font-family:var(--mono);}
 .layer-nr strong{font-family:var(--cond);font-size:2rem;font-weight:800;color:var(--teal);display:block;line-height:1;}
 .layer-nr span{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ice-dim);margin-top:.2rem;text-align:center;}
@@ -130,11 +131,11 @@ h1 em{font-style:normal;color:var(--accent);}
 .layer-doc-name{font-family:var(--cond);font-size:1rem;font-weight:700;text-transform:uppercase;color:var(--ice);}
 .layer-body-wrap{padding:1.4rem 2rem 1.4rem 1.6rem;display:flex;align-items:center;}
 .layer-body-wrap p{font-size:.85rem;color:var(--ice-dim);line-height:1.7;}
-.layer-arrow{position:absolute;right:1.2rem;top:1.6rem;font-size:.7rem;color:var(--ice-dim);transition:transform .25s,color .2s;}
+.layer-arrow{display:flex;align-items:center;padding:0 1.2rem;font-size:.7rem;color:var(--ice-dim);transition:transform .25s,color .2s;}
 .layer.open .layer-arrow{transform:rotate(90deg);color:var(--teal);}
-.layer-detail{display:none;background:rgba(23,165,137,.04);border-top:1px solid var(--teal-border);padding:1.4rem 1.6rem 1.4rem calc(80px + 200px + 3.2rem);border-left:3px solid var(--teal);}
+.layer-detail{display:none;background:rgba(23,165,137,.04);border-top:1px solid var(--teal-border);padding:1.4rem 2rem;border-left:3px solid var(--teal);}
 .layer.open .layer-detail{display:block;}
-.layer-detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.8rem;margin-top:.6rem;}
+.layer-detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-top:.6rem;}
 .ldt{background:var(--navy-panel);padding:.8rem 1rem;border:1px solid var(--navy-border);}
 .ldt-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:.3rem;}
 .ldt-val{font-family:var(--mono);font-size:.72rem;color:var(--ice);line-height:1.5;}
@@ -210,12 +211,21 @@ h1 em{font-style:normal;color:var(--accent);}
 /* SPEZIFIKATION */
 #spec{background:var(--navy-mid);}
 .spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--navy-border);border:1px solid var(--navy-border);margin-top:2.5rem;}
-.scard{background:var(--navy);padding:1.6rem 1.8rem;}
+.scard{background:var(--navy);padding:1.6rem 1.8rem;cursor:pointer;transition:background .2s,border-left-color .2s;border-left:3px solid transparent;position:relative;}
+.scard:hover{background:#0D1F30;border-left-color:var(--teal);}
+.scard.open{background:#0D1F30;border-left-color:var(--accent);}
 .scard-id{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;color:var(--accent);margin-bottom:.4rem;}
 .scard-title{font-family:var(--cond);font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;color:var(--ice);margin-bottom:.35rem;}
 .scard-desc{font-size:.78rem;color:var(--ice-dim);line-height:1.6;}
-.scard-ver{font-family:var(--mono);font-size:.6rem;color:var(--accent-dim);margin-top:.5rem;}
+.scard-ver{font-family:var(--mono);font-size:.6rem;color:var(--accent-dim);margin-top:.5rem;display:flex;justify-content:space-between;align-items:center;}
 .scard-ver .ok{color:var(--teal);} .scard-ver .draft{color:#7EC8E3;}
+.scard-expand{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--navy-border);}
+.scard.open .scard-expand{display:block;}
+.scard-expand p{font-size:.82rem;color:var(--ice-dim);line-height:1.75;}
+.scard-expand .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+.scard-expand .tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;color:var(--teal);border:1px solid var(--teal-border);padding:.15rem .5rem;}
+.scard-chevron{font-size:.6rem;color:var(--ice-dim);transition:transform .25s;}
+.scard.open .scard-chevron{transform:rotate(180deg);color:var(--accent);}
 
 /* FOOTER */
 footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);padding:4rem 3rem;}
@@ -285,43 +295,63 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <section id="cgta-demo">
 <div class="si">
   <div class="stag">CGTA — ChronoGrid Time Address</div>
-  <h2>Das Herzstück:<br><em>CG:{Domain}:{Wert}/v{n}</em></h2>
+  <h2>Eine Zeitadresse —<br><em>eindeutig, überall</em></h2>
   <div class="divider"></div>
-  <p class="lead">Eine CGTA ist ein 6-Tupel (D, t, z, v, h, σ) — domänenbewusst, auflösungsexplizit, kryptographisch verankert. Was ISO 8601 fehlt: die Domain ist normativ Teil der Adresse.</p>
-  <div class="code-block-outer">
-    <div class="code-block-header">
-      <span class="code-lang">CGTA · CG-STD-0000 Def. 1.4</span>
-      <button class="code-copy" onclick="copyCode()">Kopieren</button>
+  <p class="lead">Das Problem: „14:37 Uhr" ist keine eindeutige Zeitangabe — ohne zu wissen welche Zeitzone, welches Kalendersystem und welche Schaltsekunden-Regel gemeint sind, ist der Wert nicht reproduzierbar. CGTA löst das, indem die Domain normativ Teil der Adresse ist.</p>
+
+  <!-- ANATOMIE EINER CGTA -->
+  <div style="background:#050D18;border:1px solid var(--navy-border);border-top:3px solid var(--teal);padding:2rem 2.5rem;margin-bottom:2rem;">
+    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem;">Aufbau einer CGTA-Adresse</div>
+    <div style="font-family:var(--mono);font-size:1.4rem;font-weight:500;letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:0;align-items:baseline;margin-bottom:1.8rem;">
+      <span style="color:#3D5A7A">CG:</span><span style="color:var(--teal);border-bottom:2px solid var(--teal)">UTC</span><span style="color:#3D5A7A">:</span><span style="color:#7EC8E3;border-bottom:2px solid #7EC8E3">2026-05-01T14:37:22Z</span><span style="color:var(--accent);border-bottom:2px solid var(--accent)">/v1</span>
     </div>
-    <div class="code-body">
-<pre><span class="cc">// Syntax:  CG:{DomainName}:{Zeitwert}[{z}]/v{Version}</span>
-
-<span class="cc">// ── Drei Domänen, derselbe Augenblick ───────────────────────────────</span>
-<span class="ck">CG:</span><span class="cd">UTC</span><span class="ck">:</span><span class="cv">2026-05-01T14:37:22.000Z</span><span class="cs">/v1</span>      <span class="cc">// σ=time · koordinierte Weltzeit</span>
-<span class="ck">CG:</span><span class="cd">TAI</span><span class="ck">:</span><span class="cv">2026-05-01T14:37:59.000</span><span class="cs">/v1</span>       <span class="cc">// TAI = UTC + 37 s · monoton · keine Zeitzone</span>
-<span class="ck">CG:</span><span class="cd">GPS</span><span class="ck">:</span><span class="cv">2026-05-01T14:37:40.000</span><span class="cs">/v1</span>       <span class="cc">// GPS = UTC + 18 s · Satellitenzeit</span>
-
-<span class="cc">// ── BigInt-Darstellung (intern, ℤ∞) ─────────────────────────────────</span>
-<span class="ck">CG:</span><span class="cd">TAI</span><span class="ck">:</span><span class="cv">1746106679000000000</span><span class="cs">/v1</span>          <span class="cc">// Nanosekunden seit TAI-Epoche · kein Overflow</span>
-
-<span class="cc">// ── MachineID = SHA-256(CGTA-String) ────────────────────────────────</span>
-<span class="ck">h =</span> <span class="cv">SHA-256</span><span class="ck">(</span><span class="cs">"CG:TAI:1746106679000000000/v1"</span><span class="ck">)</span>
-<span class="cv">  → a3f8c2d1...</span>                             <span class="cc">// 256-Bit · tamper-evident · CG-STD-3100</span>
-
-<span class="cc">// ── Fehlerfall: POSIX-Overflow 2038 ─────────────────────────────────</span>
-<span class="ce">encode(2038-01-19T03:14:08Z, domain=POSIX)   → CG-E-003 FATAL  // sichtbar, nicht propagiert</span>
-<span class="cg2">encode(2038-01-19T03:14:08Z, domain=TAI)     → CG:TAI:2147483648.../v1  ✓</span></pre>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+      <div>
+        <div style="width:100%;height:2px;background:var(--teal);margin-bottom:.6rem;"></div>
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.3rem;">Domain</div>
+        <div style="font-size:.85rem;color:var(--ice-dim);line-height:1.6;">Welches Zeitsystem? UTC, TAI, GPS oder jede andere CTDDL-definierte Domain. Ohne Domain ist ein Zeitwert mehrdeutig.</div>
+      </div>
+      <div>
+        <div style="width:100%;height:2px;background:#7EC8E3;margin-bottom:.6rem;"></div>
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#7EC8E3;margin-bottom:.3rem;">Zeitwert</div>
+        <div style="font-size:.85rem;color:var(--ice-dim);line-height:1.6;">Der Zeitpunkt im Format der Domain. Intern als BigInt (ℤ∞) gespeichert — kein Float-Rundungsfehler, kein Overflow 2038.</div>
+      </div>
+      <div>
+        <div style="width:100%;height:2px;background:var(--accent);margin-bottom:.6rem;"></div>
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem;">Version</div>
+        <div style="font-size:.85rem;color:var(--ice-dim);line-height:1.6;">Version der Spezifikation. Stellt sicher, dass die Adresse auch in 30 Jahren noch mit denselben Regeln interpretiert wird.</div>
+      </div>
     </div>
   </div>
-  <div class="cgta-examples">
-    <div class="cgta-ex">
-      <div class="cgta-ex-label">σ = address · Konformitätszertifikat</div>
-      <div class="cgta-ex-code"><span style="color:var(--accent)">CG:</span><span style="color:var(--teal)">TAI</span><span style="color:var(--accent)">:</span><span style="color:#7EC8E3">1776673435043000000</span><span style="color:var(--accent-dim)">/v1</span><br>cg-engine v0.9.0 · 72/72 Level-3 konform<br><span style="font-size:.7rem;color:#3D5A7A">MachineID: SHA-256 → 32 Byte · CG-STD-3100</span></div>
+
+  <!-- DREI DOMAINS, GLEICHER MOMENT -->
+  <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Derselbe Augenblick — drei Domains</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--navy-border);border:1px solid var(--navy-border);margin-bottom:2rem;">
+    <div style="background:var(--navy-panel);padding:1.5rem;">
+      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;">CG:UTC</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:22Z</div>
+      <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">Koordinierte Weltzeit. Enthält Schaltsekunden. Standard für Anzeige und Benutzeroberflächen.</div>
     </div>
-    <div class="cgta-ex">
-      <div class="cgta-ex-label">σ = filetype · Klasse-B Weltlinie (GPS-Satellit)</div>
-      <div class="cgta-ex-code"><span style="color:var(--accent)">CG:</span><span style="color:var(--teal)">GPS-BLOCK-III</span><span style="color:var(--accent)">:</span><span style="color:#7EC8E3">...</span><span style="color:var(--accent-dim)">/v1</span><br>Klasse-B-Mapping: RK45-Differentialgl.-Solver<br><span style="font-size:.7rem;color:#3D5A7A">Ephemeride als Pflichtparameter · TCB IAU 1991</span></div>
+    <div style="background:var(--navy-panel);padding:1.5rem;border-left:2px solid var(--accent);">
+      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;">CG:TAI ← empfohlen</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:59Z</div>
+      <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">Atomzeit. Keine Schaltsekunden, keine Zeitzone, monoton steigend. Bevorzugt für Archivierung, Forensik und Langzeitdokumente.</div>
     </div>
+    <div style="background:var(--navy-panel);padding:1.5rem;">
+      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#7EC8E3;margin-bottom:.5rem;">CG:GPS</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:40Z</div>
+      <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">GPS-Satellitenzeit. Basis der globalen Navigation. 18 Sekunden hinter TAI — exakt definiert durch CTDDL Klasse-A-Mapping.</div>
+    </div>
+  </div>
+
+  <!-- MACHINEID -->
+  <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--green);padding:1.5rem 2rem;">
+    <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;">MachineID — Kryptographischer Fingerabdruck</div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;">
+      <div style="font-family:var(--mono);font-size:.82rem;color:var(--ice);">SHA-256(<span style="color:var(--accent)">"CG:TAI:2026-05-01T14:37:59Z/v1"</span>)</div>
+      <div style="font-family:var(--mono);font-size:.75rem;color:#3D7040;word-break:break-all;">→ a3f8c2d1b5e9f047... (256 Bit)</div>
+    </div>
+    <div style="font-size:.82rem;color:var(--ice-dim);margin-top:.8rem;line-height:1.65;">Jede CGTA erzeugt einen eindeutigen kryptographischen Fingerabdruck. Damit lässt sich später beweisen, dass ein Dokument zu einem bestimmten Zeitpunkt existiert hat — und dass es nicht verändert wurde.</div>
   </div>
 </div>
 </section>
@@ -389,10 +419,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <p class="lead">ChronoGrid ist als formaler Schichtenstack spezifiziert — von den mathematischen Grundlagen über maschinenlesbare Domänenbeschreibung bis zu Governance und EU-Compliance. Klicken Sie auf eine Schicht für Details.</p>
   <div class="layer-stack">
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>0</strong><span>Mathematik</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>0</strong><span>Mathematik</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-0000 · v0.5 DRAFT</div><div class="layer-doc-name">Formale Grundlagen</div></div>
       <div class="layer-body-wrap"><p>Axiomatik, CGTA 6-Tupel, 4 DRAFT-Theoreme zur externen Verifikation, BigInt-Arithmetik ℤ∞, Mapping-Theorie Klasse A/B</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Kern-Definitionen</div><div class="ldt-val">CGTA 6-Tupel (D,t,z,v,h,σ)<br>TimeDomain 8-Tupel</div></div>
         <div class="ldt"><div class="ldt-label">Invarianten</div><div class="ldt-val">I-E1–I-E9 normativ<br>ℤ∞ kein Overflow</div></div>
@@ -401,10 +431,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>1</strong><span>Grundlagen</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>1</strong><span>Grundlagen</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-1000 v1.2 · CG-STD-1100 v2.5</div><div class="layer-doc-name">Terminologie & Architektur</div></div>
       <div class="layer-body-wrap"><p>Normatives Glossar, Verarbeitungsfluss Zeitpunkt→CGTA→MachineID→CGFI→CGUA, CGTA-Syntax ABNF</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Begriffe</div><div class="ldt-val">CGTA, CTDDL, MachineID<br>Weltlinie, Ephemeride, CIP</div></div>
         <div class="ldt"><div class="ldt-label">Pipeline</div><div class="ldt-val">Consolas Box-Drawing<br>5-stufiger Verarbeitungsfluss</div></div>
@@ -412,10 +442,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>2</strong><span>Sprache</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>2</strong><span>Sprache</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-2100 · v1.4</div><div class="layer-doc-name">CTDDL</div></div>
       <div class="layer-body-wrap"><p>ChronoGrid Time Domain Definition Language — JSON-basierte maschinenlesbare Beschreibungssprache für beliebige Zeitdomänen, vollständig in ABNF</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Format</div><div class="ldt-val">JSON-Schema + ABNF RFC 5234<br>maschinenlesbar + validierbar</div></div>
         <div class="ldt"><div class="ldt-label">Fehlerklassen</div><div class="ldt-val">CG-E-001–011<br>FATAL / ERROR / WARN</div></div>
@@ -424,10 +454,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>3</strong><span>Engine</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>3</strong><span>Engine</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-3100 · v1.5</div><div class="layer-doc-name">CGFI-Engine</div></div>
       <div class="layer-body-wrap"><p>Interne Compute-Engine: Encode/Decode, Mapping, MachineID SHA-256, CGFI-Berechnung, Allen-Relationen 13×, BigInt</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Testvektoren</div><div class="ldt-val">114 normative Vektoren<br>T-ENG-001–114 in 8 Kategorien</div></div>
         <div class="ldt"><div class="ldt-label">Allen-Relationen</div><div class="ldt-val">before · meets · overlaps<br>starts · during · finishes · equals (+Inv.)</div></div>
@@ -436,10 +466,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>4</strong><span>Storage/API</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>4</strong><span>Storage/API</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-4100 · v1.0 ✓ Freigegeben</div><div class="layer-doc-name">Datenmodell & API</div></div>
       <div class="layer-body-wrap"><p>REST-API 28 Endpoints (OpenAPI 3.1), GraphQL SDL 70 Typen, Authentifizierung, Resolver, cgua:// URI-Schema IANA-Draft</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">REST API</div><div class="ldt-val">28 Endpoints · OpenAPI 3.1<br>Anlage A normativ</div></div>
         <div class="ldt"><div class="ldt-label">GraphQL</div><div class="ldt-val">70 Typen · SDL<br>Query/Mutation/Subscription</div></div>
@@ -448,10 +478,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>5</strong><span>Governance</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>5</strong><span>Governance</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-ORG-2100 v1.4 · CG-STD-5100 v1.3</div><div class="layer-doc-name">QM & Zertifizierung</div></div>
       <div class="layer-body-wrap"><p>RACI-Matrix, Eskalationspfade E-1–E-4, CIP 5-Schritt-Prozess, ISO 9001/27001/31000, CGUAS/CGFS Checklisten</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Governance</div><div class="ldt-val">RACI · E-1–E-4 Eskalation<br>CIP 5-Schritt-Prozess</div></div>
         <div class="ldt"><div class="ldt-label">Kompatibilität</div><div class="ldt-val">ISO 9001 / 27001 / 31000<br>normativ abgebildet</div></div>
@@ -459,10 +489,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
-      <div class="layer-nr"><strong>6</strong><span>Erweiterungen</span></div>
+      <div class="layer-top"><div class="layer-nr"><strong>6</strong><span>Erweiterungen</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-6100 · v0.5</div><div class="layer-doc-name">CGUAS · CGFS · CGFI</div></div>
       <div class="layer-body-wrap"><p>79-Bit CGUAS-Adressraum, CGFS-Filesystem, Tombstone-Protokoll, TSC-Entscheidungen OP-12/OP-13, Quantensicher I-QKD-1</p></div>
-      <span class="layer-arrow">▶</span>
+      <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">CGUAS</div><div class="ldt-val">79-Bit Adressraum<br>N-CGUAS-001 Segment-Spezifität</div></div>
         <div class="ldt"><div class="ldt-label">TSC-Vorlagen</div><div class="ldt-val">OP-12: FileType-Namespace<br>OP-13: σ-Feld I-QKD-1</div></div>
@@ -601,25 +631,25 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="divider"></div>
   <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen.</p>
   <div class="spec-grid">
-    <div class="scard"><div class="scard-id">CG-STD-0000</div><div class="scard-title">Formale Grundlagen</div><div class="scard-desc">Axiomatik, CGTA 6-Tupel, 4 Theoreme, BigInt-Arithmetik, Klasse-A/B Mapping, Anhang B: Schaltsekunden-Testvektor</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> · Schicht 0</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.2 Freigegeben</span> · Schicht 1</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-1100</div><div class="scard-title">Architektur</div><div class="scard-desc">Verarbeitungsfluss Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Consolas-Flussdiagramm. CGTA-Syntax ABNF</div><div class="scard-ver"><span class="ok">v2.5 Freigegeben</span> · Schicht 1</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-2100</div><div class="scard-title">CTDDL</div><div class="scard-desc">Time Domain Definition Language. JSON-Schema, ABNF RFC 5234, Klasse-A/B-Mappings, 5-Schritt Schaltsekunden-Verfahren, CGRS 2035</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 2</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-3100</div><div class="scard-title">CGFI-Engine</div><div class="scard-desc">Interne Engine. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien. computeCGFI() mit optionalem seq-Parameter</div><div class="scard-ver"><span class="ok">v1.5 Freigegeben</span> · Schicht 3</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-4100</div><div class="scard-title">Datenmodell & API</div><div class="scard-desc">REST 28 Endpoints (OpenAPI 3.1) · GraphQL 70 Typen (SDL) · T-API 60 Tests Level 1–3 · cgua:// URI-Schema</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> · Schicht 4</div></div>
-    <div class="scard"><div class="scard-id">CG-ORG-2100</div><div class="scard-title">Governance (konzeptuell)</div><div class="scard-desc">RACI-Matrix, Eskalationspfade E-1–E-4, CIP, Kompetenzprofile, ISO 9001/27001/31000 Kompatibilität</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 5</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-5100</div><div class="scard-title">Governance (normativ)</div><div class="scard-desc">CGUAS 20-Punkte-CL · CGFS 20-Punkte-CL · T-API-001–060 in 6 Kategorien · Level-3 Cosmic-Domain-Vektoren</div><div class="scard-ver"><span class="ok">v1.3 Freigegeben</span> · Schicht 5</div></div>
-    <div class="scard"><div class="scard-id">CG-STD-6100</div><div class="scard-title">Erweiterungen</div><div class="scard-desc">79-Bit CGUAS-Adressraum · CGFS-Filesystem · CGFI · Tombstone · Allen-Relationen · I-QKD-1 · OP-12/13 TSC-Vorlagen bereit</div><div class="scard-ver"><span class="ok">v0.5 Freigegeben</span> · Schicht 6</div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0100</div><div class="scard-title">Anwendungsanalyse</div><div class="scard-desc">26 Anwendungsdomänen analysiert. Use-Case-Struktur: Szenario → Problem → Konsequenz → ChronoGrid-Lösung → Standardvergleich</div><div class="scard-ver"><span class="ok">v1.8 Freigegeben</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0200</div><div class="scard-title">Engineers Guide</div><div class="scard-desc">Implementierungsleitfaden: Designrationale, alle 9 Invarianten mit Pseudocode, Engine-Architektur, häufige Fehler</div><div class="scard-ver"><span class="draft">v0.4 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0300</div><div class="scard-title">CTDDL vs. OWL-Time</div><div class="scard-desc">40-Kriterien-Vergleich: CTDDL 34/40 · OWL-Time 22/40 · Schema.org 11/40. Ehrliche Bewertung inkl. CTDDL-Schwächen</div><div class="scard-ver"><span class="ok">v1.2 Freigegeben</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0400</div><div class="scard-title">Dateimanifest-Leitfaden</div><div class="scard-desc">Schritt-für-Schritt CGFS-Manifest-Erstellung. Beispiel: österreichische Notariatsurkunde</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0500</div><div class="scard-title">Reference Registry</div><div class="scard-desc">Registry-Architektur: CG-STD-3100 als interne Engine; CG-STD-4100 als externer API-Gateway</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">5 vollständige vertikale Use Cases: ATC/ACARS OS411, Notariatsurkunde, DSGVO-Tombstone, 30-Jahres-Kette, QKD</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 72/72 Level-3 + 96/96 Level-2 konform</div><div class="scard-ver"><span class="ok">v0.3 Freigegeben</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0800</div><div class="scard-title">Interoperability Guide</div><div class="scard-desc">Integration mit bestehenden Systemen. Migration von POSIX/ISO 8601/OWL-Time zu CGTA. Adapter-Patterns</div><div class="scard-ver"><span class="draft">v0.2 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0900</div><div class="scard-title">NIS2 Compliance Profile</div><div class="scard-desc">EU-Richtlinie NIS2: CGTA als normativer Zeittyp für Incident-Reporting und Log-Integrität. Konkrete Artikel-Mappings</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span></div></div>
-    <div class="scard"><div class="scard-id">CG-APP-0910</div><div class="scard-title">CRA / SBOM Timestamp</div><div class="scard-desc">EU Cyber Resilience Act: CGFI-Zeitstempel in SBOM. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — CI-Pipeline integriert</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> · <span class="ok">PoC ✅</span></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-0000</div><div class="scard-title">Formale Grundlagen</div><div class="scard-desc">Axiomatik, CGTA 6-Tupel, 4 Theoreme, BigInt-Arithmetik, Klasse-A/B Mapping, Anhang B: Schaltsekunden-Testvektor</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> · Schicht 0 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Legt die mathematischen Grundlagen des gesamten Stacks fest. Definiert das CGTA 6-Tupel (D, t, z, v, h, σ) und das TimeDomain 8-Tupel. Enthält 4 DRAFT-Theoreme die zur externen Verifikation durch Kryptographen, Informatiker und Physiker vorgesehen sind. Normative Invarianten I-E1–I-E9. Anhang B: Schaltsekunden-Testvektor 2016 (normativ).</p><div class="tags"><span class="tag">CGTA 6-Tupel</span><span class="tag">ℤ∞ BigInt</span><span class="tag">Klasse A/B</span><span class="tag">4 Theoreme</span><span class="tag">I-E1–I-E9</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.2 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normatives Glossar mit eindeutigen Definitionen für alle Kernbegriffe. Verhindert Mehrdeutigkeit bei der Implementierung. Definiert u.a. Weltlinie (relativistischer Pfad), Ephemeride (Bahnparameter), CIP (Change Impact Process), Klasse-A/B Mapping.</p><div class="tags"><span class="tag">Weltlinie</span><span class="tag">Ephemeride</span><span class="tag">CIP</span><span class="tag">MachineID</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1100</div><div class="scard-title">Architektur</div><div class="scard-desc">Verarbeitungsfluss Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Consolas-Flussdiagramm. CGTA-Syntax ABNF</div><div class="scard-ver"><span class="ok">v2.5 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Definiert den normativen 5-stufigen Verarbeitungsfluss: Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Enthält das Consolas Box-Drawing Flussdiagramm und die vollständige CGTA-Syntax in ABNF (RFC 5234). Legt fest welche Schichten intern/extern sind.</p><div class="tags"><span class="tag">ABNF RFC 5234</span><span class="tag">5-stufige Pipeline</span><span class="tag">Flussdiagramm</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-2100</div><div class="scard-title">CTDDL</div><div class="scard-desc">Time Domain Definition Language. JSON-Schema, ABNF RFC 5234, Klasse-A/B-Mappings, 5-Schritt Schaltsekunden-Verfahren, CGRS 2035</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 2 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Die zentrale Innovation: eine JSON-basierte maschinenlesbare Sprache zur formalen Beschreibung beliebiger Zeitdomänen. 34/40 Kriterien — besser als OWL-Time (22/40) und Schema.org (11/40). Fehlerklassen CG-E-001–011. 5-Schritt-Verfahren für Schaltsekunden-Aktualisierung. CGRS 2035 als geplanter Revisionsplan.</p><div class="tags"><span class="tag">34/40 Kriterien</span><span class="tag">JSON-Schema</span><span class="tag">CG-E-001–011</span><span class="tag">CGRS 2035</span><span class="tag">Klasse A/B</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-3100</div><div class="scard-title">CGFI-Engine</div><div class="scard-desc">Interne Engine. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien. computeCGFI() mit optionalem seq-Parameter</div><div class="scard-ver"><span class="ok">v1.5 Freigegeben</span> · Schicht 3 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Interne Compute-Engine — nicht direkt öffentlich zugänglich (das ist CG-STD-4100). Implementiert Encode/Decode, Domain-Mapping, MachineID SHA-256, CGFI-Berechnung und alle 13 Allen-Relationen. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien sichern die Konformität.</p><div class="tags"><span class="tag">114 Testvektoren</span><span class="tag">Allen 13×</span><span class="tag">SHA-256</span><span class="tag">BigInt</span><span class="tag">intern</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-4100</div><div class="scard-title">Datenmodell & API</div><div class="scard-desc">REST 28 Endpoints (OpenAPI 3.1) · GraphQL 70 Typen (SDL) · T-API 60 Tests Level 1–3 · cgua:// URI-Schema</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> · Schicht 4 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Öffentliche API-Schicht — trennt die interne Engine (CG-STD-3100) von externen Konsumenten. REST-API mit 28 Endpoints (OpenAPI 3.1, Anlage A normativ). GraphQL mit 70 Typen, SDL (Anlage B). T-API Testsuite 60 Tests Level 1–3. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001 (RFC 7595).</p><div class="tags"><span class="tag">28 REST-Endpoints</span><span class="tag">GraphQL 70 Typen</span><span class="tag">OpenAPI 3.1</span><span class="tag">cgua://</span><span class="tag">IANA-Draft</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-ORG-2100</div><div class="scard-title">Governance (konzeptuell)</div><div class="scard-desc">RACI-Matrix, Eskalationspfade E-1–E-4, CIP, Kompetenzprofile, ISO 9001/27001/31000 Kompatibilität</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Konzeptuelle Governance-Grundlage: RACI-Matrix für alle Rollen, Eskalationspfade E-1 bis E-4, Change Impact Process (CIP) mit 5 Schritten, Kompetenzprofile. Kompatibilität mit ISO 9001 (QM), ISO 27001 (InfoSec) und ISO 31000 (Risiko) normativ abgebildet.</p><div class="tags"><span class="tag">RACI</span><span class="tag">E-1–E-4</span><span class="tag">CIP</span><span class="tag">ISO 9001</span><span class="tag">ISO 27001</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-5100</div><div class="scard-title">Governance (normativ)</div><div class="scard-desc">CGUAS 20-Punkte-CL · CGFS 20-Punkte-CL · T-API-001–060 in 6 Kategorien · Level-3 Cosmic-Domain-Vektoren</div><div class="scard-ver"><span class="ok">v1.3 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normative Governance-Implementierung: CGUAS 20-Punkte-Checkliste und CGFS 20-Punkte-Checkliste für Deployment-Konformität. T-API-001–060 Testsuite in 6 Kategorien. Level-3 Cosmic-Domain-Vektoren für Tests mit sehr langen Zeitspannen (geologisch, astronomisch).</p><div class="tags"><span class="tag">CGUAS 20-Punkte</span><span class="tag">CGFS 20-Punkte</span><span class="tag">T-API 60 Tests</span><span class="tag">Cosmic-Domain</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-6100</div><div class="scard-title">Erweiterungen</div><div class="scard-desc">79-Bit CGUAS-Adressraum · CGFS-Filesystem · CGFI · Tombstone · Allen-Relationen · I-QKD-1 · OP-12/13 TSC-Vorlagen bereit</div><div class="scard-ver"><span class="ok">v0.5 Freigegeben</span> · Schicht 6 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Erweiterungsschicht mit dem 79-Bit CGUAS-Adressraum (N-CGUAS-001), CGFS-Filesystem, CGFI, und dem DSGVO-Tombstone-Protokoll. TSC-Vorlagen für OP-12 (FileType-Namespace-Governance) und OP-13 (σ-Feld I-QKD-1) bereit. Invariante I-QKD-1 für quantensichere Schlüsselrotation (ETSI ISG-QKD).</p><div class="tags"><span class="tag">79-Bit Adressraum</span><span class="tag">I-QKD-1</span><span class="tag">Tombstone</span><span class="tag">OP-12/13</span><span class="tag">ETSI ISG-QKD</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0100</div><div class="scard-title">Anwendungsanalyse</div><div class="scard-desc">26 Anwendungsdomänen analysiert. Use-Case-Struktur: Szenario → Problem → Konsequenz → ChronoGrid-Lösung → Standardvergleich</div><div class="scard-ver"><span class="ok">v1.8 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Umfassende Analyse von 26 Anwendungsdomänen (Luftfahrt, Medizin, Recht, Quantenphysik, Energie, etc.). Jeder Anwendungsfall folgt dem einheitlichen Schema: Szenario → Problem → Konsequenz → ChronoGrid-Lösung → Vergleich mit bestehenden Standards. Grundlage für FFG-Antrag und ASI/ON-Einreichung.</p><div class="tags"><span class="tag">26 Domänen</span><span class="tag">Killer Use Cases</span><span class="tag">FFG-Grundlage</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0200</div><div class="scard-title">Engineers Guide</div><div class="scard-desc">Implementierungsleitfaden: Designrationale, alle 9 Invarianten mit Pseudocode, Engine-Architektur, häufige Fehler</div><div class="scard-ver"><span class="draft">v0.4 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praxisleitfaden für Entwickler die ChronoGrid implementieren. Erklärt das Designrationale hinter allen Entscheidungen (warum BigInt? warum TAI bevorzugt? warum SHA-256?). Alle 9 normativen Invarianten mit Pseudocode. Häufige Implementierungsfehler und wie man sie vermeidet.</p><div class="tags"><span class="tag">9 Invarianten</span><span class="tag">Pseudocode</span><span class="tag">Designrationale</span><span class="tag">Entwickler</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0300</div><div class="scard-title">CTDDL vs. OWL-Time</div><div class="scard-desc">40-Kriterien-Vergleich: CTDDL 34/40 · OWL-Time 22/40 · Schema.org 11/40. Ehrliche Bewertung inkl. CTDDL-Schwächen</div><div class="scard-ver"><span class="ok">v1.2 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Systematischer 40-Kriterien-Vergleich der drei wichtigsten Zeit-Beschreibungssprachen. CTDDL 34/40, OWL-Time 22/40, Schema.org 11/40. Enthält eine ehrliche Bewertung der CTDDL-Schwächen (z.B. keine RDF-Kompatibilität, kleinere Community). Wichtiges Dokument für FFG-Antrag und akademische Publikation.</p><div class="tags"><span class="tag">40 Kriterien</span><span class="tag">CTDDL 34/40</span><span class="tag">OWL-Time 22/40</span><span class="tag">Schema.org 11/40</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0400</div><div class="scard-title">Dateimanifest-Leitfaden</div><div class="scard-desc">Schritt-für-Schritt CGFS-Manifest-Erstellung. Beispiel: österreichische Notariatsurkunde</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praktischer Leitfaden zur Erstellung von CGFS-Manifesten. Referenzbeispiel: österreichische Notariatsurkunde mit 30-Jahres-Aufbewahrungspflicht. Erklärt alle 20 Punkte der CGFS-Checkliste anhand des konkreten Beispiels. Zeigt DSGVO-Tombstone-Verfahren.</p><div class="tags"><span class="tag">CGFS-Manifest</span><span class="tag">Notariatsurkunde</span><span class="tag">DSGVO</span><span class="tag">20-Punkte-CL</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0500</div><div class="scard-title">Reference Registry</div><div class="scard-desc">Registry-Architektur: CG-STD-3100 als interne Engine; CG-STD-4100 als externer API-Gateway</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Beschreibt die Architektur der ChronoGrid-Registry. Klärt die Trennung: CG-STD-3100 ist die interne Engine (nicht direkt zugänglich), CG-STD-4100 ist der öffentliche API-Gateway. Erklärt Resolver-Konfiguration, Domain-Registrierung und den Prozess für neue CTDDL-Einträge.</p><div class="tags"><span class="tag">Registry-Architektur</span><span class="tag">Resolver</span><span class="tag">Domain-Registrierung</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">5 vollständige vertikale Use Cases: ATC/ACARS OS411, Notariatsurkunde, DSGVO-Tombstone, 30-Jahres-Kette, QKD</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>5 end-to-end implementierte Use Cases mit vollständigem Code und CGFS-Manifesten: (1) ATC/ACARS OS411 — Flugsicherung, (2) Notariatsurkunde — 30-Jahres-Archivierung, (3) DSGVO-Tombstone — Löschnachweis, (4) 30-Jahres-Versionskette, (5) QKD Schlüssel-Lifecycle. Direkt als Vorlage verwendbar.</p><div class="tags"><span class="tag">5 Use Cases</span><span class="tag">ATC/ACARS</span><span class="tag">Notar</span><span class="tag">DSGVO</span><span class="tag">QKD</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 72/72 Level-3 + 96/96 Level-2 konform</div><div class="scard-ver"><span class="ok">v0.3 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.5. Konformitätszertifikat: CG:TAI:1776673435043000000/v1 (20.04.2026).</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">96/96 · 72/72</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0800</div><div class="scard-title">Interoperability Guide</div><div class="scard-desc">Integration mit bestehenden Systemen. Migration von POSIX/ISO 8601/OWL-Time zu CGTA. Adapter-Patterns</div><div class="scard-ver"><span class="draft">v0.2 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Leitfaden für die Integration von ChronoGrid in bestehende Systeme. Adapter-Patterns für POSIX (incl. Year-2038-Migration), ISO 8601, Excel-Datumswerte, OWL-Time-Ontologien. Beschreibt schrittweise Migration ohne Big-Bang-Umstellung.</p><div class="tags"><span class="tag">POSIX-Migration</span><span class="tag">ISO 8601</span><span class="tag">Adapter-Patterns</span><span class="tag">Y2K38</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0900</div><div class="scard-title">NIS2 Compliance Profile</div><div class="scard-desc">EU-Richtlinie NIS2: CGTA als normativer Zeittyp für Incident-Reporting und Log-Integrität. Konkrete Artikel-Mappings</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Network and Information Security Directive 2 (NIS2): Konkrete Artikel-Mappings zeigen wo CGTA die Compliance-Anforderungen erfüllt — insbesondere für Incident-Reporting-Fristen (24h/72h), Log-Integrität und forensische Nachvollziehbarkeit. Direkt verwendbar für FFG-Antrag als EU-Mandate-Argument.</p><div class="tags"><span class="tag">NIS2</span><span class="tag">Incident-Reporting</span><span class="tag">Log-Integrität</span><span class="tag">EU-Mandat</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0910</div><div class="scard-title">CRA / SBOM Timestamp</div><div class="scard-desc">EU Cyber Resilience Act: CGFI-Zeitstempel in SBOM. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — CI-Pipeline integriert</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> · <span class="ok">PoC ✅</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Cyber Resilience Act (CRA): Software Bill of Materials (SBOM) muss Zeitstempel für jede Komponente enthalten. CGFI-Zeitstempel bieten tamper-evidenten Nachweis. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — automatisierte CGFI-Generierung bei jedem Commit. CI-Pipeline integriert.</p><div class="tags"><span class="tag">CRA</span><span class="tag">SBOM</span><span class="tag">GitHub Actions</span><span class="tag">CI-Pipeline</span><span class="tag">PoC ✅</span></div></div></div>
   </div>
 </div>
 </section>
@@ -700,7 +730,12 @@ function toggleUC(trigger){
   if(!wasOpen)item.classList.add('open');
 }
 
-// ── CODE COPY ─────────────────────────────────────────────
+// ── SPEC CARD TOGGLE ─────────────────────────────────────
+function toggleScard(el){
+  const wasOpen=el.classList.contains('open');
+  document.querySelectorAll('.scard').forEach(s=>s.classList.remove('open'));
+  if(!wasOpen)el.classList.add('open');
+}
 function copyCode(){
   const t='CG:UTC:2026-05-01T14:37:22.000Z/v1\nCG:TAI:2026-05-01T14:37:59.000/v1\nCG:GPS:2026-05-01T14:37:40.000/v1\nCG:TAI:1746106679000000000/v1';
   navigator.clipboard.writeText(t).catch(()=>{});
