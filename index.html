@@ -62,9 +62,9 @@ h1 em{font-style:normal;color:var(--accent);}
 .stat-k-hint{font-family:var(--mono);font-size:.5rem;color:var(--teal);opacity:.4;margin-top:.6rem;letter-spacing:.06em;}
 
 /* Popup-Overlay für Stat-Kacheln */
-.stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.7);z-index:200;backdrop-filter:blur(4px);}
-.stat-popup-overlay.open{display:flex;align-items:center;justify-content:center;}
-.stat-popup{background:var(--navy-panel);border:1px solid var(--navy-border);border-top:3px solid var(--teal);max-width:560px;width:90%;padding:2rem 2.5rem;position:relative;}
+.stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.7);z-index:9999;backdrop-filter:blur(4px);padding:1rem;overflow-y:auto;}
+.stat-popup-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding-top:max(4rem, 5vh);}
+.stat-popup{background:var(--navy-panel);border:1px solid var(--navy-border);border-top:3px solid var(--teal);max-width:560px;width:100%;padding:2rem 2.5rem;position:relative;max-height:85vh;overflow-y:auto;}
 .stat-popup-close{position:absolute;top:1rem;right:1.2rem;font-family:var(--mono);font-size:.8rem;color:var(--ice-dim);cursor:pointer;background:none;border:none;transition:color .2s;}
 .stat-popup-close:hover{color:var(--accent);}
 .stat-popup-id{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;}
