@@ -62,7 +62,7 @@ h1 em{font-style:normal;color:var(--accent);}
 .stat-k-hint{font-family:var(--mono);font-size:.5rem;color:var(--teal);opacity:.4;margin-top:.6rem;letter-spacing:.06em;}
 
 /* Popup-Overlay für Stat-Kacheln */
-.stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.75);z-index:9999;backdrop-filter:blur(4px);}
+.stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.75);z-index:99999;backdrop-filter:blur(4px);}
 .stat-popup-overlay.open{display:block;}
 .stat-popup{
   position:fixed;
@@ -75,7 +75,7 @@ h1 em{font-style:normal;color:var(--accent);}
   max-height:80vh;
   overflow-y:auto;
   padding:2rem 2.5rem;
-  z-index:10000;
+  z-index:100000;
 }
 .stat-popup-close{position:absolute;top:1rem;right:1.2rem;font-family:var(--mono);font-size:.8rem;color:var(--ice-dim);cursor:pointer;background:none;border:none;transition:color .2s;}
 .stat-popup-close:hover{color:var(--accent);}
