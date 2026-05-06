@@ -52,12 +52,27 @@ h1 em{font-style:normal;color:var(--accent);}
 .cta-row{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:4rem;}
 
 /* STAT KACHELN */
-.stat-kacheln{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;}
-.stat-k{background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:1.6rem 1.4rem;position:relative;overflow:hidden;transition:background .25s,border-color .25s,transform .2s;}
+.stat-kacheln{display:grid;grid-template-columns:repeat(7,1fr);gap:1rem;}
+.stat-k{background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:1.6rem 1.4rem;position:relative;transition:background .25s,border-color .25s,transform .2s;cursor:pointer;}
 .stat-k:hover{background:rgba(23,165,137,.13);border-color:var(--teal);transform:translateY(-3px);}
+.stat-k.open{background:rgba(23,165,137,.13);border-color:var(--accent);transform:translateY(-3px);}
 .stat-k-val{font-family:var(--cond);font-size:2.6rem;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.02em;}
 .stat-k-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;color:var(--ice-dim);text-transform:uppercase;margin-top:.5rem;line-height:1.4;}
 .stat-k-sub{font-family:var(--mono);font-size:.55rem;color:var(--teal);opacity:.55;margin-top:.2rem;}
+.stat-k-hint{font-family:var(--mono);font-size:.5rem;color:var(--teal);opacity:.4;margin-top:.6rem;letter-spacing:.06em;}
+
+/* Popup-Overlay für Stat-Kacheln */
+.stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.7);z-index:200;backdrop-filter:blur(4px);}
+.stat-popup-overlay.open{display:flex;align-items:center;justify-content:center;}
+.stat-popup{background:var(--navy-panel);border:1px solid var(--navy-border);border-top:3px solid var(--teal);max-width:560px;width:90%;padding:2rem 2.5rem;position:relative;}
+.stat-popup-close{position:absolute;top:1rem;right:1.2rem;font-family:var(--mono);font-size:.8rem;color:var(--ice-dim);cursor:pointer;background:none;border:none;transition:color .2s;}
+.stat-popup-close:hover{color:var(--accent);}
+.stat-popup-id{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;}
+.stat-popup-val{font-family:var(--cond);font-size:3.5rem;font-weight:800;color:var(--teal);line-height:1;margin-bottom:.3rem;}
+.stat-popup-title{font-family:var(--cond);font-size:1.2rem;font-weight:700;text-transform:uppercase;color:var(--ice);margin-bottom:1.2rem;}
+.stat-popup-body{font-size:.88rem;color:var(--ice-dim);line-height:1.8;margin-bottom:1.2rem;}
+.stat-popup-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.stat-popup-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;color:var(--accent);border:1px solid rgba(200,169,81,.3);padding:.2rem .6rem;}
 
 /* CODE SNIPPET */
 #cgta-demo{background:var(--navy-mid);}
@@ -282,12 +297,25 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <a class="btn-g" href="#roadmap">Projektstatus</a>
   </div>
   <div class="stat-kacheln">
-    <div class="stat-k"><div class="stat-k-val">19</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">CG-STD-0000 → CG-APP-0910</div></div>
-    <div class="stat-k"><div class="stat-k-val">96</div><div class="stat-k-lbl">Level-2-Tests konform</div><div class="stat-k-sub">96/96 · 01.05.2026</div></div>
-    <div class="stat-k"><div class="stat-k-val">72</div><div class="stat-k-lbl">Level-3-Tests konform</div><div class="stat-k-sub">72/72 · 20.04.2026</div></div>
-    <div class="stat-k"><div class="stat-k-val">28</div><div class="stat-k-lbl">REST-Endpoints</div><div class="stat-k-sub">OpenAPI 3.1 + GraphQL SDL</div></div>
-    <div class="stat-k"><div class="stat-k-val">8</div><div class="stat-k-lbl">Killer Use Cases</div><div class="stat-k-sub">Aviation · CERN · Legal · QKD</div></div>
-    <div class="stat-k"><div class="stat-k-val" style="font-size:1.7rem;line-height:1.4">TC 154</div><div class="stat-k-lbl">ISO Zielkomitee</div><div class="stat-k-sub">via ASI/ON → CEN</div></div>
+    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">19</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">CG-STD-0000 → CG-APP-0910</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">215</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">Level-2 · CGUA · Level-3</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('l2')"><div class="stat-k-val">96</div><div class="stat-k-lbl">Level-2-Tests</div><div class="stat-k-sub">96/96 · 01.05.2026</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('l3')"><div class="stat-k-val">91</div><div class="stat-k-lbl">Level-3-Tests</div><div class="stat-k-sub">91/91 · 20.04.2026</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('api')"><div class="stat-k-val">28</div><div class="stat-k-lbl">REST-Endpoints</div><div class="stat-k-sub">OpenAPI 3.1 + GraphQL SDL</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('uc')"><div class="stat-k-val">8</div><div class="stat-k-lbl">Killer Use Cases</div><div class="stat-k-sub">Aviation · CERN · Legal · QKD</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('iso')"><div class="stat-k-val" style="font-size:1.6rem;line-height:1.5">TC 154</div><div class="stat-k-lbl">ISO Zielkomitee</div><div class="stat-k-sub">via ASI/ON → CEN</div><div class="stat-k-hint">▸ Details</div></div>
+  </div>
+
+  <!-- STAT POPUP OVERLAY -->
+  <div class="stat-popup-overlay" id="stat-overlay" onclick="closeStatPopup(event)">
+    <div class="stat-popup" id="stat-popup">
+      <button class="stat-popup-close" onclick="closeStatPopup(null)">✕ Schließen</button>
+      <div class="stat-popup-id" id="sp-id"></div>
+      <div class="stat-popup-val" id="sp-val"></div>
+      <div class="stat-popup-title" id="sp-title"></div>
+      <div class="stat-popup-body" id="sp-body"></div>
+      <div class="stat-popup-tags" id="sp-tags"></div>
+    </div>
   </div>
 </section>
 
@@ -646,10 +674,51 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0400</div><div class="scard-title">Dateimanifest-Leitfaden</div><div class="scard-desc">Schritt-für-Schritt CGFS-Manifest-Erstellung. Beispiel: österreichische Notariatsurkunde</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praktischer Leitfaden zur Erstellung von CGFS-Manifesten. Referenzbeispiel: österreichische Notariatsurkunde mit 30-Jahres-Aufbewahrungspflicht. Erklärt alle 20 Punkte der CGFS-Checkliste anhand des konkreten Beispiels. Zeigt DSGVO-Tombstone-Verfahren.</p><div class="tags"><span class="tag">CGFS-Manifest</span><span class="tag">Notariatsurkunde</span><span class="tag">DSGVO</span><span class="tag">20-Punkte-CL</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0500</div><div class="scard-title">Reference Registry</div><div class="scard-desc">Registry-Architektur: CG-STD-3100 als interne Engine; CG-STD-4100 als externer API-Gateway</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Beschreibt die Architektur der ChronoGrid-Registry. Klärt die Trennung: CG-STD-3100 ist die interne Engine (nicht direkt zugänglich), CG-STD-4100 ist der öffentliche API-Gateway. Erklärt Resolver-Konfiguration, Domain-Registrierung und den Prozess für neue CTDDL-Einträge.</p><div class="tags"><span class="tag">Registry-Architektur</span><span class="tag">Resolver</span><span class="tag">Domain-Registrierung</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">5 vollständige vertikale Use Cases: ATC/ACARS OS411, Notariatsurkunde, DSGVO-Tombstone, 30-Jahres-Kette, QKD</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>5 end-to-end implementierte Use Cases mit vollständigem Code und CGFS-Manifesten: (1) ATC/ACARS OS411 — Flugsicherung, (2) Notariatsurkunde — 30-Jahres-Archivierung, (3) DSGVO-Tombstone — Löschnachweis, (4) 30-Jahres-Versionskette, (5) QKD Schlüssel-Lifecycle. Direkt als Vorlage verwendbar.</p><div class="tags"><span class="tag">5 Use Cases</span><span class="tag">ATC/ACARS</span><span class="tag">Notar</span><span class="tag">DSGVO</span><span class="tag">QKD</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 72/72 Level-3 + 96/96 Level-2 konform</div><div class="scard-ver"><span class="ok">v0.3 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.5. Konformitätszertifikat: CG:TAI:1776673435043000000/v1 (20.04.2026).</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">96/96 · 72/72</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 215/215 Tests konform (Level-2: 96 · CGUA: 28 · Level-3: 91)</div><div class="scard-ver"><span class="ok">v0.3 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.5. Konformitätszertifikat: CG:TAI:1776673435043000000/v1 (20.04.2026).</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">215/215 Tests</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0800</div><div class="scard-title">Interoperability Guide</div><div class="scard-desc">Integration mit bestehenden Systemen. Migration von POSIX/ISO 8601/OWL-Time zu CGTA. Adapter-Patterns</div><div class="scard-ver"><span class="draft">v0.2 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Leitfaden für die Integration von ChronoGrid in bestehende Systeme. Adapter-Patterns für POSIX (incl. Year-2038-Migration), ISO 8601, Excel-Datumswerte, OWL-Time-Ontologien. Beschreibt schrittweise Migration ohne Big-Bang-Umstellung.</p><div class="tags"><span class="tag">POSIX-Migration</span><span class="tag">ISO 8601</span><span class="tag">Adapter-Patterns</span><span class="tag">Y2K38</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0900</div><div class="scard-title">NIS2 Compliance Profile</div><div class="scard-desc">EU-Richtlinie NIS2: CGTA als normativer Zeittyp für Incident-Reporting und Log-Integrität. Konkrete Artikel-Mappings</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Network and Information Security Directive 2 (NIS2): Konkrete Artikel-Mappings zeigen wo CGTA die Compliance-Anforderungen erfüllt — insbesondere für Incident-Reporting-Fristen (24h/72h), Log-Integrität und forensische Nachvollziehbarkeit. Direkt verwendbar für FFG-Antrag als EU-Mandate-Argument.</p><div class="tags"><span class="tag">NIS2</span><span class="tag">Incident-Reporting</span><span class="tag">Log-Integrität</span><span class="tag">EU-Mandat</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0910</div><div class="scard-title">CRA / SBOM Timestamp</div><div class="scard-desc">EU Cyber Resilience Act: CGFI-Zeitstempel in SBOM. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — CI-Pipeline integriert</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> · <span class="ok">PoC ✅</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Cyber Resilience Act (CRA): Software Bill of Materials (SBOM) muss Zeitstempel für jede Komponente enthalten. CGFI-Zeitstempel bieten tamper-evidenten Nachweis. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — automatisierte CGFI-Generierung bei jedem Commit. CI-Pipeline integriert.</p><div class="tags"><span class="tag">CRA</span><span class="tag">SBOM</span><span class="tag">GitHub Actions</span><span class="tag">CI-Pipeline</span><span class="tag">PoC ✅</span></div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ÜBER DEN AUTOR -->
+<section id="autor" style="background:var(--navy)">
+<div class="si" style="padding-top:6rem;padding-bottom:6rem;">
+  <div class="stag">Über den Autor</div>
+  <h2>Kurt Bauer —<br><em>Founder & Lead Architect</em></h2>
+  <div class="divider"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+    <div>
+      <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
+        Kurt Bauer ist unabhängiger Softwarearchitekt und Systementwickler mit langjähriger Praxis in der Konzeption und Implementierung komplexer technischer Systeme. Die Motivation für ChronoGrid entstand aus konkreten Erfahrungen mit Zeitdarstellungsproblemen in verteilten Systemen — dem stillen Propagieren von Fehlern, der Nicht-Reproduzierbarkeit von Zeitstempeln über Systemgrenzen hinweg und dem Fehlen eines normativen Rahmens für langzeitstabile Zeitadressierung.
+      </p>
+      <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
+        ChronoGrid Systems ist ein Einzelpersonenprojekt ohne institutionelle Anbindung — alle 19 Spezifikationsdokumente, die Referenzimplementierung (cg-engine v0.9.0) und die begleitenden Werkzeuge wurden eigenständig entwickelt. Das Projekt verfolgt eine klare akademische und normative Zielsetzung: die Einreichung bei Austrian Standards International (ASI/ON) als erster Schritt auf dem Weg zu ISO TC 154.
+      </p>
+      <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;">
+        Für die externe Verifikation der vier mathematischen DRAFT-Theoreme in CG-STD-0000 sowie für die Begleitung des Normierungsprozesses wird eine akademische Partnerschaft mit einer österreichischen Hochschule oder Forschungseinrichtung gesucht.
+      </p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--accent);padding:1.5rem 2rem;">
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;">Projektsteckbrief</div>
+        <div style="font-size:.86rem;color:var(--ice-dim);line-height:2;">
+          <div><span style="color:var(--ice)">Name</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kurt Bauer</div>
+          <div><span style="color:var(--ice)">Rolle</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Founder & Lead Architect</div>
+          <div><span style="color:var(--ice)">Projekt</span> &nbsp;&nbsp;&nbsp;&nbsp; ChronoGrid Systems</div>
+          <div><span style="color:var(--ice)">Adresse</span> &nbsp;&nbsp;&nbsp; Mühlfeldstraße 3, 2620 Neunkirchen</div>
+          <div><span style="color:var(--ice)">Land</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Österreich</div>
+          <div><span style="color:var(--ice)">Status</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Unabhängig / Einzelperson</div>
+        </div>
+      </div>
+      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--teal);padding:1.5rem 2rem;">
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem;">Gesuchte Zusammenarbeit</div>
+        <div style="font-size:.86rem;color:var(--ice-dim);line-height:1.8;">
+          Externe Verifikation der 4 DRAFT-Theoreme in CG-STD-0000 durch Fachexperten in formalen Methoden, theoretischer Informatik oder Metrologie. Begleitung der ASI/ON-Einreichung als akademischer Partner. Mögliche Ko-Autorenschaft beim OCG-Paper.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -662,7 +731,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <p class="fd">Ein formales, universelles Zeitstandardisierungsprojekt mit dem Ziel der internationalen Normierung über ASI/ON → CEN/CENELEC → ISO TC 154. Entwickelt in Neunkirchen, Niederösterreich, Österreich.</p>
     <div class="fm">
       <div>Spezifikationsstack: <span>19 Dokumente · CG-STD-0000 bis CG-APP-0910</span></div>
-      <div>Konformität: <span>96/96 Level 2 · 72/72 Level 3 · Zertifikat 20.04.2026</span></div>
+      <div>Konformität: <span>215/215 Tests (Level-2: 96 · CGUA: 28 · Level-3: 91) · Mai 2026</span></div>
       <div>API: <span>28 REST-Endpoints (OpenAPI 3.1) · GraphQL 70 Typen</span></div>
       <div>URI-Schema: <span>cgua:// (IANA-Draft CG-IANA-DRAFT-001 · RFC 7595)</span></div>
       <div>Normierungsziel: <span>ISO TC 154 via ASI/ON</span></div>
@@ -671,7 +740,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div>
     <div class="fc">
       <div><strong>Founder &amp; Lead Architect</strong></div>
-      <div>Kurt · ChronoGrid Systems</div>
+      <div>Kurt Bauer · ChronoGrid Systems</div>
       <div>Neunkirchen, Niederösterreich · Österreich</div>
       <br>
       <div><strong>Akademischer Partner</strong></div>
@@ -684,7 +753,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div>1. Mai 2026 · v2.8</div>
       <br>
       <div><strong>Kontakt</strong></div>
-      <div><a href="mailto:chronogrid@outlook.com" style="color:var(--ice-dim);text-decoration:none;font-size:.65rem;letter-spacing:.05em">chronogrid@outlook.com</a></div>
+      <div>Mühlfeldstraße 3</div>
+      <div>2620 Neunkirchen, NÖ</div>
     </div>
   </div>
 </div>
@@ -714,6 +784,66 @@ async function tick(){
   if(tag){const tz=new Intl.DateTimeFormat('de-AT',{timeZone:'Europe/Vienna',timeZoneName:'short'}).format(now).split(' ').pop();tag.textContent='Wien · '+wien+' '+tz;}
 }
 tick();setInterval(tick,1000);
+
+// ── STAT POPUPS ───────────────────────────────────────────
+const statData = {
+  docs: {
+    id:'Spezifikationsstack', val:'19', title:'Normative Dokumente',
+    body:'9 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100 + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen, 27 unterdrückte Meldungen. Alle Dokumente versioniert und mit Querverweis-Matrix in der Dokumentenübersicht erfasst.',
+    tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','cg-lint.py v1.5','0 Fehler']
+  },
+  tests: {
+    id:'Testsuite gesamt', val:'215', title:'Normative Tests konform',
+    body:'215/215 Tests konform — aufgeteilt in drei Kategorien: Level-2 (96 Tests, API-Grundfunktionen), CGUA (28 Tests, URI-Schema und Adressraum) und Level-3 (91 Tests, komplexe Szenarien inkl. kosmische Domänen, Weltlinie, Schaltsekunden-Grenzfälle). Alle Tests reproducierbar über cg-testkit CLI ausführbar.',
+    tags:['Level-2: 96/96','CGUA: 28/28','Level-3: 91/91','cg-testkit CLI','reproducierbar']
+  },
+  l2: {
+    id:'CG-STD-4100 · T-API', val:'96', title:'Level-2-Tests konform',
+    body:'96/96 Level-2-Tests — Datum: 01.05.2026. Prüfen die grundlegenden API-Funktionen: CGTA-Encoding/Decoding, Domain-Mapping (UTC↔TAI↔GPS), Fehlerklassen CG-E-001–011, MachineID SHA-256, REST-Endpoint-Verhalten und Authentifizierung. Definiert in CG-STD-4100 Anlage C.',
+    tags:['01.05.2026','CG-STD-4100','REST-Endpoints','Encoding/Decoding','Fehlerklassen']
+  },
+  l3: {
+    id:'CG-STD-3100 · T-ENG', val:'91', title:'Level-3-Tests konform',
+    body:'91/91 Level-3-Tests — Datum: 20.04.2026. Komplexe Szenarien: kosmische Domänen (geologische Epochen, astronomische Zeitskalen), relativistische Weltlinien (Klasse-B RK45), Schaltsekunden-Grenzfälle (incl. 2016-Testvektor aus Anhang B CG-STD-0000), Allen-Relationen über CGTA-Intervalle, CGFI-Kettenberechnung.',
+    tags:['20.04.2026','Kosmische Domänen','Klasse-B Weltlinie','Allen-Relationen','Schaltsekunden']
+  },
+  api: {
+    id:'CG-STD-4100 · OpenAPI 3.1', val:'28', title:'REST-Endpoints',
+    body:'28 REST-Endpoints definiert in CG-STD-4100 Anlage A (OpenAPI 3.1). Kategorien: CGTA-Compute, Domain-Resolver, MachineID, CGFI, Konformitäts-Validierung, Registry-Zugriff. Ergänzt durch GraphQL API mit 70 Typen (SDL, Anlage B) inkl. Query, Mutation und Subscription. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001.',
+    tags:['OpenAPI 3.1','GraphQL 70 Typen','cgua:// URI-Schema','IANA-Draft','RFC 7595']
+  },
+  uc: {
+    id:'CG-APP-0100 · Killer Use Cases v2', val:'8', title:'Validierte Anwendungsfälle',
+    body:'8 Killer Use Cases mit konkretem Problem-Lösungs-Nachweis: (1) Flugzeugabsturz AF447 — 4 Zeitbasen korrelieren, (2) Year-2038 — ℤ∞ BigInt, (3) Sommerzeit-Ambiguität — TAI monoton, (4) 30-Jahres-Notar — CGFI + Tombstone, (5) GPS-Relativität — Klasse-B RK45, (6) SIEM-Forensik NTP-Drift, (7) CERN 40 MHz Float-Fehler, (8) Excel Lotus-Bug 1900.',
+    tags:['Aviation','Year-2038','Cybersecurity','Legal','Raumfahrt','CERN','Interoperabilität']
+  },
+  iso: {
+    id:'Normierungspfad', val:'TC 154', title:'ISO Zielkomitee',
+    body:'ISO Technical Committee 154 — Processes, data elements and documents in commerce, industry and administration. Normierungspfad: ASI/ON (Österreich) → CEN/CENELEC (Europa, TC 434 Electronic Invoicing) → ISO TC 154 (International). Voraussetzung: externe Verifikation der 4 DRAFT-Theoreme in CG-STD-0000, anschließend ASI/ON-Erstanfrage. Strategische Allianz mit IERS, BIPM und ETSI ISG-QKD geplant.',
+    tags:['ASI/ON','CEN/TC 434','ISO TC 154','IERS','BIPM','ETSI ISG-QKD']
+  }
+};
+
+function openStatPopup(key){
+  const d=statData[key];
+  if(!d)return;
+  document.getElementById('sp-id').textContent=d.id;
+  document.getElementById('sp-val').textContent=d.val;
+  document.getElementById('sp-title').textContent=d.title;
+  document.getElementById('sp-body').textContent=d.body;
+  const tags=document.getElementById('sp-tags');
+  tags.innerHTML=d.tags.map(t=>`<span class="stat-popup-tag">${t}</span>`).join('');
+  document.getElementById('stat-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeStatPopup(e){
+  if(e && e.target!==document.getElementById('stat-overlay'))return;
+  document.getElementById('stat-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeStatPopup(null);});
 
 // ── LAYER TOGGLE ──────────────────────────────────────────
 function toggleLayer(el){
