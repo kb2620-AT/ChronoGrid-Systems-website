@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChronoGrid Web Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #07111e;
+      --surf:     #0b1929;
+      --panel:    #0f2036;
+      --border:   #1d3f72;
+      --bord-s:   #142d52;
+      --teal:     #17a589;
+      --teal2:    #12907a;
+      --teal-lo:  #0c6b5c;
+      --teal-hi:  #22e0b8;
+      --navy:     #1b3a6b;
+      --navy2:    #2a5299;
+      --text:     #d0dff0;
+      --text2:    #7a96b8;
+      --text3:    #4a6485;
+      --data:     #6df0c4;
+      --data2:    #3ab88e;
+      --white:    #ecf4ff;
+      --ok:       #27ae60;
+      --warn:     #e67e22;
+      --err:      #e74c3c;
+      --r:        8px;
+      --r2:       12px;
+      --hdr:      64px;
+      --side:     260px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* subtle grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(27,58,107,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27,58,107,.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* ── HEADER BAR ───────────────────────────────────── */
+    .hdr {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--hdr); z-index: 100;
+      background: var(--surf);
+      border-bottom: 1px solid var(--bord-s);
+      display: flex; align-items: center;
+    }
+
+    .hdr-brand {
+      width: var(--side);
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 20px;
+      border-right: 1px solid var(--bord-s);
+    }
+    .hdr-mark {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--navy); border: 1.5px solid var(--teal);
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-size: 9px; color: var(--teal); line-height: 1.3;
+    }
+    .hdr-brand h1 { font-size: 17px; font-weight: 800; color: var(--white); letter-spacing: -.3px; }
+    .hdr-brand p  { font-size: 10px; color: var(--teal); font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; }
+
+
+
+    /* ── SHELL ────────────────────────────────────────── */
+    .shell {
+      position: relative; z-index: 1;
+      display: flex;
+      min-height: 100vh;
+      padding-top: var(--hdr);
+    }
+
+    /* ── SIDEBAR ─────────────────────────────────────── */
+    .sidebar {
+      width: var(--side); flex-shrink: 0;
+      position: sticky; top: var(--hdr);
+      height: calc(100vh - var(--hdr));
+      overflow-y: auto;
+      background: var(--surf);
+      border-right: 1px solid var(--bord-s);
+      padding: 24px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .sidebar-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--text3);
+      padding: 0 8px; margin-bottom: 4px; margin-top: 8px;
+    }
+    .sidebar-label:first-child { margin-top: 0; }
+
+    .mode-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--r);
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .mode-btn:hover { background: var(--panel); border-color: var(--bord-s); }
+    .mode-btn.on { background: var(--navy); border-color: var(--teal-lo); }
+
+    .mb-title {
+      font-size: 15px; font-weight: 700; color: var(--text2);
+      transition: color .15s;
+    }
+    .mode-btn.on .mb-title { color: var(--teal); }
+    .mode-btn:hover .mb-title { color: var(--text); }
+
+    .mb-desc { font-size: 12px; color: var(--text3); line-height: 1.4; }
+
+    /* ── MAIN ────────────────────────────────────────── */
+    .main {
+      flex: 1; min-width: 0;
+      padding: 24px 28px 56px;
+      max-width: 1000px;
+    }
+
+    /* ── CARDS ───────────────────────────────────────── */
+    .card {
+      background: var(--panel); border: 1px solid var(--bord-s);
+      border-radius: var(--r2); padding: 20px 22px; margin-bottom: 14px;
+    }
+    .card-lbl {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--text3); margin-bottom: 20px;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────── */
+    .sec { display: none; }
+    .sec.on { display: block; }
+
+    /* ── ZEITPUNKT ───────────────────────────────────── */
+    .zp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    @media(max-width:700px){ .zp-grid { grid-template-columns: 1fr; } }
+    .dom-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+    .dom-tab {
+      padding: 10px 22px;
+      font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700;
+      color: var(--text3); border: 1px solid var(--bord-s);
+      background: var(--surf); border-radius: 6px;
+      cursor: pointer; transition: all .15s;
+    }
+    .dom-tab:hover { color: var(--text); border-color: var(--border); }
+    .dom-tab.on { background: var(--navy); color: var(--teal); border-color: var(--teal-lo); }
+
+    .cgta-big {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(15px, 2vw, 22px);
+      color: var(--data); word-break: break-all; line-height: 1.5;
+      padding: 20px 0 8px;
+    }
+    .cgta-big .p { color: var(--text3); }
+    .cgta-big .d { color: var(--teal-hi); font-weight: 700; }
+    .cgta-big .v { color: var(--text3); font-size: .65em; }
+
+    .sig-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Space Mono', monospace; font-size: 14px;
+      padding: 5px 14px; border-radius: 4px;
+      border: 1px solid var(--teal-lo); color: var(--teal); margin-bottom: 22px;
+    }
+
+    .qfacts { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .qf {
+      background: var(--surf); border: 1px solid var(--bord-s);
+      border-radius: 6px; padding: 12px 18px; min-width: 120px;
+    }
+    .qf-l { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+    .qf-v { font-family: 'Space Mono', monospace; font-size: 15px; color: var(--data); }
+
+    .act-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* expand/collapse */
+    .expander {
+      cursor: pointer; display: flex; align-items: center; gap: 10px;
+      padding: 16px 0 0; border-top: 1px solid var(--bord-s); margin-top: 24px;
+      color: var(--text3); font-size: 14px; font-weight: 600;
+      user-select: none; transition: color .15s;
+    }
+    .expander:hover { color: var(--teal); }
+    .exp-icon { font-size: 16px; transition: transform .2s; }
+    .expander.open .exp-icon { transform: rotate(90deg); }
+    .exp-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .exp-body.open { max-height: 800px; }
+
+    .tuple-list { margin-top: 12px; }
+    .t-row {
+      display: grid;
+      grid-template-columns: 18px 110px 1fr;
+      gap: 8px; align-items: baseline;
+      padding: 7px 0; border-bottom: 1px solid var(--bord-s);
+    }
+    .t-row:last-child { border-bottom: none; }
+    .t-k { font-family: 'Space Mono', monospace; color: var(--teal); font-size: 14px; }
+    .t-lbl { color: var(--text3); font-size: 12px; }
+    .t-v { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--data); word-break: break-all; }
+
+    .mid-block { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--bord-s); }
+    .mid-lbl { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+    #machine-id { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--data2); word-break: break-all; line-height: 1.9; }
+
+    /* cross table */
+    .xtable { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .xtable th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; background: var(--surf); font-weight: 700; }
+    .xtable td { padding: 11px 12px; border-bottom: 1px solid var(--bord-s); vertical-align: middle; }
+    .xtable tr:last-child td { border-bottom: none; }
+    .xtable tr.hi td { background: rgba(23,165,137,.06); }
+    .td-d  { font-family: 'Space Mono', monospace; font-weight: 700; color: var(--teal); white-space: nowrap; font-size: 14px; }
+    .td-t  { font-family: 'Space Mono', monospace; color: var(--data); font-size: 13px; word-break: break-all; }
+    .td-cg { font-family: 'Space Mono', monospace; color: var(--text3); font-size: 12px; word-break: break-all; }
+
+    /* ── FORMS ───────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); }
+    .field input, .field select {
+      font-family: 'Space Mono', monospace; font-size: 15px;
+      background: var(--surf); border: 1px solid var(--border);
+      border-radius: var(--r); color: var(--data); padding: 12px 16px;
+      outline: none; transition: border-color .15s; width: 100%;
+    }
+    .field input:focus, .field select:focus { border-color: var(--teal); }
+    .field select option { background: var(--panel); }
+    .field-hint { font-size: 13px; color: var(--teal); min-height: 20px; }
+
+    .btn {
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+      padding: 11px 24px; border-radius: 6px; border: none;
+      cursor: pointer; transition: all .15s; letter-spacing: .2px;
+    }
+    .btn-p { background: var(--teal); color: #fff; }
+    .btn-p:hover { background: var(--teal2); }
+    .btn-p.cp { background: var(--teal-lo); }
+    .btn-s { background: transparent; color: var(--text2); border: 1px solid var(--border); }
+    .btn-s:hover { color: var(--text); border-color: var(--text2); }
+
+    .result-box {
+      background: var(--surf); border: 1px solid var(--bord-s);
+      border-radius: var(--r); padding: 18px 22px; margin-top: 18px;
+      font-size: 14px; line-height: 2; word-break: break-all; min-height: 56px;
+    }
+    .r-cgta  { font-family: 'Space Mono', monospace; font-size: 18px; color: var(--data); }
+    .r-sub   { font-size: 13px; color: var(--text3); }
+    .r-green { font-size: 13px; color: var(--teal); }
+    .r-mid   { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--data2); }
+    .r-err   { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--err); }
+    .r-cmp   { font-family: 'Space Mono', monospace; font-size: 28px; color: var(--teal); }
+
+    /* conv form */
+    .conv-row { display: grid; grid-template-columns: 1fr 48px 1fr; gap: 16px; align-items: end; }
+    @media(max-width:640px){ .conv-row { grid-template-columns: 1fr; } }
+    .conv-arr { text-align: center; font-size: 26px; color: var(--teal); padding-bottom: 12px; }
+
+    .formula-list { display: flex; flex-direction: column; }
+    .f-row {
+      padding: 13px 0; border-bottom: 1px solid var(--bord-s);
+      font-family: 'Space Mono', monospace; font-size: 13px; color: var(--text3); line-height: 1.9;
+    }
+    .f-row:last-child { border-bottom: none; }
+    .f-row .hl { color: var(--teal-hi); }
+    .f-row .cm { color: var(--text3); font-size: 12px; }
+
+    /* arith */
+    .arith-row { display: grid; grid-template-columns: 1fr 72px 1fr; gap: 16px; align-items: start; }
+    @media(max-width:640px){ .arith-row { grid-template-columns: 1fr; } }
+    .op-col { display: flex; flex-direction: column; gap: 7px; align-items: center; }
+    .op-col label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); }
+    .op-sel {
+      font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700;
+      background: var(--navy); border: 1px solid var(--teal-lo);
+      border-radius: var(--r); color: var(--teal); padding: 9px 8px;
+      cursor: pointer; width: 100%; text-align: center;
+    }
+
+    .chip-bar { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+    .chip {
+      font-family: 'Space Mono', monospace; font-size: 12px;
+      padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text3); cursor: pointer; transition: all .15s; background: transparent;
+    }
+    .chip:hover { border-color: var(--teal); color: var(--teal); }
+    .chip-sec { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin: 14px 0 6px; }
+
+    /* conformance */
+    .conf-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    @media(max-width:640px){ .conf-3 { grid-template-columns: 1fr; } }
+    .cc {
+      border-radius: var(--r2); padding: 24px; border: 1px solid;
+      position: relative; overflow: hidden;
+    }
+    .cc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .cc1 { border-color: rgba(23,165,137,.25); background: rgba(23,165,137,.04); }
+    .cc1::before { background: var(--teal); }
+    .cc2 { border-color: rgba(42,82,153,.35); background: rgba(42,82,153,.04); }
+    .cc2::before { background: var(--navy2); }
+    .cc3 { border-color: rgba(142,68,173,.2); background: rgba(142,68,173,.03); }
+    .cc3::before { background: #8e44ad; }
+    .cc.demo { border-width: 1.5px; border-color: rgba(23,165,137,.5) !important; }
+
+    .cc-badge {
+      display: inline-block; font-family: 'Space Mono', monospace; font-size: 11px;
+      font-weight: 700; padding: 4px 12px; border-radius: 4px; letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .cc1 .cc-badge { background: rgba(23,165,137,.15); color: var(--teal); }
+    .cc2 .cc-badge { background: rgba(42,82,153,.2); color: #7ab3f0; }
+    .cc3 .cc-badge { background: rgba(142,68,173,.12); color: #c083e0; }
+    .cc-n { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .cc1 .cc-n { color: var(--teal); }
+    .cc2 .cc-n { color: #7ab3f0; }
+    .cc3 .cc-n { color: #c083e0; }
+    .cc-t { font-size: 15px; font-weight: 700; color: var(--white); margin: 10px 0 12px; }
+    .cc-ul { list-style: none; font-size: 13px; color: var(--text3); line-height: 2; }
+    .cc-ul li::before { content: '○ '; }
+    .cc-ul .ok { color: var(--text); } .cc-ul .ok::before { content: '✓ '; color: var(--ok); }
+    .cc-ul .ph { color: var(--text2); } .cc-ul .ph::before { content: '◑ '; color: var(--warn); }
+    .demo-tag {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 10px;
+      background: rgba(23,165,137,.15); color: var(--teal); margin-top: 12px;
+    }
+
+    .grid2c { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 4px; }
+    .gc {
+      background: var(--surf); border: 1px solid var(--bord-s);
+      border-radius: var(--r); padding: 14px 16px;
+    }
+    .gc.dem { border-color: rgba(23,165,137,.35); }
+    .gc-id { font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+    .gc.dem .gc-id::after { content: ' ✓'; color: var(--ok); font-size: 11px; }
+    .gc-th { font-size: 11px; color: var(--text3); margin-bottom: 5px; }
+    .gc-tx { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+    .tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 10px; margin-top: 4px; }
+    .tgc { background: var(--surf); border: 1px solid var(--bord-s); border-radius: var(--r); padding: 14px 16px; }
+    .tgc-t { font-size: 13px; font-weight: 700; color: var(--teal); margin-bottom: 5px; }
+    .tgc-i { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text3); line-height: 1.8; }
+
+    /* responsive sidebar collapse */
+    @media(max-width:768px){
+      :root { --side: 0px; }
+      .hdr-brand { width: auto; flex: 0 0 auto; }
+      .sidebar { display: none; }
+      .mob-nav { display: flex !important; }
+    }
+    .mob-nav {
+      display: none; gap: 6px; flex-wrap: wrap; padding: 16px 0;
+    }
+    .mob-btn {
+      padding: 9px 16px; border-radius: 6px; border: 1px solid var(--bord-s);
+      background: var(--surf); font-size: 13px; font-weight: 700; color: var(--text3); cursor: pointer;
+    }
+    .mob-btn.on { background: var(--navy); color: var(--teal); border-color: var(--teal-lo); }
+
+    /* section heading */
+    .sec-head { margin-bottom: 20px; }
+    .sec-head h2 { font-size: 16px; font-weight: 700; color: var(--text2); letter-spacing: .3px; }
+    .sec-head p  { font-size: 13px; color: var(--text3); line-height: 1.6; margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER — live clock bar
+═══════════════════════════════════════════ -->
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="hdr-mark">CG<br>TA</div>
+    <div>
+      <h1>ChronoGrid</h1>
+      <p>Web Calculator</p>
+    </div>
+  </div>
+
+</header>
+
+<!-- ═══════════════════════════════════════════
+     SHELL
+═══════════════════════════════════════════ -->
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-label">Funktion wählen</div>
+
+    <button class="mode-btn on" data-sec="zeitpunkt">
+      <div class="mb-title">⧗ Zeitpunkt</div>
+      <div class="mb-desc">CGTA-Adresse in Echtzeit, 6-Tupel, MachineID</div>
+    </button>
+
+    <button class="mode-btn" data-sec="konvertierung">
+      <div class="mb-title">⇌ Konvertierung</div>
+      <div class="mb-desc">Domain-Umrechnung, Klasse-A-Mappings, Matrix</div>
+    </button>
+
+    <button class="mode-btn" data-sec="arithmetik">
+      <div class="mb-title">∑ Arithmetik</div>
+      <div class="mb-desc">ARITH Domain, σ=duration/period, Operationen</div>
+    </button>
+
+    <button class="mode-btn" data-sec="konformitaet">
+      <div class="mb-title">✓ Konformität</div>
+      <div class="mb-desc">Level 1/2/3, Testgruppen, Invarianten</div>
+    </button>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- mobile nav -->
+    <div class="mob-nav" id="mob-nav">
+      <button class="mob-btn on" data-sec="zeitpunkt">Zeitpunkt</button>
+      <button class="mob-btn" data-sec="konvertierung">Konvertierung</button>
+      <button class="mob-btn" data-sec="arithmetik">Arithmetik</button>
+      <button class="mob-btn" data-sec="konformitaet">Konformität</button>
+    </div>
+
+    <!-- ════ ZEITPUNKT ════ -->
+    <div class="sec on" id="sec-zeitpunkt">
+
+      <!-- CGTA Hauptkarte: Tabs direkt über CG-String -->
+      <div class="card">
+        <div class="card-lbl">CGTA – ChronoGrid Time Address</div>
+        <div class="dom-tabs" id="dom-tabs">
+          <button class="dom-tab on" data-d="TAI">TAI</button>
+          <button class="dom-tab" data-d="UNIX">UNIX</button>
+          <button class="dom-tab" data-d="GPS">GPS</button>
+          <button class="dom-tab" data-d="JDN">JDN</button>
+          <button class="dom-tab" data-d="GREGORIAN">Gregorian</button>
+        </div>
+        <div class="cgta-big">
+          <span class="p">CG:</span><span class="d" id="o-d">TAI</span><span class="p">:</span><span id="o-t">–</span><span class="v">/v1</span>
+        </div>
+        <div class="qfacts">
+          <div class="qf"><div class="qf-l">Timezone</div><div class="qf-v" id="qf-tz">TAI</div></div>
+          <div class="qf"><div class="qf-l">Semantik</div><div class="qf-v" id="qf-sig">time</div></div>
+          <div class="qf"><div class="qf-l">Epoch</div><div class="qf-v" id="qf-ep" style="font-size:12px">1970-01-01 TAI</div></div>
+        </div>
+        <div class="act-row">
+          <button class="btn btn-p" id="btn-copy">CGTA kopieren</button>
+          <button class="btn btn-s" id="btn-now">⟳ Jetzt</button>
+          <button class="btn btn-s" id="btn-pause">Pause</button>
+        </div>
+      </div>
+
+      <!-- 6-Tupel und Quervergleich nebeneinander -->
+      <div class="zp-grid">
+
+        <div class="card">
+          <div class="card-lbl">6-Tupel (D, t, z, v, h, σ)</div>
+          <div class="tuple-list">
+            <div class="t-row"><span class="t-k">D</span><span class="t-lbl">Domain</span><span class="t-v" id="t-D">TAI</span></div>
+            <div class="t-row"><span class="t-k">t</span><span class="t-lbl">Zeitwert (ℤ∞)</span><span class="t-v" id="t-t" style="font-size:11px">–</span></div>
+            <div class="t-row"><span class="t-k">z</span><span class="t-lbl">Timezone</span><span class="t-v" id="t-z">TAI</span></div>
+            <div class="t-row"><span class="t-k">v</span><span class="t-lbl">Version</span><span class="t-v" id="t-v">1</span></div>
+            <div class="t-row"><span class="t-k">h</span><span class="t-lbl">MachineID (trunc.)</span><span class="t-v" id="t-h" style="font-size:10px;color:var(--data2)">–</span></div>
+            <div class="t-row"><span class="t-k">σ</span><span class="t-lbl">Semantik</span><span class="t-v" id="t-σ">time</span></div>
+          </div>
+          <div class="mid-block">
+            <div class="mid-lbl">MachineID · SHA-256(D ‖ t ‖ v ‖ σ)</div>
+            <div id="machine-id">–</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-lbl">Domänen-Quervergleich</div>
+          <div style="overflow-x:auto;">
+            <table class="xtable"><thead><tr>
+              <th>Domain</th><th>t-Wert</th><th>CGTA</th>
+            </tr></thead><tbody id="xt-body"></tbody></table>
+          </div>
+        </div>
+
+      </div><!-- /zp-grid -->
+    </div><!-- /zeitpunkt -->
+
+
+    <div class="sec" id="sec-konvertierung">
+      <div class="sec-head">
+        <h2>Domain-Konvertierung</h2>
+        <p>Konvertiert t-Werte zwischen Domains via UNIX_ns als kanonische Zwischenstufe. Klasse-A-Mapping (CG-STD-2100), Invariante I-M1.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Konvertierung</div>
+        <div class="conv-row">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="field"><label>Quell-Domain</label>
+              <select id="cv-src">
+                <option value="TAI">TAI</option><option value="UNIX">UNIX</option>
+                <option value="GPS">GPS</option><option value="JDN">JDN</option>
+              </select>
+            </div>
+            <div class="field"><label id="cv-slbl">t-Wert (Nanosekunden)</label>
+              <input type="text" id="cv-val" placeholder="z.B. 1776673435043000000">
+            </div>
+          </div>
+          <div class="conv-arr">→</div>
+          <div class="field"><label>Ziel-Domain</label>
+            <select id="cv-dst">
+              <option value="UNIX">UNIX</option><option value="TAI">TAI</option>
+              <option value="GPS">GPS</option><option value="JDN">JDN</option>
+              <option value="GREGORIAN">GREGORIAN</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+          <button class="btn btn-p" id="btn-cv">Konvertieren</button>
+          <button class="btn btn-s" id="btn-cv-now">Aktuelle Zeit laden</button>
+          <button class="btn btn-s" id="btn-cv-swap">⇄ Tauschen</button>
+        </div>
+        <div class="result-box" id="cv-res">Quell-Wert eingeben und Konvertieren klicken.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Klasse-A-Mappings · Formelreferenz</div>
+        <div class="formula-list">
+          <div class="f-row"><span class="hl">TAI_ns</span> = UNIX_ns + <span class="hl">37 × 10⁹</span> <span class="cm">&nbsp;&nbsp;&nbsp;// +37 Schaltsekunden, seit 2017-01-01</span></div>
+          <div class="f-row"><span class="hl">GPS_ns</span> = UNIX_ns − <span class="hl">315 964 800 × 10⁶</span> + <span class="hl">18 × 10⁹</span> <span class="cm">&nbsp;&nbsp;&nbsp;// Epoch 1980-01-06, GPS−UTC = +18 s</span></div>
+          <div class="f-row"><span class="hl">JDN</span> = ⌊UNIX_ns / (86 400 × 10⁹)⌋ + <span class="hl">2 440 588</span> <span class="cm">&nbsp;&nbsp;&nbsp;// 1 JDN = 1 Erdtag</span></div>
+          <div class="f-row"><span class="hl">GREGORIAN</span> = ISO 8601 aus UNIX_ms = UNIX_ns / 10⁶</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="expander" id="exp-mat" style="margin-top:0;padding-top:0;border-top:none;">
+          <span class="exp-icon">▶</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text2)">Konversionsmatrix – aktueller Zeitpunkt</span>
+        </div>
+        <div class="exp-body" id="body-mat">
+          <div style="overflow-x:auto;margin-top:18px;">
+            <table id="mat-tbl" style="width:100%;border-collapse:collapse;font-size:13px;"></table>
+          </div>
+        </div>
+      </div>
+    </div><!-- /konvertierung -->
+
+    <!-- ════ ARITHMETIK ════ -->
+    <div class="sec" id="sec-arithmetik">
+      <div class="sec-head">
+        <h2>ARITH Domain</h2>
+        <p>σ ∈ {duration, period} · kein Epoch · BigInt (ℤ∞) · kein Float intern · arith-v1.ctddl.json · CG-APP-0600 UC6</p>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Operanden &amp; Operation</div>
+        <div class="arith-row">
+
+          <!-- Wert A -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="field">
+              <label>Wert A</label>
+              <div style="display:flex;gap:6px;">
+                <input type="text" id="ar-a" placeholder="z.B. 2" style="flex:1;min-width:0;">
+                <select id="ar-au" style="width:74px;flex-shrink:0;">
+                  <option value="ns">ns</option>
+                  <option value="µs">µs</option>
+                  <option value="ms">ms</option>
+                  <option value="s" selected>s</option>
+                  <option value="min">min</option>
+                  <option value="h">h</option>
+                  <option value="d">d</option>
+                </select>
+              </div>
+              <div class="field-hint" id="ar-a-h">–</div>
+            </div>
+            <div class="chip-bar" style="margin-top:0;">
+              <button class="chip" data-v="1" data-u="s" data-t="a">1 s</button>
+              <button class="chip" data-v="1" data-u="min" data-t="a">1 min</button>
+              <button class="chip" data-v="1" data-u="h" data-t="a">1 h</button>
+              <button class="chip" data-v="1" data-u="d" data-t="a">1 d</button>
+              <button class="chip" data-v="7" data-u="d" data-t="a">1 Woche</button>
+              <button class="chip" data-v="144" data-u="s" data-t="a">Fib F12</button>
+              <button class="chip" data-v="3.14159265" data-u="s" data-t="a">π s</button>
+              <button class="chip" data-v="2.71828182" data-u="s" data-t="a">e s</button>
+              <button class="chip" data-v="1.61803398" data-u="s" data-t="a">φ s</button>
+            </div>
+            <div class="field"><label>σ (A)</label>
+              <select id="ar-sa"><option value="duration">duration</option><option value="period">period</option></select>
+            </div>
+          </div>
+
+          <!-- Operator -->
+          <div class="op-col" style="padding-top:26px;">
+            <label>Op</label>
+            <select class="op-sel" id="ar-op">
+              <option value="add">+</option><option value="sub">−</option>
+              <option value="mul">×</option><option value="div">÷</option>
+              <option value="mod">mod</option><option value="pow">A^n</option>
+              <option value="cmp">cmp</option>
+            </select>
+          </div>
+
+          <!-- Wert B -->
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="field">
+              <label>Wert B</label>
+              <div style="display:flex;gap:6px;">
+                <input type="text" id="ar-b" placeholder="z.B. 30" style="flex:1;min-width:0;">
+                <select id="ar-bu" style="width:74px;flex-shrink:0;">
+                  <option value="ns">ns</option>
+                  <option value="µs">µs</option>
+                  <option value="ms">ms</option>
+                  <option value="s" selected>s</option>
+                  <option value="min">min</option>
+                  <option value="h">h</option>
+                  <option value="d">d</option>
+                </select>
+              </div>
+              <div class="field-hint" id="ar-b-h">–</div>
+            </div>
+            <div class="chip-bar" style="margin-top:0;">
+              <button class="chip" data-v="1" data-u="s" data-t="b">1 s</button>
+              <button class="chip" data-v="1" data-u="min" data-t="b">1 min</button>
+              <button class="chip" data-v="1" data-u="h" data-t="b">1 h</button>
+              <button class="chip" data-v="1" data-u="d" data-t="b">1 d</button>
+              <button class="chip" data-v="2" data-u="s" data-t="b">2 (Exp)</button>
+              <button class="chip" data-v="3" data-u="s" data-t="b">3 (Exp)</button>
+              <button class="chip" data-v="12" data-u="s" data-t="b">12 (Exp)</button>
+            </div>
+            <div class="field"><label>σ (B)</label>
+              <select id="ar-sb"><option value="duration">duration</option><option value="period">period</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;">
+          <button class="btn btn-p" id="btn-ar">Berechnen</button>
+          <button class="btn btn-s" id="btn-ar-sw">A ⇄ B</button>
+        </div>
+        <div class="result-box" id="ar-res">Operanden eingeben und Berechnen klicken.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Einzelwert dekodieren</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+          <div class="field" style="flex:2;min-width:140px;">
+            <label>Wert</label>
+            <div style="display:flex;gap:6px;">
+              <input type="text" id="dc-v" placeholder="z.B. 1.5" style="flex:1;min-width:0;">
+              <select id="dc-u" style="width:74px;flex-shrink:0;">
+                <option value="ns">ns</option>
+                <option value="µs">µs</option>
+                <option value="ms">ms</option>
+                <option value="s" selected>s</option>
+                <option value="min">min</option>
+                <option value="h">h</option>
+                <option value="d">d</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="flex:0 0 140px;"><label>σ</label>
+            <select id="dc-s"><option value="duration">duration</option><option value="period">period</option></select>
+          </div>
+          <button class="btn btn-p" id="btn-dc">Dekodieren</button>
+        </div>
+        <div class="result-box" id="dc-res">–</div>
+      </div>
+    </div><!-- /arithmetik -->
+
+    <!-- ════ KONFORMITÄT ════ -->
+    <div class="sec" id="sec-konformitaet">
+      <div class="sec-head">
+        <h2>Konformitätsstufen</h2>
+        <p>Level-Anforderungen per CG-STD-5100 §2. Dieses Tool demonstriert Level-1-Anforderungen vollständig.</p>
+      </div>
+
+      <div class="conf-3">
+        <div class="cc cc1 demo">
+          <div class="cc-badge">Level 1</div>
+          <div class="cc-n">55</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Tests T-L1-*</div>
+          <div class="cc-t">Basis-Konformität</div>
+          <ul class="cc-ul">
+            <li class="ok">Lineare Domains</li>
+            <li class="ok">Encode / Decode CGTA</li>
+            <li class="ok">MachineID SHA-256</li>
+            <li class="ok">ISO 8601 Label</li>
+            <li class="ok">Fehlerklassen CG-E-*</li>
+            <li class="ok">ARITH Domain (σ=duration)</li>
+            <li class="ok">Klasse-A-Konvertierung</li>
+            <li class="ok">BigInt (ℤ∞)</li>
+          </ul>
+          <div class="demo-tag">✓ In diesem Tool</div>
+        </div>
+        <div class="cc cc2">
+          <div class="cc-badge">Level 2</div>
+          <div class="cc-n">155</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Tests T-L2-*</div>
+          <div class="cc-t">Erweiterte Konformität</div>
+          <ul class="cc-ul">
+            <li class="ok">Level 1 vollständig</li>
+            <li class="ph">Piecewise-linear</li>
+            <li class="ph">Gregorian CTDDL</li>
+            <li>Allen Interval Algebra</li>
+            <li>REST API (T-API-*)</li>
+            <li>JWT / RBAC</li>
+            <li>PostgreSQL Storage</li>
+          </ul>
+        </div>
+        <div class="cc cc3">
+          <div class="cc-badge">Level 3</div>
+          <div class="cc-n">304+</div>
+          <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Tests T-L3-*</div>
+          <div class="cc-t">Vollkonformität</div>
+          <ul class="cc-ul">
+            <li class="ok">Level 2 vollständig</li>
+            <li>Relativistisch RK45</li>
+            <li>Kosmologisch</li>
+            <li>Alle 9 Invarianten</li>
+            <li>WORM / OAIS</li>
+            <li>CGUAS Federation</li>
+          </ul>
+          <div style="margin-top:12px;font-size:12px;color:var(--text3);">cg-engine v0.9.0<br><span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--data2)">CG:TAI:1776673435043000000/v1</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Level-1-Testgruppen (55 Tests · T-L1-A…F)</div>
+        <div class="tgrid">
+          <div class="tgc"><div class="tgc-t">A · CGTA-Syntax</div><div class="tgc-i">T-L1-A-001…012<br>Parsing, ABNF-Validierung</div></div>
+          <div class="tgc"><div class="tgc-t">B · Lineare Domains</div><div class="tgc-i">T-L1-B-001…010<br>TAI, UNIX, GPS, JDN</div></div>
+          <div class="tgc"><div class="tgc-t">C · Decode &amp; Konvert.</div><div class="tgc-i">T-L1-C-001…012<br>Klasse-A, Chain ≤ 8</div></div>
+          <div class="tgc"><div class="tgc-t">D · MachineID</div><div class="tgc-i">T-L1-D-001…008<br>SHA-256(D‖t‖v‖σ)</div></div>
+          <div class="tgc"><div class="tgc-t">E · ISO 8601 Label</div><div class="tgc-i">T-L1-E-001…007<br>Gregorian, UTC-Offset</div></div>
+          <div class="tgc"><div class="tgc-t">F · Fehlerbehandlung</div><div class="tgc-i">T-L1-F-001…006<br>CG-E-001…CG-E-011</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Normative Invarianten · CG-STD-0000 v0.5</div>
+        <div class="grid2c">
+          <div class="gc dem"><div class="gc-id">I-R1</div><div class="gc-th">Th. 5.1</div><div class="gc-tx">Jeder Zeitpunkt hat genau einen absoluten Wert</div></div>
+          <div class="gc dem"><div class="gc-id">I-R2</div><div class="gc-th">Th. 1.1</div><div class="gc-tx">Totale Ordnung ≤ auf ℤ∞</div></div>
+          <div class="gc dem"><div class="gc-id">I-R3</div><div class="gc-th">Th. 5.2 DRAFT</div><div class="gc-tx">Determinismus</div></div>
+          <div class="gc"><div class="gc-id">I-D1</div><div class="gc-th">Th. 2.1</div><div class="gc-tx">Publizierte Domain-Versionen unveränderlich</div></div>
+          <div class="gc"><div class="gc-id">I-S1</div><div class="gc-th">Th. 5.3</div><div class="gc-tx">Kein UPDATE/DELETE auf Zeitpunkten</div></div>
+          <div class="gc"><div class="gc-id">I-SEG-1</div><div class="gc-th">Th. 5.5 DRAFT</div><div class="gc-tx">Segment-Isolation</div></div>
+          <div class="gc dem"><div class="gc-id">I-M1</div><div class="gc-th">Th. 3.1</div><div class="gc-tx">Mapping-Klasse-A ist Funktion f: ℤ∞ → ℤ∞</div></div>
+          <div class="gc dem"><div class="gc-id">I-M3</div><div class="gc-th">Th. 3.3</div><div class="gc-tx">Referenzpunkt-Konsistenz M(s) = r exakt</div></div>
+          <div class="gc"><div class="gc-id">I-E1</div><div class="gc-th">Th. 5.4</div><div class="gc-tx">Jede Domain hat eigenen Nullpunkt</div></div>
+          <div class="gc"><div class="gc-id">I-QKD-1</div><div class="gc-th">CG-STD-6100 §7.4</div><div class="gc-tx">Photon-Adress-Eindeutigkeit (QKD)</div></div>
+        </div>
+      </div>
+    </div><!-- /konformitaet -->
+
+  </main>
+</div>
+
+<script>
+'use strict';
+// ── Konstanten ────────────────────────────────────────────────
+const LEAP_NS      = 37_000_000_000n;
+const GPS_UTC_NS   = 18_000_000_000n;
+const GPS_EPOCH_NS = 315_964_800_000_000_000n;
+const DAY_NS       = 86_400_000_000_000n;
+const MS_NS        = 1_000_000n;
+const JDN_OFF      = 2_440_588n;
+
+const DMETA = {
+  TAI:       { tz:'TAI',  sigma:'time', epoch:'1970-01-01 TAI' },
+  UNIX:      { tz:'UTC',  sigma:'time', epoch:'1970-01-01 UTC' },
+  GPS:       { tz:'none', sigma:'time', epoch:'1980-01-06 GPS' },
+  JDN:       { tz:'none', sigma:'time', epoch:'1 Jan 4713 BC noon' },
+  GREGORIAN: { tz:'UTC',  sigma:'time', epoch:'Calendar-based' },
+};
+
+function getT(d, ms) {
+  const n = BigInt(ms);
+  switch (d) {
+    case 'TAI':       return n * MS_NS + LEAP_NS;
+    case 'UNIX':      return n * MS_NS;
+    case 'GPS':       return n * MS_NS - GPS_EPOCH_NS + GPS_UTC_NS;
+    case 'JDN':       return BigInt(Math.floor(ms / 86_400_000)) + JDN_OFF;
+    case 'GREGORIAN': return n * MS_NS;
+    default: return 0n;
+  }
+}
+function toU(d, t) {
+  switch (d) {
+    case 'TAI':  return t - LEAP_NS;
+    case 'UNIX': return t;
+    case 'GPS':  return t + GPS_EPOCH_NS - GPS_UTC_NS;
+    case 'JDN':  return (t - JDN_OFF) * DAY_NS;
+    default:     return t;
+  }
+}
+function fromU(d, u) {
+  switch (d) {
+    case 'TAI':       return u + LEAP_NS;
+    case 'UNIX':      return u;
+    case 'GPS':       return u - GPS_EPOCH_NS + GPS_UTC_NS;
+    case 'JDN':       return u / DAY_NS + JDN_OFF;
+    case 'GREGORIAN': return u;
+    default: return u;
+  }
+}
+
+async function sha256(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function machineID(d, t, v, s) { return sha256(d + t.toString() + v + s); }
+
+function fmt(n) {
+  const s = n < 0n ? '-' + (-n).toString() : n.toString();
+  return s.replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f');
+}
+function isoStr(ms) { return new Date(Number(ms)).toISOString().replace('T',' ').slice(0,23) + ' UTC'; }
+function cgta(d, t) { return `CG:${d}:${t.toString()}/v1`; }
+
+// ARITH
+function decNs(ns) {
+  if (ns < 0n) return { err: 'CG-E-003: Negatives Ergebnis (C-ARITH-001: t ≥ 0)' };
+  let r = ns;
+  const dy = r / DAY_NS;              r %= DAY_NS;
+  const hr = r / 3_600_000_000_000n;  r %= 3_600_000_000_000n;
+  const mn = r / 60_000_000_000n;     r %= 60_000_000_000n;
+  const sc = r / 1_000_000_000n;      r %= 1_000_000_000n;
+  const ms = r / 1_000_000n;          r %= 1_000_000n;
+  const us = r / 1_000n;              r %= 1_000n;
+  const ns2= r;
+
+  let iso = 'P';
+  if (dy > 0n) iso += `${dy}D`;
+  const hT = hr>0n||mn>0n||sc>0n||ms>0n||us>0n||ns2>0n;
+  if (hT) {
+    iso += 'T';
+    if (hr>0n) iso += `${hr}H`;
+    if (mn>0n) iso += `${mn}M`;
+    if (sc>0n||ms>0n||us>0n||ns2>0n) {
+      const sub = ms.toString().padStart(3,'0')+us.toString().padStart(3,'0')+ns2.toString().padStart(3,'0');
+      iso += `${sc}${BigInt(sub)>0n?'.'+sub.replace(/0+$/,''):''}S`;
+    }
+  }
+  if (iso==='P') iso='PT0S';
+
+  const p=[];
+  if(dy >0n)p.push(`${dy} Tag${dy===1n?'':'e'}`);
+  if(hr >0n)p.push(`${hr} Std`);
+  if(mn >0n)p.push(`${mn} min`);
+  if(sc >0n)p.push(`${sc} s`);
+  if(ms >0n)p.push(`${ms} ms`);
+  if(us >0n)p.push(`${us} µs`);
+  if(ns2>0n)p.push(`${ns2} ns`);
+  return { iso, label: p.length ? p.join(' ') : '0 ns' };
+}
+
+function arithOp(op, a, b) {
+  switch(op) {
+    case 'add': { const r=a+b; if(r<0n) throw new Error('CG-E-003: Ergebnis negativ'); return r; }
+    case 'sub': { const r=a-b; if(r<0n) throw new Error('CG-E-003: Differenz < 0 (C-ARITH-001)'); return r; }
+    case 'mul': return a*b/1_000_000_000n;
+    case 'div': { if(b===0n) throw new Error('CG-E-008: Division durch Null'); return a/b*1_000_000_000n; }
+    case 'mod': { if(b===0n) throw new Error('CG-E-008: Modulo durch Null'); return a%b; }
+    case 'pow': {
+      const e=Number(b/1_000_000_000n);
+      if(e<0) throw new Error('CG-E-008: Negativer Exponent');
+      if(e>12) throw new Error('CG-E-008: Exponent > 12');
+      if(e===0) return 1_000_000_000n;
+      let r=a; for(let i=1;i<e;i++) r=r*a/1_000_000_000n;
+      return r;
+    }
+    case 'cmp': return a<b?-1n:a>b?1n:0n;
+    default: throw new Error('CG-E-008: Unbekannte Operation');
+  }
+}
+
+// ── State ─────────────────────────────────────────────────────
+let activeDom = 'TAI';
+let paused = false;
+let lastMs = Date.now();
+
+// ── Render Zeitpunkt ─────────────────────────────────────────
+async function renderZP(ms) {
+  const meta = DMETA[activeDom];
+  const t = getT(activeDom, ms);
+  document.getElementById('o-d').textContent  = activeDom;
+  document.getElementById('o-t').textContent  = t.toString();
+  document.getElementById('qf-sig').textContent = meta.sigma;
+  document.getElementById('qf-tz').textContent  = meta.tz;
+  document.getElementById('qf-ep').textContent  = meta.epoch;
+  document.getElementById('t-D').textContent  = activeDom;
+  document.getElementById('t-t').textContent  = fmt(t);
+  document.getElementById('t-z').textContent  = meta.tz;
+  document.getElementById('t-v').textContent  = '1';
+  document.getElementById('t-σ').textContent  = meta.sigma;
+
+  const h = await machineID(activeDom, t, '1', meta.sigma);
+  document.getElementById('machine-id').textContent = h;
+  document.getElementById('t-h').textContent = h.slice(0,16) + '…';
+
+  renderXT(ms);
+}
+
+function renderXT(ms) {
+  const rows = Object.entries(DMETA).map(([k]) => {
+    const tv = getT(k, ms);
+    const disp = k==='GREGORIAN' ? isoStr(BigInt(ms)) : fmt(tv);
+    const cg = k==='GREGORIAN' ? `CG:GREGORIAN:${BigInt(ms)*MS_NS}/v1` : cgta(k, tv);
+    return `<tr class="${k===activeDom?'hi':''}">
+      <td class="td-d">${k}</td>
+      <td class="td-t">${disp}</td>
+      <td class="td-cg">${cg}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('xt-body').innerHTML = rows;
+}
+
+function renderMatrix(ms) {
+  const keys = ['TAI','UNIX','GPS','JDN'];
+  const th = `<thead><tr>
+    <th style="background:var(--surf);padding:8px 12px;border-bottom:1px solid var(--border);font-size:11px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;text-align:left;font-weight:700;">Von↓ Nach→</th>
+    ${keys.map(k=>`<th style="background:var(--surf);padding:8px 12px;border-bottom:1px solid var(--border);font-size:11px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;text-align:left;font-weight:700;">${k}</th>`).join('')}
+    <th style="background:var(--surf);padding:8px 12px;border-bottom:1px solid var(--border);font-size:11px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;text-align:left;font-weight:700;">Gregorian</th>
+  </tr></thead>`;
+  const body = keys.map(src => {
+    const u = toU(src, getT(src, ms));
+    const cells = keys.map(dst => dst===src
+      ? `<td style="padding:9px 12px;color:var(--text3);border-bottom:1px solid var(--bord-s);">—</td>`
+      : `<td style="padding:9px 12px;font-family:'Space Mono',monospace;font-size:12px;color:var(--data);border-bottom:1px solid var(--bord-s);word-break:break-all">${fmt(fromU(dst,u))}</td>`
+    ).join('');
+    return `<tr>
+      <td style="padding:9px 12px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--teal);border-bottom:1px solid var(--bord-s);white-space:nowrap">${src}</td>
+      ${cells}
+      <td style="padding:9px 12px;font-size:12px;color:var(--text3);border-bottom:1px solid var(--bord-s)">${isoStr(u/MS_NS)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('mat-tbl').innerHTML = th + `<tbody>${body}</tbody>`;
+}
+
+// ── Tick ──────────────────────────────────────────────────────
+async function tick() {
+  if (!paused) lastMs = Date.now();
+  if (document.getElementById('sec-zeitpunkt').classList.contains('on')) {
+    await renderZP(lastMs);
+  }
+}
+tick();
+setInterval(tick, 1000);
+
+// ── Nav ───────────────────────────────────────────────────────
+function navTo(sec) {
+  document.querySelectorAll('.mode-btn,.mob-btn').forEach(b => b.classList.toggle('on', b.dataset.sec===sec));
+  document.querySelectorAll('.sec').forEach(s => s.classList.toggle('on', s.id==='sec-'+sec));
+  if (sec==='konvertierung') renderMatrix(lastMs);
+  if (sec==='zeitpunkt') tick();
+}
+document.getElementById('sidebar').addEventListener('click', e => {
+  const b = e.target.closest('.mode-btn'); if (b) navTo(b.dataset.sec);
+});
+document.getElementById('mob-nav').addEventListener('click', e => {
+  const b = e.target.closest('.mob-btn'); if (b) navTo(b.dataset.sec);
+});
+
+// ── Domain tabs ───────────────────────────────────────────────
+document.getElementById('dom-tabs').addEventListener('click', e => {
+  const t = e.target.closest('.dom-tab'); if (!t) return;
+  document.querySelectorAll('.dom-tab').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
+  activeDom = t.dataset.d;
+  tick();
+});
+
+// ── Expanders ─────────────────────────────────────────────────
+function expander(togId, bodyId, onOpen) {
+  const tog = document.getElementById(togId), body = document.getElementById(bodyId);
+  tog.addEventListener('click', () => {
+    const open = body.classList.toggle('open');
+    tog.classList.toggle('open', open);
+    if (open && onOpen) onOpen();
+  });
+}
+expander('exp-mat',  'body-mat',   () => renderMatrix(lastMs));
+
+// ── Copy / Pause / Now ───────────────────────────────────────
+document.getElementById('btn-copy').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-copy');
+  const str = cgta(activeDom, getT(activeDom, lastMs));
+  try {
+    await navigator.clipboard.writeText(str);
+    btn.textContent = '✓ Kopiert'; btn.classList.add('cp');
+    setTimeout(()=>{ btn.textContent='CGTA kopieren'; btn.classList.remove('cp'); }, 1800);
+  } catch { btn.textContent = 'Fehler'; }
+});
+document.getElementById('btn-now').addEventListener('click', () => {
+  paused=false; document.getElementById('btn-pause').textContent='Pause'; tick();
+});
+document.getElementById('btn-pause').addEventListener('click', () => {
+  paused=!paused;
+  document.getElementById('btn-pause').textContent = paused ? '▶ Resume' : 'Pause';
+});
+
+// ── Konvertierung ─────────────────────────────────────────────
+function doConv() {
+  const src=document.getElementById('cv-src').value;
+  const dst=document.getElementById('cv-dst').value;
+  const raw=document.getElementById('cv-val').value.trim().replace(/[\s\u202f_,]/g,'');
+  const el=document.getElementById('cv-res');
+  if (!raw) { el.innerHTML='<span class="r-err">⚠ Kein Wert.</span>'; return; }
+  try {
+    const t=BigInt(raw), u=toU(src,t);
+    if (dst==='GREGORIAN') {
+      el.innerHTML=`<div class="r-cgta">CG:GREGORIAN:${t}/v1</div>
+        <div class="r-sub">${isoStr(u/MS_NS)}</div>
+        <div class="r-sub">Via UNIX_ns = ${fmt(u)}</div>`;
+    } else {
+      const r=fromU(dst,u);
+      el.innerHTML=`<div class="r-cgta">${cgta(dst,r)}</div>
+        <div class="r-sub">t = ${fmt(r)}</div>
+        <div class="r-sub">Via UNIX_ns = ${fmt(u)}</div>`;
+    }
+  } catch(e) { el.innerHTML=`<span class="r-err">⚠ ${e.message}</span>`; }
+}
+document.getElementById('btn-cv').addEventListener('click', doConv);
+document.getElementById('btn-cv-now').addEventListener('click', () => {
+  document.getElementById('cv-val').value = getT(document.getElementById('cv-src').value, Date.now()).toString();
+  doConv();
+});
+document.getElementById('btn-cv-swap').addEventListener('click', () => {
+  const s=document.getElementById('cv-src'), d=document.getElementById('cv-dst');
+  const txt=document.getElementById('cv-res').textContent;
+  const m=txt.match(/t = ([\d\u202f ]+)/);
+  const os=s.value, od=d.value;
+  Array.from(s.options).forEach(o=>{if(o.value===od)s.value=od;});
+  Array.from(d.options).forEach(o=>{if(o.value===os)d.value=os;});
+  if(m) document.getElementById('cv-val').value=m[1].replace(/[\u202f ]/g,'');
+  doConv();
+});
+
+// ── Arithmetik ────────────────────────────────────────────────
+const UNIT_NS = {
+  'ns':  1n,
+  'µs':  1_000n,
+  'ms':  1_000_000n,
+  's':   1_000_000_000n,
+  'min': 60_000_000_000n,
+  'h':   3_600_000_000_000n,
+  'd':   86_400_000_000_000n,
+};
+
+function toNs(valStr, unit) {
+  valStr = valStr.trim().replace(/,/g,'.');
+  const factor = UNIT_NS[unit] ?? 1_000_000_000n;
+  if (valStr.includes('.')) {
+    if (unit === 'ns' || unit === 'µs')
+      throw new Error('CG-E-006: Dezimalstellen nur ab ms erlaubt');
+    const [intPart, fracPart] = valStr.split('.');
+    const intNs  = BigInt(intPart || '0') * factor;
+    const frac   = fracPart.replace(/0+$/, '');
+    if (!frac) return intNs;
+    const fracNs = BigInt(frac) * factor / (10n ** BigInt(frac.length));
+    return intNs + fracNs;
+  }
+  return BigInt(valStr) * factor;
+}
+
+function subLabel(inId, unitId, hintId) {
+  const raw  = document.getElementById(inId).value.trim();
+  const unit = document.getElementById(unitId).value;
+  const el   = document.getElementById(hintId);
+  if (!raw) { el.textContent = '–'; el.style.color = 'var(--text3)'; return; }
+  try {
+    const n = toNs(raw, unit);
+    if (n < 0n) { el.textContent = 'CG-E-003: negativ'; el.style.color = 'var(--err)'; return; }
+    const d = decNs(n);
+    el.textContent = d.err || d.label;
+    el.style.color = d.err ? 'var(--err)' : 'var(--teal)';
+  } catch(e) { el.textContent = e.message; el.style.color = 'var(--err)'; }
+}
+
+document.getElementById('ar-a').addEventListener('input', () => subLabel('ar-a','ar-au','ar-a-h'));
+document.getElementById('ar-b').addEventListener('input', () => subLabel('ar-b','ar-bu','ar-b-h'));
+document.getElementById('ar-au').addEventListener('change', () => subLabel('ar-a','ar-au','ar-a-h'));
+document.getElementById('ar-bu').addEventListener('change', () => subLabel('ar-b','ar-bu','ar-b-h'));
+
+document.querySelectorAll('.chip').forEach(c => {
+  c.addEventListener('click', () => {
+    const t = c.dataset.t;
+    document.getElementById(`ar-${t}`).value   = c.dataset.v;
+    document.getElementById(`ar-${t}u`).value  = c.dataset.u;
+    subLabel(`ar-${t}`, `ar-${t}u`, `ar-${t}-h`);
+  });
+});
+
+document.getElementById('btn-ar-sw').addEventListener('click', () => {
+  const aV = document.getElementById('ar-a').value;
+  const aU = document.getElementById('ar-au').value;
+  const bV = document.getElementById('ar-b').value;
+  const bU = document.getElementById('ar-bu').value;
+  document.getElementById('ar-a').value  = bV;
+  document.getElementById('ar-au').value = bU;
+  document.getElementById('ar-b').value  = aV;
+  document.getElementById('ar-bu').value = aU;
+  subLabel('ar-a','ar-au','ar-a-h');
+  subLabel('ar-b','ar-bu','ar-b-h');
+});
+
+document.getElementById('btn-ar').addEventListener('click', async () => {
+  const el = document.getElementById('ar-res');
+  const ra  = document.getElementById('ar-a').value.trim();
+  const rb  = document.getElementById('ar-b').value.trim();
+  const uA  = document.getElementById('ar-au').value;
+  const uB  = document.getElementById('ar-bu').value;
+  const op  = document.getElementById('ar-op').value;
+  const sg  = document.getElementById('ar-sa').value;
+  try {
+    if (!ra || !rb) throw new Error('CG-E-001: Beide Operanden erforderlich');
+    const a = toNs(ra, uA);
+    const b = toNs(rb, uB);
+    if (a < 0n) throw new Error('CG-E-003: Wert A negativ');
+    const r = arithOp(op, a, b);
+    if (op === 'cmp') {
+      const sym = r===0n ? '=' : r>0n ? '>' : '<';
+      el.innerHTML = `<div class="r-cmp">A ${sym} B</div>
+        <div class="r-sub">I-R2: Totale Ordnung ≤ auf ℤ∞ (Th. 1.1)</div>`;
+      return;
+    }
+    const dec = decNs(r); if (dec.err) throw new Error(dec.err);
+    const h = await machineID('ARITH', r, '1', sg);
+    el.innerHTML = `<div class="r-cgta">CG:ARITH:${r.toString()}/v1</div>
+      <div class="r-green">⧗ ${dec.label}</div>
+      <div class="r-sub">ISO 8601: ${dec.iso} &nbsp;·&nbsp; σ = ${sg}</div>
+      <div class="r-mid">MachineID: ${h}</div>`;
+  } catch(e) { el.innerHTML = `<span class="r-err">⚠ ${e.message}</span>`; }
+});
+
+document.getElementById('btn-dc').addEventListener('click', async () => {
+  const raw = document.getElementById('dc-v').value.trim();
+  const unit = document.getElementById('dc-u').value;
+  const sig  = document.getElementById('dc-s').value;
+  const el   = document.getElementById('dc-res');
+  if (!raw) { el.innerHTML = '<span class="r-err">⚠ Kein Wert.</span>'; return; }
+  try {
+    const t = toNs(raw, unit);
+    if (t < 0n) throw new Error('CG-E-003: Negativer Wert');
+    const dec = decNs(t); if (dec.err) throw new Error(dec.err);
+    const h = await machineID('ARITH', t, '1', sig);
+    el.innerHTML = `<div class="r-cgta">CG:ARITH:${t.toString()}/v1</div>
+      <div class="r-green">⧗ ${dec.label}</div>
+      <div class="r-sub">ISO 8601: ${dec.iso} &nbsp;·&nbsp; σ = ${sig}</div>
+      <div class="r-mid">MachineID: ${h}</div>`;
+  } catch(e) { el.innerHTML = `<span class="r-err">⚠ ${e.message}</span>`; }
+});
+
+</script>
+</body>
+</html>
