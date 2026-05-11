@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="260" height="58" viewBox="40 155 580 132">
+
+  <defs>
+    <marker id="arr2"
+            viewBox="0 0 10 10" refX="8" refY="5"
+            markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M2 2L8 5L2 8"
+            fill="none" stroke="#17A589" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <clipPath id="clip-nav">
+      <rect x="60" y="172" width="100" height="100" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <!-- Dunkler Hintergrund -->
+  <rect x="40" y="155" width="600" height="132" rx="12" fill="#1B3A6B"/>
+
+  <!-- Icon-Hintergrund -->
+  <rect x="60" y="172" width="100" height="100" rx="20" fill="#152d54"/>
+
+  <g clip-path="url(#clip-nav)">
+    <circle cx="110" cy="222" r="43"
+            fill="none" stroke="white" stroke-width="0.9" opacity="0.16"/>
+    <line x1="147" y1="222" x2="153" y2="222" stroke="white" stroke-width="2.2" opacity="0.55"/>
+    <line x1="110" y1="260" x2="110" y2="265" stroke="white" stroke-width="2.2" opacity="0.55"/>
+    <line x1="67"  y1="222" x2="73"  y2="222" stroke="white" stroke-width="2.2" opacity="0.55"/>
+    <line x1="80"  y1="172" x2="80"  y2="272" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="110" y1="172" x2="110" y2="272" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="140" y1="172" x2="140" y2="272" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="60"  y1="192" x2="160" y2="192" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="60"  y1="222" x2="160" y2="222" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="60"  y1="252" x2="160" y2="252" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    <line x1="66" y1="192" x2="154" y2="192"
+          stroke="#17A589" stroke-width="1.8" marker-end="url(#arr2)"/>
+    <line x1="110" y1="222" x2="91" y2="211"
+          stroke="white" stroke-width="4.2" stroke-linecap="round" opacity="0.9"/>
+    <line x1="110" y1="222" x2="110" y2="195"
+          stroke="white" stroke-width="2.2" stroke-linecap="round" opacity="0.95"/>
+    <circle cx="110" cy="222" r="3.2" fill="white" opacity="0.9"/>
+    <circle cx="110" cy="192" r="11" fill="#17A589" opacity="0.28"/>
+    <circle cx="80"  cy="192" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="140" cy="192" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="80"  cy="222" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="110" cy="222" r="2.0" fill="white" opacity="0.15"/>
+    <circle cx="140" cy="222" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="80"  cy="252" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="110" cy="252" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="140" cy="252" r="2.8" fill="white" opacity="0.35"/>
+    <circle cx="110" cy="192" r="6" fill="#17A589"/>
+  </g>
+
+  <text x="163" y="197"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="16" font-style="italic" fill="#17A589">t</text>
+
+  <text x="186" y="236"
+        font-family="Georgia,'Times New Roman',serif"
+        font-weight="700" font-size="58" letter-spacing="-0.5"
+        fill="white">ChronoGrid</text>
+  <text x="190" y="262"
+        font-family="Arial,Helvetica,sans-serif"
+        font-size="13" letter-spacing="5"
+        fill="#17A589">TIME ADRESS STANDARD</text>
+
+</svg>
