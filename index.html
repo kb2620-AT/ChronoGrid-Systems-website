@@ -23,11 +23,11 @@ body::before{content:'';position:fixed;inset:0;
   background-image:linear-gradient(var(--navy-border) 1px,transparent 1px),linear-gradient(90deg,var(--navy-border) 1px,transparent 1px);
   background-size:48px 48px;opacity:.14;pointer-events:none;z-index:0;}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;height:80px;background:rgba(10,20,36,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--navy-border);}
+  padding:0 3rem;height:96px;background:rgba(10,20,36,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--navy-border);}
 .nav-brand{font-family:var(--cond);font-weight:700;font-size:1.1rem;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;text-decoration:none;}
 .nav-brand span{color:var(--ice);font-weight:300;}
 .nav-links{display:flex;gap:1.8rem;list-style:none;}
-.nav-links a{font-family:var(--mono);font-size:.63rem;letter-spacing:.08em;color:var(--ice-dim);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.nav-links a{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;color:var(--ice-dim);text-decoration:none;text-transform:uppercase;transition:color .2s;}
 .nav-links a:hover{color:var(--accent);}
 section{position:relative;z-index:1;}
 .si{max-width:1200px;margin:0 auto;padding:8rem 3rem;}
@@ -286,7 +286,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <body>
 
 <nav>
-  <a href="#hero" style="display:flex;align-items:center;text-decoration:none;"><img src="logo-nav.svg" height="72" alt="ChronoGrid Systems" style="display:block;"></a>
+  <a href="#hero" style="display:flex;align-items:center;text-decoration:none;"><img src="logo-nav.svg" height="84" alt="ChronoGrid Systems" style="display:block;"></a>
   <ul class="nav-links">
     <li><a href="#cgta-demo">CGTA</a></li>
     <li><a href="#zeit">Live-Zeit</a></li>
@@ -759,7 +759,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <footer>
 <div class="footer-inner">
   <div>
-    <div class="fb">Chrono<span>Grid</span> Systems</div>
+    <img src="logo-nav.svg" height="100" alt="ChronoGrid Systems" style="display:block;margin-bottom:1rem;">
     <p class="fd">Ein formales, universelles Zeitstandardisierungsprojekt mit dem Ziel der internationalen Normierung über ASI/ON → CEN/CENELEC → ISO TC 154. Entwickelt in Neunkirchen, Niederösterreich, Österreich.</p>
     <div class="fm">
       <div>Spezifikationsstack: <span>21 Dokumente · CG-STD-0000 bis CG-APP-0910 · alle v1.0 freigegeben</span></div>
