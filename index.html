@@ -24,9 +24,11 @@ body::before{content:'';position:fixed;inset:0;
   background-size:48px 48px;opacity:.14;pointer-events:none;z-index:0;}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
   padding:0 3rem;height:80px;background:rgba(10,20,36,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--navy-border);}
-.nav-brand{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+.nav-brand{text-decoration:none;display:flex;align-items:center;}
 .nav-brand img{height:84px;display:block;}
-.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-brand-txt{font-family:var(--cond);font-weight:700;font-size:1.1rem;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;}
+.nav-brand-txt span{color:var(--ice);font-weight:300;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
 .nav-links a{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;color:var(--ice-dim);text-decoration:none;text-transform:uppercase;transition:color .2s;}
 .nav-links a:hover{color:var(--accent);}
 section{position:relative;z-index:1;}
@@ -51,23 +53,31 @@ h1 em{font-style:normal;color:var(--accent);}
 .hero-sub strong{color:var(--ice);font-weight:500;}
 .cta-row{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:4rem;}
 
-/* STAT KACHELN — 2×4 */
+/* STAT KACHELN */
 .stat-kacheln{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
-.stat-k{background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:2rem 1.6rem;position:relative;transition:background .25s,border-color .25s,transform .2s;cursor:pointer;}
+.stat-k{background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:2rem 1.8rem;position:relative;transition:background .25s,border-color .25s,transform .2s;cursor:pointer;}
 .stat-k:hover{background:rgba(23,165,137,.13);border-color:var(--teal);transform:translateY(-3px);}
 .stat-k.open{background:rgba(23,165,137,.13);border-color:var(--accent);transform:translateY(-3px);}
-.stat-k-val{font-family:var(--cond);font-size:2.8rem;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.02em;}
+.stat-k-val{font-family:var(--cond);font-size:2.6rem;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.02em;}
 .stat-k-lbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.09em;color:var(--ice-dim);text-transform:uppercase;margin-top:.5rem;line-height:1.4;}
 .stat-k-sub{font-family:var(--mono);font-size:.55rem;color:var(--teal);opacity:.55;margin-top:.2rem;}
 .stat-k-hint{font-family:var(--mono);font-size:.5rem;color:var(--teal);opacity:.4;margin-top:.6rem;letter-spacing:.06em;}
 
-/* Popup-Overlay */
+/* Popup-Overlay für Stat-Kacheln */
 .stat-popup-overlay{display:none;position:fixed;inset:0;background:rgba(7,14,26,.75);z-index:99999;backdrop-filter:blur(4px);}
 .stat-popup-overlay.open{display:block;}
 .stat-popup{
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-  background:var(--navy-panel);border:1px solid var(--navy-border);border-top:3px solid var(--teal);
-  width:min(580px,92vw);max-height:80vh;overflow-y:auto;padding:2.5rem;z-index:100000;
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--navy-panel);
+  border:1px solid var(--navy-border);
+  border-top:3px solid var(--teal);
+  width:min(580px, 92vw);
+  max-height:80vh;
+  overflow-y:auto;
+  padding:2.5rem 2.5rem 2rem;
+  z-index:100000;
 }
 .stat-popup-close{position:absolute;top:1rem;right:1.2rem;font-family:var(--mono);font-size:.8rem;color:var(--ice-dim);cursor:pointer;background:none;border:none;transition:color .2s;}
 .stat-popup-close:hover{color:var(--accent);}
@@ -124,7 +134,7 @@ h1 em{font-style:normal;color:var(--accent);}
 .delta-item{font-size:.65rem;letter-spacing:.06em;color:var(--ice-dim);display:flex;justify-content:space-between;padding:.3rem 0;}
 .delta-item span{color:var(--accent);font-weight:500;}
 
-/* PROBLEM */
+/* PROBLEM — Teal-Streifen */
 #problem{background:var(--navy-mid);}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
 .pc{background:#0A1826;border:1px solid var(--navy-border);border-left:4px solid var(--teal);padding:2.2rem 2rem;display:flex;flex-direction:column;gap:.8rem;transition:border-left-color .2s,transform .2s;}
@@ -134,7 +144,7 @@ h1 em{font-style:normal;color:var(--accent);}
 .pc p{font-size:.88rem;color:var(--ice-dim);line-height:1.75;flex:1;}
 .pc .ref{font-family:var(--mono);font-size:.64rem;color:var(--accent-dim);padding-top:.6rem;border-top:1px solid var(--navy-border);}
 
-/* ARCHITEKTUR */
+/* ARCHITEKTUR — Interaktiver Stack */
 #arch{}
 .layer-stack{margin-top:3rem;}
 .layer{border:1px solid var(--navy-border);border-bottom:none;cursor:pointer;transition:background .2s;position:relative;}
@@ -159,7 +169,7 @@ h1 em{font-style:normal;color:var(--accent);}
 .ldt-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:.3rem;}
 .ldt-val{font-family:var(--mono);font-size:.72rem;color:var(--ice);line-height:1.5;}
 
-/* USE CASES */
+/* USE CASES — Accordion */
 #uc{background:var(--navy-mid);}
 .uc-accordion{margin-top:2.5rem;}
 .uc-item{border:1px solid var(--navy-border);border-bottom:none;}
@@ -279,14 +289,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   .layer-detail{padding:1rem 1.5rem;}
   .tl-track{grid-template-columns:repeat(3,1fr);}
   .fc{text-align:left;}
-  .arith-ops-grid{grid-template-columns:repeat(3,1fr) !important;}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="#hero"><img src="logo-nav.svg" alt="ChronoGrid Systems"></a>
+  <a class="nav-brand" href="#hero">
+    <img src="logo-nav.svg" alt="ChronoGrid Systems" style="height:84px;display:block;">
+  </a>
   <ul class="nav-links">
     <li><a href="#cgta-demo">CGTA</a></li>
     <li><a href="#arith">ARITH</a></li>
@@ -311,15 +322,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <a class="btn-p" href="#arch">Architektur erkunden</a>
     <a class="btn-g" href="#roadmap">Projektstatus</a>
   </div>
-
-  <!-- 2×4 STAT KACHELN -->
   <div class="stat-kacheln">
-    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">21</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">CG-STD-0000 → CG-APP-0910</div><div class="stat-k-hint">▸ Details</div></div>
-    <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">248</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">L-2 · CGUA · ARITH · L-3</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">19</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">9 STD + 10 APP</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">248</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">L2 · CGUA · ARITH · L3</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('l2')"><div class="stat-k-val">96</div><div class="stat-k-lbl">Level-2-Tests</div><div class="stat-k-sub">96/96 · 01.05.2026</div><div class="stat-k-hint">▸ Details</div></div>
-    <div class="stat-k" onclick="openStatPopup('l3')"><div class="stat-k-val">72</div><div class="stat-k-lbl">Level-3-Tests</div><div class="stat-k-sub">72/72 · 11.05.2026</div><div class="stat-k-hint">▸ Details</div></div>
-    <div class="stat-k" onclick="openStatPopup('cgua')"><div class="stat-k-val">34</div><div class="stat-k-lbl">CGUA-Tests</div><div class="stat-k-sub">cgua:// URI-Schema</div><div class="stat-k-hint">▸ Details</div></div>
-    <div class="stat-k" onclick="openStatPopup('arith')"><div class="stat-k-val">46</div><div class="stat-k-lbl">ARITH-Tests</div><div class="stat-k-sub">ARITH-Domain · CG-STD-6100</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('l3')"><div class="stat-k-val">72</div><div class="stat-k-lbl">Level-3-Tests</div><div class="stat-k-sub">72/72 · 20.04.2026</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('cgua')"><div class="stat-k-val">34</div><div class="stat-k-lbl">CGUA-Tests</div><div class="stat-k-sub">34/34 · cgua.test.ts</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('arith')"><div class="stat-k-val">46</div><div class="stat-k-lbl">ARITH-Tests</div><div class="stat-k-sub">T-ARITH-001–053 · Sprint 6</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('api')"><div class="stat-k-val">28</div><div class="stat-k-lbl">REST-Endpoints</div><div class="stat-k-sub">OpenAPI 3.1 + GraphQL SDL</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('uc')"><div class="stat-k-val">8</div><div class="stat-k-lbl">Killer Use Cases</div><div class="stat-k-sub">Aviation · CERN · Legal · QKD</div><div class="stat-k-hint">▸ Details</div></div>
   </div>
@@ -345,10 +354,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="divider"></div>
   <p class="lead">Das Problem: „14:37 Uhr" ist keine eindeutige Zeitangabe — ohne zu wissen welche Zeitzone, welches Kalendersystem und welche Schaltsekunden-Regel gemeint sind, ist der Wert nicht reproduzierbar. CGTA löst das, indem die Domain normativ Teil der Adresse ist.</p>
 
+  <!-- ANATOMIE EINER CGTA -->
   <div style="background:#050D18;border:1px solid var(--navy-border);border-top:3px solid var(--teal);padding:2rem 2.5rem;margin-bottom:2rem;">
     <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem;">Aufbau einer CGTA-Adresse</div>
     <div style="font-family:var(--mono);font-size:1.4rem;font-weight:500;letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:0;align-items:baseline;margin-bottom:1.8rem;">
-      <span style="color:#3D5A7A">CG:</span><span style="color:var(--teal);border-bottom:2px solid var(--teal)">UTC</span><span style="color:#3D5A7A">:</span><span style="color:#7EC8E3;border-bottom:2px solid #7EC8E3">2026-05-11T14:37:22Z</span><span style="color:var(--accent);border-bottom:2px solid var(--accent)">/v1</span>
+      <span style="color:#3D5A7A">CG:</span><span style="color:var(--teal);border-bottom:2px solid var(--teal)">UTC</span><span style="color:#3D5A7A">:</span><span style="color:#7EC8E3;border-bottom:2px solid #7EC8E3">2026-05-01T14:37:22Z</span><span style="color:var(--accent);border-bottom:2px solid var(--accent)">/v1</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
       <div>
@@ -369,29 +379,31 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     </div>
   </div>
 
+  <!-- DREI DOMAINS, GLEICHER MOMENT -->
   <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Derselbe Augenblick — drei Domains</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--navy-border);border:1px solid var(--navy-border);margin-bottom:2rem;">
     <div style="background:var(--navy-panel);padding:1.5rem;">
       <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;">CG:UTC</div>
-      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-11T14:37:22Z</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:22Z</div>
       <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">Koordinierte Weltzeit. Enthält Schaltsekunden. Standard für Anzeige und Benutzeroberflächen.</div>
     </div>
     <div style="background:var(--navy-panel);padding:1.5rem;border-left:2px solid var(--accent);">
       <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;">CG:TAI ← empfohlen</div>
-      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-11T14:37:59Z</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:59Z</div>
       <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">Atomzeit. Keine Schaltsekunden, keine Zeitzone, monoton steigend. Bevorzugt für Archivierung, Forensik und Langzeitdokumente.</div>
     </div>
     <div style="background:var(--navy-panel);padding:1.5rem;">
       <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#7EC8E3;margin-bottom:.5rem;">CG:GPS</div>
-      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-11T14:37:40Z</div>
+      <div style="font-family:var(--mono);font-size:.85rem;color:var(--ice);margin-bottom:.8rem;">2026-05-01T14:37:40Z</div>
       <div style="font-size:.8rem;color:var(--ice-dim);line-height:1.6;">GPS-Satellitenzeit. Basis der globalen Navigation. 18 Sekunden hinter TAI — exakt definiert durch CTDDL Klasse-A-Mapping.</div>
     </div>
   </div>
 
+  <!-- MACHINEID -->
   <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--green);padding:1.5rem 2rem;">
     <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;">MachineID — Kryptographischer Fingerabdruck</div>
     <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;">
-      <div style="font-family:var(--mono);font-size:.82rem;color:var(--ice);">SHA-256(<span style="color:var(--accent)">"CG:TAI:2026-05-11T14:37:59Z/v1"</span>)</div>
+      <div style="font-family:var(--mono);font-size:.82rem;color:var(--ice);">SHA-256(<span style="color:var(--accent)">"CG:TAI:2026-05-01T14:37:59Z/v1"</span>)</div>
       <div style="font-family:var(--mono);font-size:.75rem;color:#3D7040;word-break:break-all;">→ a3f8c2d1b5e9f047... (256 Bit)</div>
     </div>
     <div style="font-size:.82rem;color:var(--ice-dim);margin-top:.8rem;line-height:1.65;">Jede CGTA erzeugt einen eindeutigen kryptographischen Fingerabdruck. Damit lässt sich später beweisen, dass ein Dokument zu einem bestimmten Zeitpunkt existiert hat — und dass es nicht verändert wurde.</div>
@@ -400,76 +412,113 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 </section>
 
 <!-- ARITH-DOMAIN -->
-<section id="arith">
+<section id="arith" style="background:var(--navy-mid)">
 <div class="si">
-  <div class="stag">ARITH-Domain · CG-STD-6100 v1.0 / CG-APP-0200 v0.5</div>
-  <h2>Zeitarithmetik.<br><em>Exakt. Normativ.</em></h2>
+  <div class="stag">ARITH-Domain · Sprint 6 · Mai 2026</div>
+  <h2>Exakte Zeitrechnung —<br><em>ℤ∞ statt Float64</em></h2>
   <div class="divider"></div>
-  <p class="lead">Zeitdifferenzen in Float64 zu berechnen erzeugt Rundungsfehler — bei 40-MHz-Kollisionsereignissen (CERN) bis zu 385 ns pro Operation. Die ARITH-Domain löst das: BigInt ℤ∞, ULP=0, sechs normative Operationen, 46 Testvektoren.</p>
+  <p class="lead">JavaScript Number hat nur 53 Bit Mantisse (IEEE 754). Nanosekunden-Timestamps überschreiten 2⁵³ bereits 285 Tage nach der Unix-Epoche — jede Rechnung danach ist still falsch. Die ARITH-Domain löst das: sechs Operationen, intern reines BigInt, kein Rundungsfehler, kein ULP-Verlust.</p>
 
-  <!-- Problem / Lösung -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2.5rem;">
-    <div style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.2);border-left:4px solid var(--red);padding:2rem;">
-      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--red);"></span>Problem · Float64</div>
-      <div style="font-family:var(--mono);font-size:1rem;color:var(--red);margin-bottom:.8rem;opacity:.8;">14400000000000.000977</div>
-      <p style="font-size:.88rem;color:var(--ice-dim);line-height:1.75;">IEEE 754 Float64 hat 53 Bit Mantisse — bei großen Nanosekunden-Werten entsteht zwangsläufig ein ULP-Fehler. Kumuliert sich über Experimentlaufzeiten. Nicht reproduzierbar, nicht normierbar.</p>
-      <div style="font-family:var(--mono);font-size:.65rem;color:rgba(231,76,60,.6);margin-top:1rem;padding:.5rem .8rem;background:rgba(231,76,60,.05);border-left:2px solid rgba(231,76,60,.3);">ULP-Fehler ≠ 0 · nicht deterministisch</div>
+  <!-- FLOAT64 PROBLEM DEMO -->
+  <div style="background:#050D18;border:1px solid var(--navy-border);border-top:3px solid var(--red);margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:center;gap:.8rem;padding:.7rem 1.4rem;border-bottom:1px solid var(--navy-border);background:rgba(231,76,60,.05);">
+      <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);">Float64 — Das Problem</span>
     </div>
-    <div style="background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.2);border-left:4px solid var(--green);padding:2rem;">
-      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;"><span style="display:inline-block;width:16px;height:1px;background:var(--green);"></span>Lösung · ARITH-Domain</div>
-      <div style="font-family:var(--mono);font-size:1rem;color:var(--teal);margin-bottom:.8rem;">CG:ARITH:14400000000000000/v1</div>
-      <p style="font-size:.88rem;color:var(--ice-dim);line-height:1.75;">BigInt ℤ∞ kennt keinen Overflow und keinen Rundungsfehler. Nanosekunden als exakte ganze Zahl. Jedes Ergebnis ist durch MachineID SHA-256 kryptographisch verankert.</p>
-      <div style="font-family:var(--mono);font-size:.65rem;color:rgba(39,174,96,.7);margin-top:1rem;padding:.5rem .8rem;background:rgba(39,174,96,.05);border-left:2px solid rgba(39,174,96,.3);">ULP = 0 · deterministisch · I-R2 normativ</div>
+    <div style="padding:1.4rem 1.8rem;font-family:var(--mono);font-size:.82rem;line-height:2.2;">
+      <div><span style="color:#3D5A7A">// TAI-Timestamp (Nanosekunden) — heute</span></div>
+      <div><span style="color:var(--ice-dim)">const ns = </span><span style="color:var(--accent)">1776673435_043_000_000n</span><span style="color:var(--ice-dim)">; <span style="color:#3D5A7A">// BigInt: exakt</span></span></div>
+      <div><span style="color:var(--ice-dim)">Number(ns)  </span><span style="color:var(--red)">→ 1776673435043000064</span><span style="color:#3D5A7A">  // ULP-Fehler: +64 Nanosekunden</span></div>
+      <div><span style="color:var(--ice-dim)">ns.toString()</span><span style="color:var(--green)"> → 1776673435043000000</span><span style="color:#3D5A7A">  // BigInt: exakt</span></div>
     </div>
   </div>
 
-  <!-- 6 Operationen -->
-  <div style="margin-bottom:2rem;">
-    <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">6 normative Operationen · σ = duration | period</div>
-    <div class="arith-ops-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:.8rem;">
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">+</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">add</div>
+  <!-- INTERAKTIVER RECHNER -->
+  <div style="background:#070E1A;border:1px solid var(--navy-border);border-top:3px solid var(--teal);margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:center;gap:.8rem;padding:.85rem 1.5rem;border-bottom:1px solid var(--navy-border);background:rgba(23,165,137,.06);">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--teal);animation:pulse 1.4s ease-in-out infinite;"></div>
+      <span style="font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ice-dim);">ARITH-Domain · Rechner · cg-zeitarithmetik.ts</span>
+    </div>
+    <div style="padding:1.5rem 1.8rem;">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto;gap:1rem;align-items:end;margin-bottom:1.2rem;">
+        <div>
+          <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;">Wert A (Nanosekunden)</div>
+          <input id="arith-a" type="text" value="1776673435043000000"
+            style="width:100%;background:#050D18;border:1px solid var(--navy-border);color:var(--ice);font-family:var(--mono);font-size:.85rem;padding:.7rem 1rem;outline:none;transition:border-color .2s;"
+            oninput="calcArith()" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--navy-border)'">
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;">Operation</div>
+          <select id="arith-op" onchange="calcArith()"
+            style="background:#050D18;border:1px solid var(--navy-border);color:var(--ice);font-family:var(--mono);font-size:.85rem;padding:.7rem 1rem;outline:none;cursor:pointer;">
+            <option value="add">+ add()</option>
+            <option value="sub">− sub()</option>
+            <option value="mul">× mul()</option>
+            <option value="div">÷ div()</option>
+            <option value="mod">% mod()</option>
+            <option value="pow">^ pow()</option>
+          </select>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;">Wert B (Nanosekunden / Faktor)</div>
+          <input id="arith-b" type="text" value="1000000000"
+            style="width:100%;background:#050D18;border:1px solid var(--navy-border);color:var(--ice);font-family:var(--mono);font-size:.85rem;padding:.7rem 1rem;outline:none;transition:border-color .2s;"
+            oninput="calcArith()" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--navy-border)'">
+        </div>
+        <div style="padding-bottom:2px;">
+          <button onclick="calcArith()"
+            style="background:var(--teal);color:var(--navy);font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.4rem;border:none;cursor:pointer;font-weight:600;">
+            = berechnen
+          </button>
+        </div>
       </div>
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">−</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">sub</div>
-      </div>
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">×</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">mul</div>
-      </div>
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">÷</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">div</div>
-      </div>
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">%</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">mod</div>
-      </div>
-      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.2rem 1rem;text-align:center;">
-        <div style="font-family:var(--mono);font-size:1.4rem;color:var(--teal);margin-bottom:.4rem;">xⁿ</div>
-        <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ice-dim);">pow</div>
+      <!-- Ergebnis -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--navy-border);">
+        <div style="background:#050D18;padding:1.2rem 1.5rem;">
+          <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;">Float64 (JavaScript Number)</div>
+          <div id="arith-float-res" style="font-family:var(--mono);font-size:.88rem;color:var(--ice);word-break:break-all;">—</div>
+          <div id="arith-float-err" style="font-family:var(--mono);font-size:.62rem;color:var(--red);margin-top:.4rem;">—</div>
+        </div>
+        <div style="background:#050D18;padding:1.2rem 1.5rem;border-left:2px solid var(--green);">
+          <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem;">BigInt (ℤ∞ · I-R3 konform)</div>
+          <div id="arith-big-res" style="font-family:var(--mono);font-size:.88rem;color:var(--green);word-break:break-all;">—</div>
+          <div id="arith-big-cgta" style="font-family:var(--mono);font-size:.62rem;color:var(--accent);margin-top:.4rem;">—</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- CTDDL + Tests -->
+  <!-- 6 OPERATIONEN + CTDDL + BADGE -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
-    <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--accent);padding:1.5rem 2rem;">
-      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;">CTDDL-Definition · arith-v1</div>
-      <div style="font-family:var(--mono);font-size:.78rem;color:var(--ice);line-height:2;">
-        <div><span style="color:var(--ice-dim)">domain:</span> <span style="color:var(--teal)">"ARITH"</span></div>
-        <div><span style="color:var(--ice-dim)">type:</span> <span style="color:var(--teal)">"duration"</span></div>
-        <div><span style="color:var(--ice-dim)">unit:</span> <span style="color:var(--teal)">"nanoseconds"</span></div>
-        <div><span style="color:var(--ice-dim)">arithmetic:</span> <span style="color:#7EC8E3">"ℤ∞ BigInt"</span></div>
-        <div><span style="color:var(--ice-dim)">invariant:</span> <span style="color:var(--accent)">"I-R2"</span></div>
+    <div style="background:var(--navy-panel);border:1px solid var(--navy-border);padding:1.5rem 2rem;">
+      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">6 normative Operationen · cg-zeitarithmetik.ts</div>
+      <div style="font-family:var(--mono);font-size:.8rem;line-height:2.2;">
+        <div><span style="color:var(--teal)">add</span><span style="color:var(--ice-dim)">(a, b)</span> <span style="color:#3D5A7A">// a + b → Summe zweier Zeitwerte</span></div>
+        <div><span style="color:var(--teal)">subtract</span><span style="color:var(--ice-dim)">(a, b)</span> <span style="color:#3D5A7A">// a − b → Differenz</span></div>
+        <div><span style="color:var(--teal)">multiply</span><span style="color:var(--ice-dim)">(a, factor)</span> <span style="color:#3D5A7A">// a × n → Skalierung</span></div>
+        <div><span style="color:var(--teal)">divide</span><span style="color:var(--ice-dim)">(a, b)</span> <span style="color:#3D5A7A">// a ÷ b → Integer-Division</span></div>
+        <div><span style="color:var(--teal)">modulo</span><span style="color:var(--ice-dim)">(a, b)</span> <span style="color:#3D5A7A">// a % b → Rest</span></div>
+        <div><span style="color:var(--teal)">power</span><span style="color:var(--ice-dim)">(a, exp)</span> <span style="color:#3D5A7A">// a ^ n → Potenz</span></div>
       </div>
     </div>
-    <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--teal);padding:1.5rem 2rem;">
-      <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem;">Teststatus · 46/46 konform</div>
-      <div style="font-family:var(--cond);font-size:3rem;font-weight:800;color:var(--teal);line-height:1;margin-bottom:.5rem;">46</div>
-      <div style="font-size:.84rem;color:var(--ice-dim);line-height:1.65;">Normative Testvektoren für alle 6 Operationen, Fehlerklassen CG-E-003/006, Grenzfälle (0 ns, max ℤ∞) und MachineID-Verifikation. Definiert in CG-STD-6100 v1.0.</div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--accent);padding:1.2rem 1.5rem;flex:1;">
+        <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem;">CTDDL — arith-v1.ctddl.json</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--ice-dim);line-height:1.9;">
+          <span style="color:var(--ice-dim)">"id":</span> <span style="color:var(--accent)">"arith-v1"</span><br>
+          <span style="color:var(--ice-dim)">"semantics":</span> <span style="color:var(--teal)">["duration","period"]</span><br>
+          <span style="color:var(--ice-dim)">"epoch":</span> <span style="color:#7EC8E3">null</span> <span style="color:#3D5A7A">// kein fester Ursprung</span><br>
+          <span style="color:var(--ice-dim)">"arithmetic":</span> <span style="color:var(--teal)">"ℤ∞-BigInt"</span>
+        </div>
+      </div>
+      <div style="background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;">
+        <div style="font-family:var(--cond);font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1;">46</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);">normative Tests</div>
+          <div style="font-family:var(--mono);font-size:.58rem;color:var(--ice-dim);margin-top:.2rem;">T-ARITH-001–053 · Sprint 6</div>
+          <div style="font-family:var(--mono);font-size:.58rem;color:var(--accent-dim);margin-top:.1rem;">Commit 1260f06 · 07. Mai 2026</div>
+        </div>
+        <div style="margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--green);border:1px solid rgba(39,174,96,.3);padding:.3rem .7rem;">46/46 ✓</div>
+      </div>
     </div>
   </div>
 </div>
@@ -520,12 +569,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <h2>ChronoGrid<br><em>Web Calculator</em></h2>
   <div class="divider"></div>
   <p class="lead">Vier Funktionen direkt im Browser: Echtzeit-CGTA-Adresse mit 6-Tupel und MachineID, Domain-Konvertierung mit Klasse-A-Mappings, ARITH-Domain-Arithmetik mit BigInt ℤ∞, und die vollständige Konformitätsübersicht.</p>
-
   <div class="calc-frame-wrap">
     <iframe
       src="calculator.html"
       height="820"
-      title="ChronoGrid Web Calculator — Zeitpunkt, Konvertierung, Arithmetik, Konformität"
+      title="ChronoGrid Web Calculator – Zeitpunkt, Konvertierung, Arithmetik, Konformität"
       loading="lazy">
     </iframe>
     <div class="calc-open-bar">
@@ -575,13 +623,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="layer" onclick="toggleLayer(this)">
       <div class="layer-top"><div class="layer-nr"><strong>1</strong><span>Grundlagen</span></div>
       <div class="layer-head"><div class="layer-doc-id">CG-STD-1000 v1.3 · CG-STD-1100 v2.5</div><div class="layer-doc-name">Terminologie & Architektur</div></div>
-      <div class="layer-body-wrap"><p>Normatives Glossar, Verarbeitungsfluss Zeitpunkt→CGTA→MachineID→CGFI→CGUA, CGTA-Syntax ABNF, ARITH-Domain + Operationskette</p></div>
+      <div class="layer-body-wrap"><p>Normatives Glossar, Verarbeitungsfluss Zeitpunkt→CGTA→MachineID→CGFI→CGUA, CGTA-Syntax ABNF</p></div>
       <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Begriffe</div><div class="ldt-val">CGTA, CTDDL, MachineID<br>Weltlinie, Ephemeride, CIP</div></div>
         <div class="ldt"><div class="ldt-label">Pipeline</div><div class="ldt-val">Consolas Box-Drawing<br>5-stufiger Verarbeitungsfluss</div></div>
         <div class="ldt"><div class="ldt-label">ABNF-Syntax</div><div class="ldt-val">CG:{D}:{t}[{z}]/v{n}<br>vollständig RFC 5234</div></div>
-        <div class="ldt"><div class="ldt-label">NEU v1.3</div><div class="ldt-val">ARITH-Domain Definition<br>Operationskette normativ</div></div>
       </div></div>
     </div>
     <div class="layer" onclick="toggleLayer(this)">
@@ -633,12 +680,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     </div>
     <div class="layer" onclick="toggleLayer(this)">
       <div class="layer-top"><div class="layer-nr"><strong>6</strong><span>Erweiterungen</span></div>
-      <div class="layer-head"><div class="layer-doc-id">CG-STD-6100 · v1.0 ✓ Freigegeben</div><div class="layer-doc-name">CGUAS · CGFS · CGFI · ARITH</div></div>
-      <div class="layer-body-wrap"><p>79-Bit CGUAS-Adressraum, CGFS-Filesystem, Tombstone-Protokoll, ARITH-Domain, TSC-Entscheidungen OP-12/OP-13, Quantensicher I-QKD-1</p></div>
+      <div class="layer-head"><div class="layer-doc-id">CG-STD-6100 · v1.0</div><div class="layer-doc-name">CGUAS · CGFS · CGFI</div></div>
+      <div class="layer-body-wrap"><p>79-Bit CGUAS-Adressraum, CGFS-Filesystem, Tombstone-Protokoll, TSC-Entscheidungen OP-12/OP-13, Quantensicher I-QKD-1</p></div>
       <span class="layer-arrow">▶</span></div>
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">CGUAS</div><div class="ldt-val">79-Bit Adressraum<br>N-CGUAS-001 Segment-Spezifität</div></div>
-        <div class="ldt"><div class="ldt-label">ARITH-Domain</div><div class="ldt-val">6 Operationen BigInt ℤ∞<br>46 normative Testvektoren</div></div>
+        <div class="ldt"><div class="ldt-label">TSC-Vorlagen</div><div class="ldt-val">OP-12: FileType-Namespace<br>OP-13: σ-Feld I-QKD-1</div></div>
         <div class="ldt"><div class="ldt-label">Quantum</div><div class="ldt-val">I-QKD-1 Invariante<br>ETSI ISG-QKD · ITU-T Y.3800</div></div>
         <div class="ldt"><div class="ldt-label">DSGVO</div><div class="ldt-val">Tombstone-Protokoll<br>Löschnachweis normativ</div></div>
       </div></div>
@@ -721,20 +768,20 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="stag">Projektstatus · Roadmap</div>
   <h2>Wo steht<br><em>ChronoGrid?</em></h2>
   <div class="divider"></div>
-  <p class="lead">Referenzimplementierung vollständig konform, API freigegeben, ARITH-Domain integriert, Normierungsantrag versandbereit. Nächste Priorität: externe mathematische Verifikation der 4 DRAFT-Theoreme in CG-STD-0000.</p>
+  <p class="lead">Referenzimplementierung vollständig konform, API freigegeben, Normierungsantrag versandbereit. Nächste Priorität: externe mathematische Verifikation der 4 DRAFT-Theoreme in CG-STD-0000.</p>
   <div class="timeline">
     <div class="tl-track-wrap">
       <div class="tl-track">
-        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Spezifikations-stack · 21 Dokumente</div><div class="tl-date">Mai 2026</div></div>
-        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Referenz-implementierung konform</div><div class="tl-date">Mai 2026</div></div>
+        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Spezifikations-stack · 19 Dokumente</div><div class="tl-date">Apr. 2026</div></div>
+        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Referenz-implementierung konform</div><div class="tl-date">Apr. 2026</div></div>
         <div class="tl-step sact"><div class="tl-dot act">●</div><div class="tl-label">Externe Verifikation · 4 Theoreme</div><div class="tl-date">Offen</div></div>
         <div class="tl-step"><div class="tl-dot plan">○</div><div class="tl-label">ASI/ON Erst-einreichung</div><div class="tl-date">Nach Verif.</div></div>
         <div class="tl-step"><div class="tl-dot plan">○</div><div class="tl-label">ISO TC 154 via CEN</div><div class="tl-date">Langfristig</div></div>
       </div>
     </div>
     <div class="tl-items">
-      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Spezifikationsstack vollständig</h4><p>21 Dokumente · 0 Konsistenzfehler (cg-lint.py v1.5). CG-STD-4100 v1.0 und CG-STD-6100 v1.0 freigegeben. 96/96 Level-2, 72/72 Level-3, 34/34 CGUA, 46/46 ARITH. cgua:// IANA-Draft bereit.</p></div>
-      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Referenzimplementierung konform</h4><p>cg-engine v0.9.0 · TypeScript + Node.js 22 + PostgreSQL 14. 28 REST-Endpoints · GraphQL 70 Typen · cg-testkit CLI. 248/248 Tests konform. Zertifikat: CG:TAI:1776673435043000000/v1</p></div>
+      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Spezifikationsstack vollständig</h4><p>19 Dokumente · 0 Konsistenzfehler (cg-lint.py v1.5). CG-STD-4100 v1.0 freigegeben. 96/96 Level-2, 72/72 Level-3. cgua:// IANA-Draft bereit.</p></div>
+      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Referenzimplementierung konform</h4><p>cg-engine v0.9.0 · TypeScript + Node.js 22 + PostgreSQL 14. 28 REST-Endpoints · GraphQL 70 Typen · cg-testkit CLI. 248/248 Tests (Sprint 1–6 incl. ARITH). Zertifikat: CG:TAI:1776673435043000000/v1</p></div>
       <div class="tl-card cact"><div class="tl-cs">● Aktuelle Priorität</div><h4>Externe mathematische Verifikation</h4><p>4 DRAFT-Theoreme in CG-STD-0000 warten auf externe Verifikation: Th. 1.2 (Kryptograph), Th. 5.2/5.5 (Informatiker), Th. 4 (Physiker). Anfrageschreiben in Vorbereitung.</p></div>
       <div class="tl-card cact"><div class="tl-cs">● In Vorbereitung</div><h4>ASI/ON-Erstanfrage · FFG-Antrag</h4><p>ASI/ON-Erstanfrage versandbereit. FFG Basisprogramm: Antrag in Vorbereitung. Akademische Partnerschaft gesucht. OCG-Paper v0.5 inhaltlich vollständig.</p></div>
       <div class="tl-card cplan"><div class="tl-cs">○ Geplant</div><h4>CEN/CENELEC · IANA-Einreichung</h4><p>CEN/TC 434 nach ASI/ON-Entscheidung. IANA-Einreichung cgua:// nach CG-STD-6100 v1.0. TSC-Beschlüsse OP-12/OP-13 ausstehend.</p></div>
@@ -760,8 +807,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Förderung</div><h4>FFG Basisprogramm</h4><p>Österreichische Forschungsförderungsgesellschaft. Antrag in Vorbereitung. Hauptargument: CTDDL als einzige maschinenlesbare Domänenbeschreibungssprache — 34/40 Kriterien vs. OWL-Time 22/40 vs. Schema.org 11/40. NIS2 (CG-APP-0900) und CRA/SBOM (CG-APP-0910) als konkrete EU-Compliance-Anwendungsfälle.</div>
     </div>
     <div class="fcard" style="border-style:dashed;border-color:rgba(200,169,81,.3);"><div class="stag" style="margin-bottom:.8rem">Akademischer Partner</div><h4 style="color:var(--ice-dim)">Partnerschaft gesucht</h4><p>ChronoGrid sucht eine akademische Partnerschaft mit einer österreichischen Hochschule oder Forschungseinrichtung. Schwerpunkt: formale Methoden, theoretische Informatik oder Metrologie. Externe Verifikation der 4 Theoreme und Begleitung des ASI/ON-Prozesses.</p></div>
-    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Veröffentlichung</div><h4>OCG-Jahrestagung</h4><p>Paper v0.5 inhaltlich vollständig: §2.4 ℤ vs. ℝ formal begründet, Related Work 4.1–4.6 (Allen 1983, Snodgrass/TSQL2, OWL-Time, TimeML, Lamport) vollständig. 21 Dokumente konsistent referenziert.</p></div>
-    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Referenzimplementierung</div><h4>cg-engine v0.9.0</h4><p>TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. 248/248 Tests konform. 28 REST-Endpoints · cg-testkit CLI · cg-lint.py v1.5 (0 Fehler). Zertifikat: CG:TAI:1776673435043000000/v1</p></div>
+    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Veröffentlichung</div><h4>OCG-Jahrestagung</h4><p>Paper v0.5 inhaltlich vollständig: §2.4 ℤ vs. ℝ formal begründet, Related Work 4.1–4.6 (Allen 1983, Snodgrass/TSQL2, OWL-Time, TimeML, Lamport) vollständig. 19 Dokumente konsistent referenziert.</p></div>
+    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Referenzimplementierung</div><h4>cg-engine v0.9.0</h4><p>TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. 96/96 Level-2 · 72/72 Level-3. 28 REST-Endpoints · cg-testkit CLI · cg-lint.py v1.5 (0 Fehler). Zertifikat: CG:TAI:1776673435043000000/v1</p></div>
   </div>
 </div>
 </section>
@@ -769,32 +816,30 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <!-- SPEZIFIKATION -->
 <section id="spec">
 <div class="si">
-  <div class="stag">Spezifikationsstack · Stand 11. Mai 2026</div>
-  <h2>21 normative<br><em>Dokumente</em></h2>
+  <div class="stag">Spezifikationsstack · Stand 1. Mai 2026</div>
+  <h2>19 normative<br><em>Dokumente</em></h2>
   <div class="divider"></div>
-  <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100), 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910) und 2 Metadokumente (CG-DOC-UEBERSICHT + CG-DOC-0000). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen.</p>
+  <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen.</p>
   <div class="spec-grid">
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-0000</div><div class="scard-title">Formale Grundlagen</div><div class="scard-desc">Axiomatik, CGTA 6-Tupel, 4 Theoreme, BigInt-Arithmetik, Klasse-A/B Mapping, Anhang B: Schaltsekunden-Testvektor</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> · Schicht 0 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Legt die mathematischen Grundlagen des gesamten Stacks fest. Definiert das CGTA 6-Tupel (D, t, z, v, h, σ) und das TimeDomain 8-Tupel. Enthält 4 DRAFT-Theoreme zur externen Verifikation durch Kryptographen, Informatiker und Physiker. Normative Invarianten I-E1–I-E9. Anhang B: Schaltsekunden-Testvektor 2016 (normativ).</p><div class="tags"><span class="tag">CGTA 6-Tupel</span><span class="tag">ℤ∞ BigInt</span><span class="tag">Klasse A/B</span><span class="tag">4 Theoreme</span><span class="tag">I-E1–I-E9</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, ARITH-Domain, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.3 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normatives Glossar mit eindeutigen Definitionen für alle Kernbegriffe. Verhindert Mehrdeutigkeit bei der Implementierung. Definiert u.a. Weltlinie (relativistischer Pfad), Ephemeride (Bahnparameter), CIP (Change Impact Process), Klasse-A/B Mapping, ARITH-Domain (Zeitarithmetik BigInt ℤ∞). Neu in v1.3: ARITH-Domain + Operationskette.</p><div class="tags"><span class="tag">Weltlinie</span><span class="tag">Ephemeride</span><span class="tag">CIP</span><span class="tag">MachineID</span><span class="tag">ARITH-Domain</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-0000</div><div class="scard-title">Formale Grundlagen</div><div class="scard-desc">Axiomatik, CGTA 6-Tupel, 4 Theoreme, BigInt-Arithmetik, Klasse-A/B Mapping, Anhang B: Schaltsekunden-Testvektor</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> · Schicht 0 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Legt die mathematischen Grundlagen des gesamten Stacks fest. Definiert das CGTA 6-Tupel (D, t, z, v, h, σ) und das TimeDomain 8-Tupel. Enthält 4 DRAFT-Theoreme die zur externen Verifikation durch Kryptographen, Informatiker und Physiker vorgesehen sind. Normative Invarianten I-E1–I-E9. Anhang B: Schaltsekunden-Testvektor 2016 (normativ).</p><div class="tags"><span class="tag">CGTA 6-Tupel</span><span class="tag">ℤ∞ BigInt</span><span class="tag">Klasse A/B</span><span class="tag">4 Theoreme</span><span class="tag">I-E1–I-E9</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.3 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normatives Glossar mit eindeutigen Definitionen für alle Kernbegriffe. Verhindert Mehrdeutigkeit bei der Implementierung. Definiert u.a. Weltlinie (relativistischer Pfad), Ephemeride (Bahnparameter), CIP (Change Impact Process), Klasse-A/B Mapping.</p><div class="tags"><span class="tag">Weltlinie</span><span class="tag">Ephemeride</span><span class="tag">CIP</span><span class="tag">MachineID</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1100</div><div class="scard-title">Architektur</div><div class="scard-desc">Verarbeitungsfluss Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Consolas-Flussdiagramm. CGTA-Syntax ABNF</div><div class="scard-ver"><span class="ok">v2.5 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Definiert den normativen 5-stufigen Verarbeitungsfluss: Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Enthält das Consolas Box-Drawing Flussdiagramm und die vollständige CGTA-Syntax in ABNF (RFC 5234). Legt fest welche Schichten intern/extern sind.</p><div class="tags"><span class="tag">ABNF RFC 5234</span><span class="tag">5-stufige Pipeline</span><span class="tag">Flussdiagramm</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-2100</div><div class="scard-title">CTDDL</div><div class="scard-desc">Time Domain Definition Language. JSON-Schema, ABNF RFC 5234, Klasse-A/B-Mappings, 5-Schritt Schaltsekunden-Verfahren, CGRS 2035</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 2 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Die zentrale Innovation: eine JSON-basierte maschinenlesbare Sprache zur formalen Beschreibung beliebiger Zeitdomänen. 34/40 Kriterien — besser als OWL-Time (22/40) und Schema.org (11/40). Fehlerklassen CG-E-001–011. 5-Schritt-Verfahren für Schaltsekunden-Aktualisierung. CGRS 2035 als geplanter Revisionsplan.</p><div class="tags"><span class="tag">34/40 Kriterien</span><span class="tag">JSON-Schema</span><span class="tag">CG-E-001–011</span><span class="tag">CGRS 2035</span><span class="tag">Klasse A/B</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-3100</div><div class="scard-title">CGFI-Engine</div><div class="scard-desc">Interne Engine. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien. computeCGFI() mit optionalem seq-Parameter</div><div class="scard-ver"><span class="ok">v1.5 Freigegeben</span> · Schicht 3 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Interne Compute-Engine — nicht direkt öffentlich zugänglich (das ist CG-STD-4100). Implementiert Encode/Decode, Domain-Mapping, MachineID SHA-256, CGFI-Berechnung und alle 13 Allen-Relationen. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien sichern die Konformität.</p><div class="tags"><span class="tag">114 Testvektoren</span><span class="tag">Allen 13×</span><span class="tag">SHA-256</span><span class="tag">BigInt</span><span class="tag">intern</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-4100</div><div class="scard-title">Datenmodell & API</div><div class="scard-desc">REST 28 Endpoints (OpenAPI 3.1) · GraphQL 70 Typen (SDL) · T-API 60 Tests Level 1–3 · cgua:// URI-Schema</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> · Schicht 4 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Öffentliche API-Schicht — trennt die interne Engine (CG-STD-3100) von externen Konsumenten. REST-API mit 28 Endpoints (OpenAPI 3.1, Anlage A normativ). GraphQL mit 70 Typen, SDL (Anlage B). T-API Testsuite 60 Tests Level 1–3. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001 (RFC 7595).</p><div class="tags"><span class="tag">28 REST-Endpoints</span><span class="tag">GraphQL 70 Typen</span><span class="tag">OpenAPI 3.1</span><span class="tag">cgua://</span><span class="tag">IANA-Draft</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-ORG-2100</div><div class="scard-title">Governance (konzeptuell)</div><div class="scard-desc">RACI-Matrix, Eskalationspfade E-1–E-4, CIP, Kompetenzprofile, ISO 9001/27001/31000 Kompatibilität</div><div class="scard-ver"><span class="ok">v1.5 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Konzeptuelle Governance-Grundlage: RACI-Matrix für alle Rollen, Eskalationspfade E-1 bis E-4, Change Impact Process (CIP) mit 5 Schritten, Kompetenzprofile. Kompatibilität mit ISO 9001 (QM), ISO 27001 (InfoSec) und ISO 31000 (Risiko) normativ abgebildet.</p><div class="tags"><span class="tag">RACI</span><span class="tag">E-1–E-4</span><span class="tag">CIP</span><span class="tag">ISO 9001</span><span class="tag">ISO 27001</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-5100</div><div class="scard-title">Governance (normativ)</div><div class="scard-desc">CGUAS 20-Punkte-CL · CGFS 20-Punkte-CL · T-API-001–060 in 6 Kategorien · Level-3 Cosmic-Domain-Vektoren</div><div class="scard-ver"><span class="ok">v1.3 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normative Governance-Implementierung: CGUAS 20-Punkte-Checkliste und CGFS 20-Punkte-Checkliste für Deployment-Konformität. T-API-001–060 Testsuite in 6 Kategorien. Level-3 Cosmic-Domain-Vektoren für Tests mit sehr langen Zeitspannen (geologisch, astronomisch).</p><div class="tags"><span class="tag">CGUAS 20-Punkte</span><span class="tag">CGFS 20-Punkte</span><span class="tag">T-API 60 Tests</span><span class="tag">Cosmic-Domain</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-6100</div><div class="scard-title">Erweiterungen</div><div class="scard-desc">79-Bit CGUAS-Adressraum · CGFS-Filesystem · CGFI · Tombstone · ARITH-Domain 6 Ops · I-QKD-1 · OP-12/13 TSC</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> · Schicht 6 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Erweiterungsschicht mit dem 79-Bit CGUAS-Adressraum (N-CGUAS-001), CGFS-Filesystem, CGFI, DSGVO-Tombstone-Protokoll und der ARITH-Domain (6 Operationen, 46 Testvektoren, BigInt ℤ∞). TSC-Vorlagen für OP-12 (FileType-Namespace-Governance) und OP-13 (σ-Feld I-QKD-1) bereit. Neu in v1.0: ARITH-Domain normativ freigegeben.</p><div class="tags"><span class="tag">79-Bit Adressraum</span><span class="tag">ARITH-Domain</span><span class="tag">I-QKD-1</span><span class="tag">Tombstone</span><span class="tag">OP-12/13</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-6100</div><div class="scard-title">Erweiterungen</div><div class="scard-desc">79-Bit CGUAS-Adressraum · CGFS-Filesystem · CGFI · Tombstone · Allen-Relationen · I-QKD-1 · OP-12/13 TSC-Vorlagen bereit</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> · Schicht 6 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Erweiterungsschicht mit dem 79-Bit CGUAS-Adressraum (N-CGUAS-001), CGFS-Filesystem, CGFI, und dem DSGVO-Tombstone-Protokoll. TSC-Vorlagen für OP-12 (FileType-Namespace-Governance) und OP-13 (σ-Feld I-QKD-1) bereit. Invariante I-QKD-1 für quantensichere Schlüsselrotation (ETSI ISG-QKD).</p><div class="tags"><span class="tag">79-Bit Adressraum</span><span class="tag">I-QKD-1</span><span class="tag">Tombstone</span><span class="tag">OP-12/13</span><span class="tag">ETSI ISG-QKD</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0100</div><div class="scard-title">Anwendungsanalyse</div><div class="scard-desc">26 Anwendungsdomänen analysiert. Use-Case-Struktur: Szenario → Problem → Konsequenz → ChronoGrid-Lösung → Standardvergleich</div><div class="scard-ver"><span class="ok">v1.8 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Umfassende Analyse von 26 Anwendungsdomänen (Luftfahrt, Medizin, Recht, Quantenphysik, Energie, etc.). Jeder Anwendungsfall folgt dem einheitlichen Schema: Szenario → Problem → Konsequenz → ChronoGrid-Lösung → Vergleich mit bestehenden Standards. Grundlage für FFG-Antrag und ASI/ON-Einreichung.</p><div class="tags"><span class="tag">26 Domänen</span><span class="tag">Killer Use Cases</span><span class="tag">FFG-Grundlage</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0200</div><div class="scard-title">Engineers Guide</div><div class="scard-desc">Implementierungsleitfaden: Designrationale, alle 9 Invarianten mit Pseudocode, Engine-Architektur, ARITH-Domain §9, häufige Fehler</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praxisleitfaden für Entwickler die ChronoGrid implementieren. Erklärt das Designrationale hinter allen Entscheidungen (warum BigInt? warum TAI bevorzugt? warum SHA-256?). Alle 9 normativen Invarianten mit Pseudocode. Neu in v0.5: §9 ARITH-Domain. Häufige Implementierungsfehler und wie man sie vermeidet.</p><div class="tags"><span class="tag">9 Invarianten</span><span class="tag">Pseudocode</span><span class="tag">ARITH §9</span><span class="tag">Designrationale</span><span class="tag">Entwickler</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0200</div><div class="scard-title">Engineers Guide</div><div class="scard-desc">Implementierungsleitfaden: Designrationale, alle 9 Invarianten mit Pseudocode, Engine-Architektur, häufige Fehler</div><div class="scard-ver"><span class="draft">v0.5 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praxisleitfaden für Entwickler die ChronoGrid implementieren. Erklärt das Designrationale hinter allen Entscheidungen (warum BigInt? warum TAI bevorzugt? warum SHA-256?). Alle 9 normativen Invarianten mit Pseudocode. Häufige Implementierungsfehler und wie man sie vermeidet.</p><div class="tags"><span class="tag">9 Invarianten</span><span class="tag">Pseudocode</span><span class="tag">Designrationale</span><span class="tag">Entwickler</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0300</div><div class="scard-title">CTDDL vs. OWL-Time</div><div class="scard-desc">40-Kriterien-Vergleich: CTDDL 34/40 · OWL-Time 22/40 · Schema.org 11/40. Ehrliche Bewertung inkl. CTDDL-Schwächen</div><div class="scard-ver"><span class="ok">v1.2 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Systematischer 40-Kriterien-Vergleich der drei wichtigsten Zeit-Beschreibungssprachen. CTDDL 34/40, OWL-Time 22/40, Schema.org 11/40. Enthält eine ehrliche Bewertung der CTDDL-Schwächen (z.B. keine RDF-Kompatibilität, kleinere Community). Wichtiges Dokument für FFG-Antrag und akademische Publikation.</p><div class="tags"><span class="tag">40 Kriterien</span><span class="tag">CTDDL 34/40</span><span class="tag">OWL-Time 22/40</span><span class="tag">Schema.org 11/40</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0400</div><div class="scard-title">Dateimanifest-Leitfaden</div><div class="scard-desc">Schritt-für-Schritt CGFS-Manifest-Erstellung. Beispiel: österreichische Notariatsurkunde</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Praktischer Leitfaden zur Erstellung von CGFS-Manifesten. Referenzbeispiel: österreichische Notariatsurkunde mit 30-Jahres-Aufbewahrungspflicht. Erklärt alle 20 Punkte der CGFS-Checkliste anhand des konkreten Beispiels. Zeigt DSGVO-Tombstone-Verfahren.</p><div class="tags"><span class="tag">CGFS-Manifest</span><span class="tag">Notariatsurkunde</span><span class="tag">DSGVO</span><span class="tag">20-Punkte-CL</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0500</div><div class="scard-title">Reference Registry</div><div class="scard-desc">Registry-Architektur: CG-STD-3100 als interne Engine; CG-STD-4100 als externer API-Gateway</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Beschreibt die Architektur der ChronoGrid-Registry. Klärt die Trennung: CG-STD-3100 ist die interne Engine (nicht direkt zugänglich), CG-STD-4100 ist der öffentliche API-Gateway. Erklärt Resolver-Konfiguration, Domain-Registrierung und den Prozess für neue CTDDL-Einträge.</p><div class="tags"><span class="tag">Registry-Architektur</span><span class="tag">Resolver</span><span class="tag">Domain-Registrierung</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">6 vollständige vertikale Use Cases: ATC/ACARS OS411, Notariatsurkunde, DSGVO-Tombstone, 30-Jahres-Kette, QKD, ARITH UC6</div><div class="scard-ver"><span class="draft">v0.6 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>6 end-to-end implementierte Use Cases mit vollständigem Code und CGFS-Manifesten: (1) ATC/ACARS OS411 — Flugsicherung, (2) Notariatsurkunde — 30-Jahres-Archivierung, (3) DSGVO-Tombstone — Löschnachweis, (4) 30-Jahres-Versionskette, (5) QKD Schlüssel-Lifecycle, (6) ARITH UC6 — neue Zeitarithmetik. Direkt als Vorlage verwendbar.</p><div class="tags"><span class="tag">6 Use Cases</span><span class="tag">ATC/ACARS</span><span class="tag">Notar</span><span class="tag">DSGVO</span><span class="tag">QKD</span><span class="tag">ARITH UC6</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 248/248 Tests konform (Level-2: 96 · CGUA: 34 · ARITH: 46 · Level-3: 72)</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.5. 248/248 Tests konform. Konformitätszertifikat: CG:TAI:1776673435043000000/v1.</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">248/248 Tests</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">5 vollständige vertikale Use Cases: ATC/ACARS OS411, Notariatsurkunde, DSGVO-Tombstone, 30-Jahres-Kette, QKD</div><div class="scard-ver"><span class="draft">v0.6 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>5 end-to-end implementierte Use Cases mit vollständigem Code und CGFS-Manifesten: (1) ATC/ACARS OS411 — Flugsicherung, (2) Notariatsurkunde — 30-Jahres-Archivierung, (3) DSGVO-Tombstone — Löschnachweis, (4) 30-Jahres-Versionskette, (5) QKD Schlüssel-Lifecycle. Direkt als Vorlage verwendbar.</p><div class="tags"><span class="tag">5 Use Cases</span><span class="tag">ATC/ACARS</span><span class="tag">Notar</span><span class="tag">DSGVO</span><span class="tag">QKD</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 248/248 Tests konform (Level-2: 96 · CGUA: 34 · ARITH: 46 · Level-3: 72)</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0 Sprint 1–6: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.5. Sprint 6: cg-zeitarithmetik.ts + arith-v1.ctddl.json (46 ARITH-Tests). Konformitätszertifikat: CG:TAI:1776673435043000000/v1 (20.04.2026).</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">248/248 Tests</span><span class="tag">Sprint 1–6</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0800</div><div class="scard-title">Interoperability Guide</div><div class="scard-desc">Integration mit bestehenden Systemen. Migration von POSIX/ISO 8601/OWL-Time zu CGTA. Adapter-Patterns</div><div class="scard-ver"><span class="draft">v0.2 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Leitfaden für die Integration von ChronoGrid in bestehende Systeme. Adapter-Patterns für POSIX (incl. Year-2038-Migration), ISO 8601, Excel-Datumswerte, OWL-Time-Ontologien. Beschreibt schrittweise Migration ohne Big-Bang-Umstellung.</p><div class="tags"><span class="tag">POSIX-Migration</span><span class="tag">ISO 8601</span><span class="tag">Adapter-Patterns</span><span class="tag">Y2K38</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0900</div><div class="scard-title">NIS2 Compliance Profile</div><div class="scard-desc">EU-Richtlinie NIS2: CGTA als normativer Zeittyp für Incident-Reporting und Log-Integrität. Konkrete Artikel-Mappings</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Network and Information Security Directive 2 (NIS2): Konkrete Artikel-Mappings zeigen wo CGTA die Compliance-Anforderungen erfüllt — insbesondere für Incident-Reporting-Fristen (24h/72h), Log-Integrität und forensische Nachvollziehbarkeit. Direkt verwendbar für FFG-Antrag als EU-Mandate-Argument.</p><div class="tags"><span class="tag">NIS2</span><span class="tag">Incident-Reporting</span><span class="tag">Log-Integrität</span><span class="tag">EU-Mandat</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0910</div><div class="scard-title">CRA / SBOM Timestamp</div><div class="scard-desc">EU Cyber Resilience Act: CGFI-Zeitstempel in SBOM. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — CI-Pipeline integriert</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> · <span class="ok">PoC ✅</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Cyber Resilience Act (CRA): Software Bill of Materials (SBOM) muss Zeitstempel für jede Komponente enthalten. CGFI-Zeitstempel bieten tamper-evidenten Nachweis. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — automatisierte CGFI-Generierung bei jedem Commit. CI-Pipeline integriert.</p><div class="tags"><span class="tag">CRA</span><span class="tag">SBOM</span><span class="tag">GitHub Actions</span><span class="tag">CI-Pipeline</span><span class="tag">PoC ✅</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-DOC-UEBERSICHT</div><div class="scard-title">Dokumentenübersicht</div><div class="scard-desc">Vollständige Querverweis-Matrix aller 21 Dokumente. Versionsstände, Abhängigkeiten, Freigabestatus, cg-lint.py Prüfprotokoll</div><div class="scard-ver"><span class="ok">v3.1 Freigegeben</span> · Metadokument <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Querverweis-Matrix aller 21 Dokumente mit Versionsnummern, Freigabestatus (Freigegeben / DRAFT), Schichtzuordnung und gegenseitigen Abhängigkeiten. Enthält das Prüfprotokoll von cg-lint.py v1.5 — 0 Fehler, 0 Warnungen, 27 unterdrückte Meldungen. Wird bei jeder Dokumentenänderung aktualisiert.</p><div class="tags"><span class="tag">Querverweis-Matrix</span><span class="tag">cg-lint.py v1.5</span><span class="tag">Versionsstände</span><span class="tag">21 Dokumente</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-DOC-0000</div><div class="scard-title">Hauptbriefing</div><div class="scard-desc">Vollständiges Projektbriefing für Claude-Sessions. Einzige Quelle der Wahrheit. Alle Inhalte, Zahlen und Versionen des Spezifikationsstacks</div><div class="scard-ver"><span class="ok">v3.8 Freigegeben</span> · Metadokument <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Das Hauptbriefing ist die einzige normative Quelle für alle Projektinhalte: Dokumentenstand, Testzahlen, Versionsnummern, Use Cases, Normierungspfad und Autorenangaben. Wird bei jeder inhaltlichen Änderung versioniert. Bildet die Grundlage für Website-Updates, OCG-Paper und ASI/ON-Einreichung.</p><div class="tags"><span class="tag">Einzige Quelle</span><span class="tag">Alle Versionen</span><span class="tag">Projektstatus</span><span class="tag">v3.8</span></div></div></div>
   </div>
 </div>
 </section>
@@ -814,7 +859,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
         Was folgte, war eine Frage nach der anderen. Warum wird dieselbe Zeit in so vielen verschiedenen Darstellungen gespeichert? Warum entstehen beim Umrechnen Fehler, die sich unbemerkt fortpflanzen? Warum gibt es keinen Standard, der Zeit als präzise Zahl — von Nanosekunden bis zu Milliarden Jahren — einheitlich und maschinenlesbar beschreibt, und dabei trotzdem für Menschen lesbar bleibt?
       </p>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
-        Ohne Programmierkenntnisse, aber mit dem Willen die Idee ernsthaft weiterzuverfolgen, entstand ChronoGrid in enger Zusammenarbeit mit KI-Werkzeugen über hunderte von Stunden. Das Ergebnis — 21 normative Dokumente, eine vollständige Referenzimplementierung und 248 konforme Tests — übersteigt das, was zu Beginn vorstellbar war.
+        Ohne Programmierkenntnisse, aber mit dem Willen die Idee ernsthaft weiterzuverfolgen, entstand ChronoGrid in enger Zusammenarbeit mit KI-Werkzeugen über hunderte von Stunden. Das Ergebnis — 19 normative Dokumente, eine vollständige Referenzimplementierung und 248 konforme Tests — übersteigt das, was zu Beginn vorstellbar war.
       </p>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;">
         ChronoGrid sucht jetzt den akademischen Dialog: Ist der Ansatz formal korrekt? Ist er normierungsfähig? Die Antwort auf diese Fragen soll nicht intern gegeben werden — sondern von Fachleuten, die das Projekt unabhängig beurteilen.
@@ -847,10 +892,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <footer>
 <div class="footer-inner">
   <div>
-    <a href="#hero" style="display:inline-block;margin-bottom:.6rem;"><img src="logo-nav.svg" alt="ChronoGrid Systems" style="height:100px;display:block;"></a>
+    <div style="margin-bottom:.8rem;">
+      <a href="#hero"><img src="logo-nav.svg" alt="ChronoGrid Systems" style="height:100px;display:block;"></a>
+    </div>
     <p class="fd">Ein formales, universelles Zeitstandardisierungsprojekt mit dem Ziel der internationalen Normierung über ASI/ON → CEN/CENELEC → ISO TC 154. Entwickelt in Neunkirchen, Niederösterreich, Österreich.</p>
     <div class="fm">
-      <div>Spezifikationsstack: <span>21 Dokumente · CG-STD-0000 bis CG-DOC-0000</span></div>
+      <div>Spezifikationsstack: <span>19 Dokumente · CG-STD-0000 bis CG-APP-0910</span></div>
       <div>Konformität: <span>248/248 Tests (Level-2: 96 · CGUA: 34 · ARITH: 46 · Level-3: 72) · Mai 2026</span></div>
       <div>API: <span>28 REST-Endpoints (OpenAPI 3.1) · GraphQL 70 Typen</span></div>
       <div>URI-Schema: <span>cgua:// (IANA-Draft CG-IANA-DRAFT-001 · RFC 7595)</span></div>
@@ -908,44 +955,49 @@ tick();setInterval(tick,1000);
 // ── STAT POPUPS ───────────────────────────────────────────
 const statData = {
   docs: {
-    id:'Spezifikationsstack', val:'21', title:'Normative Dokumente gesamt',
-    body:'9 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100 + CG-ORG-2100), 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910) und 2 Metadokumente (CG-DOC-UEBERSICHT v3.1 + CG-DOC-0000 v3.8). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen, 27 unterdrückte Meldungen.',
-    tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','CG-DOC-0000 v3.8','cg-lint.py v1.5']
+    id:'Spezifikationsstack', val:'19', title:'Normative Dokumente',
+    body:'9 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100 + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.5 — 0 Fehler, 0 Warnungen. Dokumentenübersicht und Briefing sind keine normativen Dokumente und nicht im Stack enthalten.',
+    tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','cg-lint.py v1.5','0 Fehler']
   },
   tests: {
     id:'Testsuite gesamt', val:'248', title:'Normative Tests konform',
-    body:'248/248 Tests konform — aufgeteilt in vier Kategorien: Level-2 (96 Tests, API-Grundfunktionen), CGUA (34 Tests, URI-Schema und Adressraum), ARITH (46 Tests, Zeitarithmetik BigInt ℤ∞) und Level-3 (72 Tests, komplexe Szenarien inkl. kosmische Domänen, Weltlinie, Schaltsekunden-Grenzfälle). Alle Tests reproducierbar über cg-testkit CLI ausführbar.',
+    body:'248/248 Tests konform — aufgeteilt in vier Kategorien: Level-2 (96 Tests), CGUA (34 Tests, URI-Schema und Adressraum), ARITH (46 Tests, ℤ∞ BigInt Zeitarithmetik, Sprint 6) und Level-3 (72 Tests, komplexe Szenarien). Alle Tests reproducierbar über cg-testkit CLI.',
     tags:['Level-2: 96/96','CGUA: 34/34','ARITH: 46/46','Level-3: 72/72','cg-testkit CLI']
   },
   l2: {
     id:'CG-STD-4100 · T-API', val:'96', title:'Level-2-Tests konform',
-    body:'96/96 Level-2-Tests — Datum: 01.05.2026. Prüfen die grundlegenden API-Funktionen: CGTA-Encoding/Decoding, Domain-Mapping (UTC↔TAI↔GPS), Fehlerklassen CG-E-001–011, MachineID SHA-256, REST-Endpoint-Verhalten und Authentifizierung. Definiert in CG-STD-4100 Anlage C.',
+    body:'96/96 Level-2-Tests — Datum: 01.05.2026. Prüfen die grundlegenden API-Funktionen: CGTA-Encoding/Decoding, Domain-Mapping (UTC↔TAI↔GPS), Fehlerklassen CG-E-001–011, MachineID SHA-256, REST-Endpoint-Verhalten und Authentifizierung.',
     tags:['01.05.2026','CG-STD-4100','REST-Endpoints','Encoding/Decoding','Fehlerklassen']
   },
   l3: {
     id:'CG-STD-3100 · T-ENG', val:'72', title:'Level-3-Tests konform',
-    body:'72/72 Level-3-Tests — Datum: 11.05.2026. Komplexe Szenarien: kosmische Domänen (geologische Epochen, astronomische Zeitskalen), relativistische Weltlinien (Klasse-B RK45), Schaltsekunden-Grenzfälle (incl. 2016-Testvektor aus Anhang B CG-STD-0000), Allen-Relationen über CGTA-Intervalle, CGFI-Kettenberechnung.',
-    tags:['11.05.2026','Kosmische Domänen','Klasse-B Weltlinie','Allen-Relationen','Schaltsekunden']
+    body:'72/72 Level-3-Tests — Datum: 20.04.2026. Komplexe Szenarien: kosmische Domänen, relativistische Weltlinien (Klasse-B RK45), Schaltsekunden-Grenzfälle (2016-Testvektor), Allen-Relationen über CGTA-Intervalle, CGFI-Kettenberechnung.',
+    tags:['20.04.2026','Kosmische Domänen','Klasse-B Weltlinie','Allen-Relationen','Schaltsekunden']
   },
   cgua: {
-    id:'CG-STD-6100 · cgua://', val:'34', title:'CGUA-Tests konform',
-    body:'34/34 CGUA-Tests — URI-Schema cgua:// gemäß RFC 7595. Testet den 79-Bit-Adressraum (N-CGUAS-001), Segment-Spezifität, Resolver-Verhalten und IANA-Draft-Konformität (CG-IANA-DRAFT-001). Alle Adressraum-Invarianten abgedeckt. Grundlage für die IANA-Einreichung nach CG-STD-6100 v1.0.',
-    tags:['cgua:// RFC 7595','79-Bit Adressraum','IANA-Draft','N-CGUAS-001','Resolver']
+    id:'CG-STD-6100 · CGUA · cgua.test.ts', val:'34', title:'CGUA-Tests konform',
+    body:'34/34 CGUA-Tests — Adressraum- und URI-Schema-Konformität. Prüfen: toCGUA(), resolveCGUA(), allocateSegment(), 79-Bit Grenzwerte, Resolver-Typen (url/s3/gcs/azure/ipfs/local/custom), Kollisionsvermeidung, safeAdd() CG-E-010.008 FATAL. cgua.test.ts via Vitest.',
+    tags:['79-Bit Adressraum','cgua.test.ts','7 Resolver-Typen','CG-E-010.008','Vitest']
   },
   arith: {
-    id:'CG-STD-6100 · ARITH-Domain', val:'46', title:'ARITH-Tests konform',
-    body:'46/46 ARITH-Testvektoren — normativ definiert in CG-STD-6100 v1.0. Prüfen alle 6 Operationen (add, sub, mul, div, mod, pow), Fehlerklassen CG-E-003 (negativer Wert) und CG-E-006 (Dezimalstellen), Grenzfälle (0 ns, max ℤ∞) und MachineID-Verifikation für ARITH-Ergebnisse. BigInt ℤ∞: ULP=0 in allen 46 Vektoren bestätigt.',
-    tags:['46 Vektoren','6 Operationen','BigInt ℤ∞','ULP=0','CG-E-003/006']
+    id:'ARITH-Domain · Sprint 6 · cg-zeitarithmetik.ts', val:'46', title:'ARITH-Tests konform',
+    body:'46/46 T-ARITH-Tests — Sprint 6, Commit 1260f06, 07. Mai 2026. Prüfen alle 6 Operationen (add/subtract/multiply/divide/modulo/power) mit ℤ∞ BigInt: kein Float, kein Rundungsfehler, I-R3 konform. Gesamtergebnis Sprint 1–6: 80/80 (46 ARITH + 34 CGUA). CTDDL: arith-v1.ctddl.json.',
+    tags:['T-ARITH-001–053','ℤ∞ BigInt','I-R3 konform','arith-v1.ctddl.json','Sprint 6']
   },
   api: {
     id:'CG-STD-4100 · OpenAPI 3.1', val:'28', title:'REST-Endpoints',
-    body:'28 REST-Endpoints definiert in CG-STD-4100 Anlage A (OpenAPI 3.1). Kategorien: CGTA-Compute, Domain-Resolver, MachineID, CGFI, Konformitäts-Validierung, Registry-Zugriff. Ergänzt durch GraphQL API mit 70 Typen (SDL, Anlage B) inkl. Query, Mutation und Subscription. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001.',
+    body:'28 REST-Endpoints definiert in CG-STD-4100 Anlage A (OpenAPI 3.1). Kategorien: CGTA-Compute, Domain-Resolver, MachineID, CGFI, Konformitäts-Validierung, Registry-Zugriff. Ergänzt durch GraphQL API mit 70 Typen (SDL) inkl. Query, Mutation und Subscription. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001.',
     tags:['OpenAPI 3.1','GraphQL 70 Typen','cgua:// URI-Schema','IANA-Draft','RFC 7595']
   },
   uc: {
     id:'CG-APP-0100 · Killer Use Cases v2', val:'8', title:'Validierte Anwendungsfälle',
-    body:'8 Killer Use Cases mit konkretem Problem-Lösungs-Nachweis: (1) Flugzeugabsturz AF447 — 4 Zeitbasen korrelieren, (2) Year-2038 — ℤ∞ BigInt, (3) Sommerzeit-Ambiguität — TAI monoton, (4) 30-Jahres-Notar — CGFI + Tombstone, (5) GPS-Relativität — Klasse-B RK45, (6) SIEM-Forensik NTP-Drift, (7) CERN 40 MHz Float-Fehler, (8) Excel Lotus-Bug 1900.',
+    body:'8 Killer Use Cases mit konkretem Problem-Lösungs-Nachweis: (1) Flugzeugabsturz AF447, (2) Year-2038 ℤ∞ BigInt, (3) Sommerzeit-Ambiguität TAI monoton, (4) 30-Jahres-Notar CGFI + Tombstone, (5) GPS-Relativität Klasse-B RK45, (6) SIEM-Forensik NTP-Drift, (7) CERN 40 MHz Float-Fehler, (8) Excel Lotus-Bug 1900.',
     tags:['Aviation','Year-2038','Cybersecurity','Legal','Raumfahrt','CERN','Interoperabilität']
+  },
+  iso: {
+    id:'Normierungspfad', val:'TC 154', title:'ISO Zielkomitee',
+    body:'ISO Technical Committee 154. Normierungspfad: ASI/ON (Österreich) → CEN/CENELEC (Europa, TC 434) → ISO TC 154 (International). Voraussetzung: externe Verifikation der 4 DRAFT-Theoreme in CG-STD-0000. Strategische Allianz mit IERS, BIPM und ETSI ISG-QKD geplant.',
+    tags:['ASI/ON','CEN/TC 434','ISO TC 154','IERS','BIPM','ETSI ISG-QKD']
   }
 };
 
@@ -990,6 +1042,83 @@ function toggleScard(el){
   const wasOpen=el.classList.contains('open');
   document.querySelectorAll('.scard').forEach(s=>s.classList.remove('open'));
   if(!wasOpen)el.classList.add('open');
+}
+function copyCode(){
+  const t='CG:UTC:2026-05-01T14:37:22.000Z/v1\nCG:TAI:2026-05-01T14:37:59.000/v1\nCG:GPS:2026-05-01T14:37:40.000/v1\nCG:TAI:1746106679000000000/v1';
+  navigator.clipboard.writeText(t).catch(()=>{});
+  const b=document.querySelector('.code-copy');
+  if(b){b.textContent='Kopiert ✓';setTimeout(()=>b.textContent='Kopieren',2000);}
+}
+
+// ── ARITH RECHNER ─────────────────────────────────────────
+function calcArith(){
+  const elA=document.getElementById('arith-a');
+  const elB=document.getElementById('arith-b');
+  const elOp=document.getElementById('arith-op');
+  if(!elA||!elB||!elOp)return;
+  const aStr=(elA.value||'0').replace(/[_\s]/g,'').replace(',','.');
+  const bStr=(elB.value||'0').replace(/[_\s]/g,'').replace(',','.');
+  const op=elOp.value;
+  const floatR=document.getElementById('arith-float-res');
+  const floatE=document.getElementById('arith-float-err');
+  const bigR=document.getElementById('arith-big-res');
+  const bigC=document.getElementById('arith-big-cgta');
+  if(!floatR||!bigR)return;
+
+  // Float64-Ergebnis
+  try{
+    const aF=parseFloat(aStr),bF=parseFloat(bStr);
+    let rF;
+    switch(op){
+      case 'add':rF=aF+bF;break; case 'sub':rF=aF-bF;break;
+      case 'mul':rF=aF*bF;break; case 'div':rF=bF!==0?aF/bF:NaN;break;
+      case 'mod':rF=bF!==0?aF%bF:NaN;break; case 'pow':rF=Math.pow(aF,bF);break;
+      default:rF=NaN;
+    }
+    floatR.textContent=isNaN(rF)?'Fehler: Division durch 0 / ungültig':String(rF);
+  }catch(e){floatR.textContent='Fehler: '+e.message;}
+
+  // BigInt-Ergebnis + ULP-Vergleich
+  try{
+    const aBig=BigInt(aStr.split('.')[0]);
+    const bBig=BigInt(bStr.split('.')[0]);
+    let rBig;
+    switch(op){
+      case 'add':rBig=aBig+bBig;break; case 'sub':rBig=aBig-bBig;break;
+      case 'mul':rBig=aBig*bBig;break;
+      case 'div':if(bBig===0n)throw new Error('Division durch 0');rBig=aBig/bBig;break;
+      case 'mod':if(bBig===0n)throw new Error('Division durch 0');rBig=aBig%bBig;break;
+      case 'pow':if(bBig<0n)throw new Error('neg. Exponent');rBig=aBig**bBig;break;
+      default:throw new Error('Unbekannte Operation');
+    }
+    bigR.textContent=rBig.toString();
+    bigC.textContent='CG:ARITH:'+rBig.toString()+'/v1';
+    // ULP-Diff: vergleiche Float64-Ergebnis mit exaktem BigInt
+    try{
+      const fVal=parseFloat(floatR.textContent);
+      if(isNaN(fVal)){floatE.textContent='';return;}
+      // Float64 → BigInt für Vergleich
+      const fBig=BigInt(Math.trunc(fVal));
+      const diff=rBig-fBig;
+      if(diff===0n){
+        floatE.textContent='✓ Kein Fehler bei diesen Werten';
+        floatE.style.color='var(--green)';
+      }else{
+        floatE.textContent='⚠ ULP-Fehler: '+(diff>0n?'+':'')+diff.toString()+' ns';
+        floatE.style.color='var(--red)';
+      }
+    }catch{floatE.textContent='';}
+  }catch(e){
+    bigR.textContent='Ungültige Eingabe ('+e.message+')';
+    bigC.textContent='';
+    floatE.textContent='';
+  }
+}
+// Sicherung: auch nach vollständigem DOM-Aufbau nochmals aufrufen
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',calcArith);
+}else{
+  calcArith();
 }
 
 // ── SCROLL FADE-IN ────────────────────────────────────────
