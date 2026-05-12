@@ -269,7 +269,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 .fb{font-family:var(--cond);font-size:1.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:.4rem;}
 .fb span{color:var(--ice);font-weight:300;}
 .fd{font-size:.84rem;color:var(--ice-dim);max-width:520px;line-height:1.75;margin-bottom:1.4rem;}
-.fm{font-family:var(--mono);font-size:.65rem;color:#2A4060;letter-spacing:.05em;line-height:2.2;}
+.fm{font-family:var(--mono);font-size:.65rem;color:var(--ice-dim);letter-spacing:.05em;line-height:2.2;}
 .fm span{color:var(--accent-dim);}
 .fc{font-family:var(--mono);font-size:.7rem;letter-spacing:.07em;color:var(--ice-dim);text-transform:uppercase;line-height:2.4;text-align:right;}
 .fc strong{color:var(--accent);font-weight:500;}
@@ -318,10 +318,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="hero-tag fu" id="live-tag">Wien · lade...</div>
   <h1 class="fu fu2">Der erste<br>formale<br><em>Zeitstandard</em></h1>
   <p class="hero-sub fu fu3">Bestehende Standards lösen Teilprobleme: ISO 8601 definiert Notation, POSIX definiert Systemzeit, OWL-Time definiert Ontologie. Keiner löst alle vier Dimensionen gleichzeitig — formale Beschreibung, deterministische Arithmetik, kryptographische Verankerung und langzeitstabile Adressierung. <strong>ChronoGrid schließt diese Lücke normativ.</strong></p>
-  <div class="cta-row fu fu4">
-    <a class="btn-p" href="#arch">Architektur erkunden</a>
-    <a class="btn-g" href="#roadmap">Projektstatus</a>
-  </div>
   <div class="stat-kacheln">
     <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">19</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">9 STD + 10 APP</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">248</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">L2 · CGUA · ARITH · L3</div><div class="stat-k-hint">▸ Details</div></div>
@@ -1065,6 +1061,19 @@ function calcArith(){
   const bigC=document.getElementById('arith-big-cgta');
   if(!floatR||!bigR)return;
 
+  // pow(): Exponent begrenzen um Browser-Hänger zu vermeiden
+  if(op==='pow'){
+    const expVal=BigInt(bStr.split('.')[0]||'0');
+    if(expVal>1000n){
+      bigR.textContent='⚠ Exponent zu groß (max. 1000) — Berechnung würde Browser blockieren';
+      bigR.style.color='var(--red)';
+      bigC.textContent='';
+      floatR.textContent='—';
+      floatE.textContent='';
+      return;
+    }
+  }
+
   // Float64-Ergebnis
   try{
     const aF=parseFloat(aStr),bF=parseFloat(bStr);
@@ -1079,6 +1088,7 @@ function calcArith(){
   }catch(e){floatR.textContent='Fehler: '+e.message;}
 
   // BigInt-Ergebnis + ULP-Vergleich
+  bigR.style.color='var(--green)';
   try{
     const aBig=BigInt(aStr.split('.')[0]);
     const bBig=BigInt(bStr.split('.')[0]);
@@ -1088,16 +1098,26 @@ function calcArith(){
       case 'mul':rBig=aBig*bBig;break;
       case 'div':if(bBig===0n)throw new Error('Division durch 0');rBig=aBig/bBig;break;
       case 'mod':if(bBig===0n)throw new Error('Division durch 0');rBig=aBig%bBig;break;
-      case 'pow':if(bBig<0n)throw new Error('neg. Exponent');rBig=aBig**bBig;break;
+      case 'pow':
+        if(bBig<0n)throw new Error('neg. Exponent');
+        bigR.textContent='⟳ Berechne...';
+        bigC.textContent='';
+        setTimeout(()=>{
+          try{
+            const r=aBig**bBig;
+            bigR.textContent=r.toString();
+            bigC.textContent='CG:ARITH:'+r.toString().substring(0,40)+(r.toString().length>40?'…':'')+'/v1';
+          }catch(e2){bigR.textContent='Fehler: '+e2.message;bigC.textContent='';}
+        },10);
+        return;
       default:throw new Error('Unbekannte Operation');
     }
     bigR.textContent=rBig.toString();
     bigC.textContent='CG:ARITH:'+rBig.toString()+'/v1';
-    // ULP-Diff: vergleiche Float64-Ergebnis mit exaktem BigInt
+    // ULP-Diff
     try{
       const fVal=parseFloat(floatR.textContent);
       if(isNaN(fVal)){floatE.textContent='';return;}
-      // Float64 → BigInt für Vergleich
       const fBig=BigInt(Math.trunc(fVal));
       const diff=rBig-fBig;
       if(diff===0n){
@@ -1110,6 +1130,7 @@ function calcArith(){
     }catch{floatE.textContent='';}
   }catch(e){
     bigR.textContent='Ungültige Eingabe ('+e.message+')';
+    bigR.style.color='var(--red)';
     bigC.textContent='';
     floatE.textContent='';
   }
