@@ -323,7 +323,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="stat-k" onclick="openStatPopup('cgua')"><div class="stat-k-val">34</div><div class="stat-k-lbl">CGUA-Tests</div><div class="stat-k-sub">34/34 · cgua.test.ts</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('arith')"><div class="stat-k-val">46</div><div class="stat-k-lbl">ARITH-Tests</div><div class="stat-k-sub">T-ARITH-001–053 · Sprint 6</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('api')"><div class="stat-k-val">28</div><div class="stat-k-lbl">REST-Endpoints</div><div class="stat-k-sub">OpenAPI 3.1 + GraphQL SDL</div><div class="stat-k-hint">▸ Details</div></div>
-    <div class="stat-k" onclick="openStatPopup('uc')"><div class="stat-k-val">8</div><div class="stat-k-lbl">Killer Use Cases</div><div class="stat-k-sub">Aviation · CERN · Legal · QKD</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('uc')"><div class="stat-k-val">8</div><div class="stat-k-lbl">Killer Use Cases</div><div class="stat-k-sub">Aviation · CERN · Legal · Year-2038</div><div class="stat-k-hint">▸ Details</div></div>
   </div>
 
   <!-- STAT POPUP OVERLAY -->
@@ -850,7 +850,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
     <div>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
-        Kurt Bauer ist pensionierter Einzelhandelskaufmann aus Neunkirchen, Niederösterreich. Der Ausgangspunkt von ChronoGrid war keine akademische Fragestellung, sondern eine einfache Beobachtung: Wenn es einen wirklich globalen Standard geben soll, dann muss er für etwas gelten, das überall gleich ist — und das ist die Zeit.
+        Der Ausgangspunkt von ChronoGrid war keine akademische Fragestellung, sondern eine einfache Beobachtung: Wenn es einen wirklich globalen Standard geben soll, dann muss er für etwas gelten, das überall gleich ist — und das ist die Zeit.
       </p>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
         Was folgte, war eine Frage nach der anderen. Warum wird dieselbe Zeit in so vielen verschiedenen Darstellungen gespeichert? Warum entstehen beim Umrechnen Fehler, die sich unbemerkt fortpflanzen? Warum gibt es keinen Standard, der Zeit als präzise Zahl — von Nanosekunden bis zu Milliarden Jahren — einheitlich und maschinenlesbar beschreibt, und dabei trotzdem für Menschen lesbar bleibt?
@@ -989,7 +989,7 @@ const statData = {
   uc: {
     id:'CG-APP-0100 · Killer Use Cases v2', val:'8', title:'Validierte Anwendungsfälle',
     body:'8 Killer Use Cases mit konkretem Problem-Lösungs-Nachweis: (1) Flugzeugabsturz AF447, (2) Year-2038 ℤ∞ BigInt, (3) Sommerzeit-Ambiguität TAI monoton, (4) 30-Jahres-Notar CGFI + Tombstone, (5) GPS-Relativität Klasse-B RK45, (6) SIEM-Forensik NTP-Drift, (7) CERN 40 MHz Float-Fehler, (8) Excel Lotus-Bug 1900.',
-    tags:['Aviation','Year-2038','Cybersecurity','Legal','Raumfahrt','CERN','Interoperabilität']
+    tags:['Aviation','Year-2038','Sommerzeit · DST','Legal','Raumfahrt','Cybersecurity · SOC','CERN','Interoperabilität']
   },
   iso: {
     id:'Normierungspfad', val:'TC 154', title:'ISO Zielkomitee',
