@@ -396,8 +396,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--green);padding:1.5rem 2rem;">
     <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;">MachineID — Kryptographischer Fingerabdruck</div>
     <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;">
-      <div style="font-family:var(--mono);font-size:.82rem;color:var(--ice);">SHA-256(<span style="color:var(--accent)">"CG:TAI:2026-05-01T14:37:59Z/v1"</span>)</div>
-      <div style="font-family:var(--mono);font-size:.75rem;color:#3D7040;word-break:break-all;">→ a3f8c2d1b5e9f047... (256 Bit)</div>
+      <div style="font-family:var(--mono);font-size:.82rem;color:var(--ice);">SHA-256(<span style="color:var(--accent)">"TAI:0:1.0"</span>)</div>
+      <div style="font-family:var(--mono);font-size:.75rem;color:#3D7040;word-break:break-all;">→ f060329799216feb80f3561f8aeff77b64531737ea1da8624c391975b9ce89da (256 Bit · Golden Vector)</div>
     </div>
     <div style="font-size:.82rem;color:var(--ice-dim);margin-top:.8rem;line-height:1.65;">Jede CGTA erzeugt einen eindeutigen kryptographischen Fingerabdruck. Damit lässt sich später beweisen, dass ein Dokument zu einem bestimmten Zeitpunkt existiert hat — und dass es nicht verändert wurde.</div>
   </div>
@@ -543,7 +543,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div class="zt-row"><div class="zt-label"><strong>CGTA · TAI-Domain</strong><small>Monoton · schaltsekunden-frei · bevorzugt für Archivierung</small></div><div class="zt-value"><span class="zt-badge tai">CGTA</span><span><span class="seg">CG:</span><span class="dom">TAI</span><span class="seg">:</span><span class="val" id="cgta-tai-val">—</span><span style="color:var(--accent-dim)">/v1</span></span></div></div>
       <div class="zt-row"><div class="zt-label"><strong>CGTA · GPS-Domain</strong><small>Satellitennavigation · Klasse-A-Mapping TAI↔GPS</small></div><div class="zt-value"><span class="zt-badge gps">CGTA</span><span><span class="seg">CG:</span><span class="dom">GPS</span><span class="seg">:</span><span class="val" id="cgta-gps-val">—</span><span style="color:var(--accent-dim)">/v1</span></span></div></div>
       <div class="zt-separator"></div>
-      <div class="zt-row"><div class="zt-label"><strong>MachineID</strong><small>SHA-256(CG:TAI:…/v1) · CG-STD-3100 · 256 Bit</small></div><div class="zt-value"><span class="zt-badge mac">SHA-256</span><span class="hash" id="machine-id">—</span></div></div>
+      <div class="zt-row"><div class="zt-label"><strong>MachineID</strong><small>SHA-256(name : dec(t) : version) · CG-STD-3100 · 256 Bit</small></div><div class="zt-value"><span class="zt-badge mac">SHA-256</span><span class="hash" id="machine-id">—</span></div></div>
     </div>
     <div class="zt-delta">
       <div class="delta-item">TAI − UTC <span>+37 s (seit 2017)</span></div>
@@ -648,7 +648,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div class="layer-detail"><div class="layer-detail-grid">
         <div class="ldt"><div class="ldt-label">Testvektoren</div><div class="ldt-val">114 normative Vektoren<br>T-ENG-001–114 in 8 Kategorien</div></div>
         <div class="ldt"><div class="ldt-label">Allen-Relationen</div><div class="ldt-val">before · meets · overlaps<br>starts · during · finishes · equals (+Inv.)</div></div>
-        <div class="ldt"><div class="ldt-label">MachineID</div><div class="ldt-val">SHA-256(CGTA-String)<br>256-Bit · tamper-evident</div></div>
+        <div class="ldt"><div class="ldt-label">MachineID</div><div class="ldt-val">SHA-256(name : dec(t) : version)<br>256-Bit · tamper-evident</div></div>
         <div class="ldt"><div class="ldt-label">Schnittstelle</div><div class="ldt-val">computeCGFI(t, seq?)<br>intern — nicht public</div></div>
       </div></div>
     </div>
@@ -822,7 +822,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normatives Glossar mit eindeutigen Definitionen für alle Kernbegriffe. Verhindert Mehrdeutigkeit bei der Implementierung. Definiert u.a. Weltlinie (relativistischer Pfad), Ephemeride (Bahnparameter), CIP (Change Impact Process), Klasse-A/B Mapping.</p><div class="tags"><span class="tag">Weltlinie</span><span class="tag">Ephemeride</span><span class="tag">CIP</span><span class="tag">MachineID</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1100</div><div class="scard-title">Architektur</div><div class="scard-desc">Verarbeitungsfluss Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Consolas-Flussdiagramm. CGTA-Syntax ABNF</div><div class="scard-ver"><span class="ok">v2.6 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Definiert den normativen 5-stufigen Verarbeitungsfluss: Zeitpunkt → CGTA → MachineID → CGFI → CGUA. Enthält das Consolas Box-Drawing Flussdiagramm und die vollständige CGTA-Syntax in ABNF (RFC 5234). Legt fest welche Schichten intern/extern sind.</p><div class="tags"><span class="tag">ABNF RFC 5234</span><span class="tag">5-stufige Pipeline</span><span class="tag">Flussdiagramm</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-2100</div><div class="scard-title">CTDDL</div><div class="scard-desc">Time Domain Definition Language. JSON-Schema, ABNF RFC 5234, Klasse-A/B-Mappings, 5-Schritt Schaltsekunden-Verfahren, CGRS 2035</div><div class="scard-ver"><span class="ok">v1.5 Freigegeben</span> · Schicht 2 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Die zentrale Innovation: eine JSON-basierte maschinenlesbare Sprache zur formalen Beschreibung beliebiger Zeitdomänen. Technischer Vergleich vs. OWL-Time und Schema.org in CG-APP-0300 v1.3 (7 Kategorien, ✓/~/✗-Bewertung). Fehlerklassen CG-E-001–011. 5-Schritt-Verfahren für Schaltsekunden-Aktualisierung. CGRS 2035 als geplanter Revisionsplan.</p><div class="tags"><span class="tag">CG-APP-0300 v1.3</span><span class="tag">JSON-Schema</span><span class="tag">CG-E-001–011</span><span class="tag">CGRS 2035</span><span class="tag">Klasse A/B</span></div></div></div>
-    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-3100</div><div class="scard-title">CGFI-Engine</div><div class="scard-desc">Interne Engine. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien. computeCGFI() mit optionalem seq-Parameter</div><div class="scard-ver"><span class="ok">v1.6 Freigegeben</span> · Schicht 3 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Interne Compute-Engine — nicht direkt öffentlich zugänglich (das ist CG-STD-4100). Implementiert Encode/Decode, Domain-Mapping, MachineID SHA-256, CGFI-Berechnung und alle 13 Allen-Relationen. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien sichern die Konformität.</p><div class="tags"><span class="tag">114 Testvektoren</span><span class="tag">Allen 13×</span><span class="tag">SHA-256</span><span class="tag">BigInt</span><span class="tag">intern</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-3100</div><div class="scard-title">CGFI-Engine</div><div class="scard-desc">Interne Engine. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien. computeCGFI() · String-Form (analog MachineID), kein seq</div><div class="scard-ver"><span class="ok">v1.6 Freigegeben</span> · Schicht 3 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Interne Compute-Engine — nicht direkt öffentlich zugänglich (das ist CG-STD-4100). Implementiert Encode/Decode, Domain-Mapping, MachineID SHA-256, CGFI-Berechnung und alle 13 Allen-Relationen. 114 normative Testvektoren T-ENG-001–114 in 8 Kategorien sichern die Konformität.</p><div class="tags"><span class="tag">114 Testvektoren</span><span class="tag">Allen 13×</span><span class="tag">SHA-256</span><span class="tag">BigInt</span><span class="tag">intern</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-4100</div><div class="scard-title">Datenmodell & API</div><div class="scard-desc">REST 28 Endpoints (OpenAPI 3.1) · GraphQL 70 Typen (SDL) · T-API 60 Tests Level 1–3 · cgua:// URI-Schema</div><div class="scard-ver"><span class="ok">v1.1 Freigegeben</span> · Schicht 4 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Öffentliche API-Schicht — trennt die interne Engine (CG-STD-3100) von externen Konsumenten. REST-API mit 28 Endpoints (OpenAPI 3.1, Anlage A normativ). GraphQL mit 70 Typen, SDL (Anlage B). T-API Testsuite 60 Tests Level 1–3. cgua:// URI-Schema via IANA-Draft CG-IANA-DRAFT-001 (RFC 7595).</p><div class="tags"><span class="tag">28 REST-Endpoints</span><span class="tag">GraphQL 70 Typen</span><span class="tag">OpenAPI 3.1</span><span class="tag">cgua://</span><span class="tag">IANA-Draft</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-ORG-2100</div><div class="scard-title">Governance (konzeptuell)</div><div class="scard-desc">RACI-Matrix, Eskalationspfade E-1–E-4, CIP, Kompetenzprofile, ISO 9001/27001/31000 Kompatibilität</div><div class="scard-ver"><span class="ok">v1.6 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Konzeptuelle Governance-Grundlage: RACI-Matrix für alle Rollen, Eskalationspfade E-1 bis E-4, Change Impact Process (CIP) mit 5 Schritten, Kompetenzprofile. Kompatibilität mit ISO 9001 (QM), ISO 27001 (InfoSec) und ISO 31000 (Risiko) normativ abgebildet.</p><div class="tags"><span class="tag">RACI</span><span class="tag">E-1–E-4</span><span class="tag">CIP</span><span class="tag">ISO 9001</span><span class="tag">ISO 27001</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-5100</div><div class="scard-title">Governance (normativ)</div><div class="scard-desc">CGUAS 20-Punkte-CL · CGFS 20-Punkte-CL · T-API-001–060 in 6 Kategorien · Level-3 Cosmic-Domain-Vektoren</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 5 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normative Governance-Implementierung: CGUAS 20-Punkte-Checkliste und CGFS 20-Punkte-Checkliste für Deployment-Konformität. T-API-001–060 Testsuite in 6 Kategorien. Level-3 Cosmic-Domain-Vektoren für Tests mit sehr langen Zeitspannen (geologisch, astronomisch).</p><div class="tags"><span class="tag">CGUAS 20-Punkte</span><span class="tag">CGFS 20-Punkte</span><span class="tag">T-API 60 Tests</span><span class="tag">Cosmic-Domain</span></div></div></div>
@@ -914,7 +914,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div>FFG Basisprogramm</div>
       <br>
       <div><strong>Dokumentenstand</strong></div>
-      <div>29. Mai 2026 · v5.9</div>
+      <div>30. Mai 2026 · v6.2</div>
       <br>
       <div><strong>Kontakt</strong></div>
       <div>Mühlfeldstraße 3</div>
@@ -962,7 +962,7 @@ const cgConfig = {
   // ─── Projektstand ────────────────────────────────────────────
   stand: {
     datum:   '29. Mai 2026',
-    version: 'v5.9',
+    version: 'v6.2',
     phase:   'Phase 3 aktiv',
     phase2:  'abgeschlossen',        // externe Verifikation erledigt
     draftCount: 0,                   // DRAFTs in CG-STD-0000
@@ -996,7 +996,7 @@ async function tick(){
   document.getElementById('cgta-utc-val').textContent=utc;
   const taiStr=fmt(tai); document.getElementById('cgta-tai-val').textContent=taiStr;
   document.getElementById('cgta-gps-val').textContent=fmt(gps);
-  document.getElementById('machine-id').textContent=await sha256('CG:TAI:'+taiStr+'/v1');
+  document.getElementById('machine-id').textContent=await sha256('TAI:'+(BigInt(tai.getTime())*1000000n)+':1.0');
   const tag=document.getElementById('live-tag');
   if(tag){const tz=new Intl.DateTimeFormat('de-AT',{timeZone:'Europe/Vienna',timeZoneName:'short'}).format(now).split(' ').pop();tag.textContent='Wien · '+wien+' '+tz;}
 }
