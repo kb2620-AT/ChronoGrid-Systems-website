@@ -486,7 +486,7 @@
             <div class="t-row"><span class="t-k">σ</span><span class="t-lbl">Semantik</span><span class="t-v" id="t-σ">time</span></div>
           </div>
           <div class="mid-block">
-            <div class="mid-lbl">MachineID · SHA-256(D ‖ t ‖ v ‖ σ)</div>
+            <div class="mid-lbl">MachineID · SHA-256(D:t:v)</div>
             <div id="machine-id">–</div>
           </div>
         </div>
@@ -714,7 +714,7 @@
         </div>
         <div class="cc cc2">
           <div class="cc-badge">Level 2</div>
-          <div class="cc-n">155</div>
+          <div class="cc-n">159</div>
           <div style="font-size:12px;color:var(--text3);margin-bottom:2px;">Tests T-L2-*</div>
           <div class="cc-t">Erweiterte Konformität</div>
           <ul class="cc-ul">
@@ -750,7 +750,7 @@
           <div class="tgc"><div class="tgc-t">A · CGTA-Syntax</div><div class="tgc-i">T-L1-A-001…012<br>Parsing, ABNF-Validierung</div></div>
           <div class="tgc"><div class="tgc-t">B · Lineare Domains</div><div class="tgc-i">T-L1-B-001…010<br>TAI, UNIX, GPS, JDN</div></div>
           <div class="tgc"><div class="tgc-t">C · Decode &amp; Konvert.</div><div class="tgc-i">T-L1-C-001…012<br>Klasse-A, Chain ≤ 8</div></div>
-          <div class="tgc"><div class="tgc-t">D · MachineID</div><div class="tgc-i">T-L1-D-001…012<br>SHA-256(D‖t‖v‖σ) · Golden Vector</div></div>
+          <div class="tgc"><div class="tgc-t">D · MachineID</div><div class="tgc-i">T-L1-D-001…012<br>SHA-256(D:t:v) · Golden Vector</div></div>
           <div class="tgc"><div class="tgc-t">E · ISO 8601 Label</div><div class="tgc-i">T-L1-E-001…007<br>Gregorian, UTC-Offset</div></div>
           <div class="tgc"><div class="tgc-t">F · Fehlerbehandlung</div><div class="tgc-i">T-L1-F-001…006<br>CG-E-001…CG-E-011</div></div>
         </div>
@@ -829,7 +829,7 @@ async function sha256(s) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
-async function machineID(d, t, v, s) { return sha256(d + t.toString() + v + s); }
+async function machineID(d, t, v) { return sha256(d + ':' + t.toString() + ':' + v); }
 
 function fmt(n) {
   const s = n < 0n ? '-' + (-n).toString() : n.toString();
@@ -915,7 +915,7 @@ async function renderZP(ms) {
   document.getElementById('t-v').textContent  = '1';
   document.getElementById('t-σ').textContent  = meta.sigma;
 
-  const h = await machineID(activeDom, t, '1', meta.sigma);
+  const h = await machineID(activeDom, t, '1.0');
   document.getElementById('machine-id').textContent = h;
   document.getElementById('t-h').textContent = h.slice(0,16) + '…';
 
@@ -1146,7 +1146,7 @@ document.getElementById('btn-ar').addEventListener('click', async () => {
       return;
     }
     const dec = decNs(r); if (dec.err) throw new Error(dec.err);
-    const h = await machineID('ARITH', r, '1', sg);
+    const h = await machineID('ARITH', r, '1.0');
     el.innerHTML = `<div class="r-cgta">CG:ARITH:${r.toString()}/v1</div>
       <div class="r-green">⧗ ${dec.label}</div>
       <div class="r-sub">ISO 8601: ${dec.iso} &nbsp;·&nbsp; σ = ${sg}</div>
@@ -1164,7 +1164,7 @@ document.getElementById('btn-dc').addEventListener('click', async () => {
     const t = toNs(raw, unit);
     if (t < 0n) throw new Error('CG-E-003: Negativer Wert');
     const dec = decNs(t); if (dec.err) throw new Error(dec.err);
-    const h = await machineID('ARITH', t, '1', sig);
+    const h = await machineID('ARITH', t, '1.0');
     el.innerHTML = `<div class="r-cgta">CG:ARITH:${t.toString()}/v1</div>
       <div class="r-green">⧗ ${dec.label}</div>
       <div class="r-sub">ISO 8601: ${dec.iso} &nbsp;·&nbsp; σ = ${sig}</div>
