@@ -771,7 +771,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div class="tl-track">
         <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Spezifikations-stack · 22 Dokumente</div><div class="tl-date">Apr. 2026</div></div>
         <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Referenz-implementierung konform</div><div class="tl-date">Apr. 2026</div></div>
-        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Externe Verifikation · abgeschlossen ✓</div><div class="tl-date">Mai 2026</div></div>
+        <div class="tl-step"><div class="tl-dot">◌</div><div class="tl-label">Externe Verifikation · ausstehend</div><div class="tl-date">AP1</div></div>
         <div class="tl-step"><div class="tl-dot plan">○</div><div class="tl-label">ASI/ON Erst-einreichung</div><div class="tl-date">Nach Verif.</div></div>
         <div class="tl-step"><div class="tl-dot plan">○</div><div class="tl-label">ISO TC 154 via CEN</div><div class="tl-date">Langfristig</div></div>
       </div>
@@ -779,7 +779,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="tl-items">
       <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Spezifikationsstack vollständig</h4><p>19 Dokumente · 0 Konsistenzfehler (cg-lint.py v1.6). CG-STD-4100 v1.1 freigegeben. 96/96 Level-2, 32/32 Level-3 (Sprint 11-A). cgua:// IANA-Draft bereit.</p></div>
       <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Referenzimplementierung konform</h4><p>cg-engine v0.9.0 · TypeScript + Node.js 22 + PostgreSQL 14. 28 REST-Endpoints · GraphQL 70 Typen · cg-testkit CLI. 229/229 cg-testkit + 80/80 Vitest (Sprint 11-A · 26.05.2026). CG-CONF-002: CG:TAI:1780056037000000000/v1</p></div>
-      <div class="tl-card cact"><div class="tl-cs done">✓ Abgeschlossen · Mai 2026</div><h4>Externe Verifikation — Phase 2 abgeschlossen</h4><p>Alle 18 Aussagen in CG-STD-0000 v0.8 intern ausgearbeitet und selbstgeprüft (21. Mai 2026). 0 DRAFTs verbleiben. Externe Verifikation ausstehend — geplante Projektleistung (AP1, RISC/TU Wien).</p></div>
+      <div class="tl-card cact"><div class="tl-cs">● In Vorbereitung</div><h4>Externe Verifikation — ausstehend (AP1)</h4><p>Alle 18 Aussagen in CG-STD-0000 v0.8 intern ausgearbeitet und selbstgeprüft (21. Mai 2026). 0 DRAFTs verbleiben. Externe Verifikation ausstehend — geplante Projektleistung (AP1, RISC/TU Wien).</p></div>
       <div class="tl-card cact"><div class="tl-cs">● In Vorbereitung</div><h4>ASI/ON-Erstanfrage · FFG-Antrag</h4><p>ASI/ON-Erstanfrage versandbereit. FFG Basisprogramm: Antrag in Vorbereitung. Akademische Partnerschaft gesucht. OCG-Paper v0.7 in Bearbeitung.</p></div>
       <div class="tl-card cplan"><div class="tl-cs">○ Geplant</div><h4>CEN/CENELEC · IANA-Einreichung</h4><p>CEN/TC 434 nach ASI/ON-Entscheidung. IANA-Einreichung cgua:// nach CG-STD-6100 v1.1. TSC-Beschlüsse OP-12/OP-13 ausstehend.</p></div>
       <div class="tl-card cplan"><div class="tl-cs">○ Langfristig</div><h4>ISO TC 154 · Internationaler Standard</h4><p>CGTA als normativer Zeitadressierungstyp. Strategische Allianz mit IERS (Schaltsekunden), BIPM (TAI) und ETSI ISG-QKD geplant.</p></div>
@@ -877,7 +877,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div style="background:var(--navy-panel);border:1px solid var(--navy-border);border-left:3px solid var(--teal);padding:1.5rem 2rem;">
         <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem;">Gesuchte Zusammenarbeit</div>
         <div style="font-size:.86rem;color:var(--ice-dim);line-height:1.8;">
-          Phase 2 abgeschlossen (Mai 2026): Alle 18 Aussagen in CG-STD-0000 v0.8 selbstgeprüft; externe Verifikation ausstehend. Begleitung der ASI/ON-Einreichung als akademischer Partner. Ko-Autorenschaft beim OCG-Paper v0.7. Partnership-Outreach: RISC (JKU Linz) → TU Wien → BEV.
+          Interne Ausarbeitung abgeschlossen (Mai 2026): Alle 18 Aussagen in CG-STD-0000 v0.8 selbstgeprüft; externe Verifikation ausstehend (AP1). Begleitung der ASI/ON-Einreichung als akademischer Partner. Ko-Autorenschaft beim OCG-Paper v0.7. Partnership-Outreach: RISC (JKU Linz) → TU Wien → BEV.
         </div>
       </div>
     </div>
@@ -965,7 +965,7 @@ const cgConfig = {
     datum:   '29. Mai 2026',
     version: 'v6.2',
     phase:   'Phase 3 aktiv',
-    phase2:  'abgeschlossen',        // externe Verifikation erledigt
+    phase2:  'ausstehend',           // externe Verifikation ausstehend (AP1)
     draftCount: 0,                   // DRAFTs in CG-STD-0000
     lintVer: 'v1.6',
     apiEndpoints: 28,
