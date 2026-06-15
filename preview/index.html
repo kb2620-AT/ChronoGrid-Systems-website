@@ -306,6 +306,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#norm">Normierung</a></li>
     <li><a href="#spec">Spezifikation</a></li>
+    <li><a href="/clock.html">Clock</a></li>
     <li style="margin-left:auto;"><a href="#autor">Autor</a></li>
   </ul>
 </nav>
@@ -316,7 +317,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <h1 class="fu fu2">Der erste<br>formale<br><em>Zeitstandard</em></h1>
   <p class="hero-sub fu fu3">Bestehende Standards lösen Teilprobleme: ISO 8601 definiert Notation, POSIX definiert Systemzeit, OWL-Time definiert Ontologie. Keiner löst alle vier Dimensionen gleichzeitig — formale Beschreibung, deterministische Arithmetik, kryptographische Verankerung und langzeitstabile Adressierung. <strong>ChronoGrid schließt diese Lücke normativ.</strong></p>
   <div class="stat-kacheln">
-    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">19</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">8 STD + 1 ORG + 10 APP</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">21</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">8 STD + 1 ORG + 11 APP</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">229</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">cg-testkit CLI · Level 3</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('l2')"><div class="stat-k-val">96</div><div class="stat-k-lbl">Level-2-Tests</div><div class="stat-k-sub">96/96 · 01.05.2026</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('l3')"><div class="stat-k-val">32</div><div class="stat-k-lbl">Level-3-Tests</div><div class="stat-k-sub">32/32 · cg-testkit CLI</div><div class="stat-k-hint">▸ Details</div></div>
@@ -504,7 +505,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
         </div>
       </div>
       <div style="background:rgba(23,165,137,.06);border:1px solid var(--teal-border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;">
-        <div style="font-family:var(--cond);font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1;">46</div>
+        <div style="font-family:var(--cond);font-size:2.2rem;font-weight:800;color:var(--teal);line-height:1;">50</div>
         <div>
           <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);">normative Tests</div>
           <div style="font-family:var(--mono);font-size:.58rem;color:var(--ice-dim);margin-top:.2rem;">T-ARITH-001–063 · Vitest</div>
@@ -556,6 +557,28 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 </section>
 
 <!-- WEB CALCULATOR -->
+<!-- CLOCK -->
+<section id="clock">
+<div class="si">
+  <div class="stag">Live · Universelle Zeitadressierung</div>
+  <h2>ChronoGrid<br><em>Clock</em></h2>
+  <div class="divider"></div>
+  <p class="lead">Dieselbe Atomzeit — egal ob Wien, Moskau, Tokio oder Auckland. Die CGTA-Adresse bleibt in jeder Zeitzone identisch. Hier sichtbar: TAI, UTC, GPS, lokale Zeit und Nanosekunden seit dem Urknall.</p>
+  <div class="calc-frame-wrap">
+    <iframe
+      src="/clock.html"
+      height="780"
+      title="ChronoGrid Clock – Universelle Zeitadressierung"
+      loading="lazy">
+    </iframe>
+    <div class="calc-open-bar">
+      <span>ChronoGrid Clock · TAI · UTC · GPS · Cosmic · BigInt ℤ∞</span>
+      <a href="/clock.html" target="_blank" class="btn-g" style="padding:.5rem 1.2rem;font-size:.65rem;">Vollbild öffnen ↗</a>
+    </div>
+  </div>
+</div>
+</section>
+
 <section id="calculator">
 <div class="si">
   <div class="stag">Live-Werkzeug · cg-engine v0.9.0</div>
@@ -777,7 +800,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       </div>
     </div>
     <div class="tl-items">
-      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Spezifikationsstack vollständig</h4><p>19 Dokumente · 0 Konsistenzfehler (cg-lint.py v1.6). CG-STD-4100 v1.1 freigegeben. 96/96 Level-2, 32/32 Level-3 (Sprint 11-A). cgua:// IANA-Draft bereit.</p></div>
+      <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Spezifikationsstack vollständig</h4><p>21 Dokumente · 0 Konsistenzfehler (cg-lint.py v1.6). CG-STD-4100 v1.1 freigegeben. 96/96 Level-2, 32/32 Level-3 (Sprint 11-A). cgua:// IANA-Draft bereit.</p></div>
       <div class="tl-card cdone"><div class="tl-cs">✓ Abgeschlossen</div><h4>Referenzimplementierung konform</h4><p>cg-engine v0.9.0 · TypeScript + Node.js 22 + PostgreSQL 14. 28 REST-Endpoints · GraphQL 70 Typen · cg-testkit CLI. 229/229 cg-testkit + 80/80 Vitest (Sprint 11-A · 26.05.2026). CG-CONF-002: CG:TAI:1780056037000000000/v1</p></div>
       <div class="tl-card cact"><div class="tl-cs">● In Vorbereitung</div><h4>Externe Verifikation — ausstehend (AP1)</h4><p>Alle 18 Aussagen in CG-STD-0000 v0.8 intern ausgearbeitet und selbstgeprüft (21. Mai 2026). 0 DRAFTs verbleiben. Externe Verifikation ausstehend — geplante Projektleistung (AP1, RISC/TU Wien).</p></div>
       <div class="tl-card cact"><div class="tl-cs">● In Vorbereitung</div><h4>ASI/ON-Erstanfrage · FFG-Antrag</h4><p>ASI/ON-Erstanfrage versandbereit. FFG Basisprogramm: Antrag in Vorbereitung. Akademische Partnerschaft gesucht. OCG-Paper v0.7 in Bearbeitung.</p></div>
@@ -804,7 +827,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Förderung</div><h4>FFG Basisprogramm</h4><p>Österreichische Forschungsförderungsgesellschaft. Antrag in Vorbereitung. Hauptargument: CTDDL als einzige maschinenlesbare Domänenbeschreibungssprache mit formaler Ganzzahl-Arithmetik, kryptographischer Zeitpunkt-Verankerung (MachineID) und wissenschaftlicher Messunsicherheits-Modellierung — technischer Vergleich vs. OWL-Time und Schema.org dokumentiert in CG-APP-0300 v1.3 (Mai 2026). NIS2 (CG-APP-0900) und CRA/SBOM (CG-APP-0910) als konkrete EU-Compliance-Anwendungsfälle.</div>
     </div>
     <div class="fcard" style="border-style:dashed;border-color:rgba(200,169,81,.3);"><div class="stag" style="margin-bottom:.8rem">Akademischer Partner</div><h4 style="color:var(--ice-dim)">Partnerschaft gesucht</h4><p>ChronoGrid sucht eine akademische Partnerschaft mit einer österreichischen Hochschule oder Forschungseinrichtung. Schwerpunkt: formale Methoden, theoretische Informatik oder Metrologie. Phase 2 abgeschlossen — Begleitung des ASI/ON-Prozesses und Ko-Autorenschaft OCG-Paper.</p></div>
-    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Veröffentlichung</div><h4>OCG-Jahrestagung</h4><p>Paper v0.7 in Bearbeitung: §2.4 ℤ vs. ℝ formal begründet, Related Work 4.1–4.6 vollständig. 19 Dokumente konsistent referenziert (Stand 28. Mai 2026).</p></div>
+    <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Veröffentlichung</div><h4>OCG-Jahrestagung</h4><p>Paper v0.7 in Bearbeitung: §2.4 ℤ vs. ℝ formal begründet, Related Work 4.1–4.6 vollständig. 21 Dokumente konsistent referenziert (Stand 28. Mai 2026).</p></div>
     <div class="fcard"><div class="stag" style="margin-bottom:.8rem">Referenzimplementierung</div><h4>cg-engine v0.9.0</h4><p>TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. 96/96 Level-2 · 32/32 Level-3 · 229/229 cg-testkit CLI · 30/30 CGUA · 50/50 ARITH (80/80 Vitest). 28 REST-Endpoints · cg-testkit CLI · cg-lint.py v1.6 (0 Fehler). CG-CONF-002: CG:TAI:1780056037000000000/v1</p></div>
   </div>
 </div>
@@ -814,7 +837,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
 <section id="spec">
 <div class="si">
   <div class="stag">Spezifikationsstack · Stand 1. Mai 2026</div>
-  <h2>19 normative<br><em>Dokumente</em></h2>
+  <h2>21 normative<br><em>Dokumente</em></h2>
   <div class="divider"></div>
   <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen.</p>
   <div class="spec-grid">
@@ -834,6 +857,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0500</div><div class="scard-title">Reference Registry</div><div class="scard-desc">Registry-Architektur: CG-STD-3100 als interne Engine; CG-STD-4100 als externer API-Gateway</div><div class="scard-ver"><span class="draft">v0.3 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Beschreibt die Architektur der ChronoGrid-Registry. Klärt die Trennung: CG-STD-3100 ist die interne Engine (nicht direkt zugänglich), CG-STD-4100 ist der öffentliche API-Gateway. Erklärt Resolver-Konfiguration, Domain-Registrierung und den Prozess für neue CTDDL-Einträge.</p><div class="tags"><span class="tag">Registry-Architektur</span><span class="tag">Resolver</span><span class="tag">Domain-Registrierung</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0600</div><div class="scard-title">Implementation Cookbook</div><div class="scard-desc">7 vollständige vertikale Use Cases: ATC/ACARS, Notar, IEC 61850, Cosmic, QKD, ARITH, GNSS-Störungsresilienz</div><div class="scard-ver"><span class="draft">v0.9 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>7 end-to-end implementierte Use Cases mit vollständigem Code: (P-1) ATC/ACARS OS411, (P-2) Notariatsurkunde, (P-3) Energiemesswert IEC 61850, (P-4) Cosmic Domain, (P-5) QKD, (P-6) ARITH-Domain, (P-7) GNSS-Störungsresilienz. Direkt als Vorlage verwendbar.</p><div class="tags"><span class="tag">7 Use Cases</span><span class="tag">ATC/ACARS</span><span class="tag">Notar</span><span class="tag">DSGVO</span><span class="tag">QKD</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0700</div><div class="scard-title">Reference Implementation</div><div class="scard-desc">TypeScript/PostgreSQL Monorepo-Architektur. 28 REST-Endpoints. cg-testkit: 229/229 CLI (101 L1 · 96 L2 · 32 L3) + 80/80 Vitest (CGUA 30 · ARITH 50)</div><div class="scard-ver"><span class="ok">v1.1 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Architektur-Dokumentation für cg-engine v0.9.0 Sprint 1–10: TypeScript + Node.js 22 + PostgreSQL 14 · pnpm Workspaces. Beschreibt alle 28 REST-Endpoints, das PostgreSQL-Datenmodell, cg-testkit CLI und cg-lint.py v1.6. ARITH-Domain (Commit 1260f06): cg-zeitarithmetik.ts + arith-v1.ctddl.json (50 ARITH-Tests). Sprint 11-A (Commit c655123–5cce5c6): conformance.ts + black-box.ts + t-l3-cosmic.ts + t-l3-pending.ts + schema.sql · 3 GitHub-Actions-Jobs grün. CG-CONF-002: CG:TAI:1780056037000000000/v1 (26.05.2026).</p><div class="tags"><span class="tag">TypeScript</span><span class="tag">PostgreSQL 14</span><span class="tag">cg-testkit</span><span class="tag">229+80 Tests</span><span class="tag">Sprint 11-A</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0620</div><div class="scard-title">Präzisionsphysik & Metrologie</div><div class="scard-desc">Metrologie/BEV (UC-9-A), Laufzeitkorrekturen (UC-9-B), Quantencomputing (UC-9-C), Tiefbohrungen (UC-9-D). REQ-0620-001–015, CIP-2026-001</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Anwendungsprofil für industrielle Messtechnik und Präzisionsphysik. UC-9-A: Metrologie und Atomuhrenreferenzierung (BEV). UC-9-B: Signallaufzeit- und Propagationskorrekturen. UC-9-C: Quantencomputing-Zeitstempel für kohärente Zustandssequenzen. UC-9-D: Tiefbohrungsmessungen unter Relativitätseinfluss. 15 normative Anforderungen (REQ-0620-001–015), Verifikationsmatrix, CIP-2026-001. Freigegeben 14.06.2026.</p><div class="tags"><span class="tag">Metrologie</span><span class="tag">BEV</span><span class="tag">Quantencomputing</span><span class="tag">Tiefbohrung</span><span class="tag">REQ-0620</span><span class="tag">CIP-2026-001</span></div></div></div>
+    <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0640</div><div class="scard-title">Geodäsie & Präzisionsentfernungsmessung</div><div class="scard-desc">LIDAR (UC-11-A), SLR/BEV Lustbühel (UC-11-B), LLR (UC-11-C), VLBI/TU Wien VMF3 (UC-11-D), InSAR (UC-11-E). REQ-0640-001–018, CIP-2026-002</div><div class="scard-ver"><span class="ok">v1.0 Freigegeben</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Anwendungsprofil für Geodäsie und Präzisionsentfernungsmessung. UC-11-A: LIDAR-Zeitstempel für Punktwolken. UC-11-B: Satellite Laser Ranging / BEV Lustbühel. UC-11-C: Lunar Laser Ranging. UC-11-D: VLBI-Korrelation mit TU Wien VMF3-Troposphärenmodell. UC-11-E: InSAR-Interferometrie. 18 normative Anforderungen (REQ-0640-001–018), CIP-2026-002. Freigegeben 14.06.2026.</p><div class="tags"><span class="tag">LIDAR</span><span class="tag">SLR/BEV</span><span class="tag">LLR</span><span class="tag">VLBI</span><span class="tag">TU Wien</span><span class="tag">InSAR</span><span class="tag">REQ-0640</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0800</div><div class="scard-title">Interoperability Guide</div><div class="scard-desc">Integration mit bestehenden Systemen. Migration von POSIX/ISO 8601/OWL-Time zu CGTA. Adapter-Patterns</div><div class="scard-ver"><span class="draft">v0.2 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Leitfaden für die Integration von ChronoGrid in bestehende Systeme. Adapter-Patterns für POSIX (incl. Year-2038-Migration), ISO 8601, Excel-Datumswerte, OWL-Time-Ontologien. Beschreibt schrittweise Migration ohne Big-Bang-Umstellung.</p><div class="tags"><span class="tag">POSIX-Migration</span><span class="tag">ISO 8601</span><span class="tag">Adapter-Patterns</span><span class="tag">Y2K38</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0900</div><div class="scard-title">NIS2 Compliance Profile</div><div class="scard-desc">EU-Richtlinie NIS2: CGTA als normativer Zeittyp für Incident-Reporting und Log-Integrität. Konkrete Artikel-Mappings</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Network and Information Security Directive 2 (NIS2): Konkrete Artikel-Mappings zeigen wo CGTA die Compliance-Anforderungen erfüllt — insbesondere für Incident-Reporting-Fristen (24h/72h), Log-Integrität und forensische Nachvollziehbarkeit. Direkt verwendbar für FFG-Antrag als EU-Mandate-Argument.</p><div class="tags"><span class="tag">NIS2</span><span class="tag">Incident-Reporting</span><span class="tag">Log-Integrität</span><span class="tag">EU-Mandat</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-APP-0910</div><div class="scard-title">CRA / SBOM Timestamp</div><div class="scard-desc">EU Cyber Resilience Act: CGFI-Zeitstempel in SBOM. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — CI-Pipeline integriert</div><div class="scard-ver"><span class="draft">v0.1 DRAFT</span> · <span class="ok">PoC ✅</span> <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>EU Cyber Resilience Act (CRA): Software Bill of Materials (SBOM) muss Zeitstempel für jede Komponente enthalten. CGFI-Zeitstempel bieten tamper-evidenten Nachweis. GitHub Action PoC ✅ abgeschlossen (01.05.2026) — automatisierte CGFI-Generierung bei jedem Commit. CI-Pipeline integriert.</p><div class="tags"><span class="tag">CRA</span><span class="tag">SBOM</span><span class="tag">GitHub Actions</span><span class="tag">CI-Pipeline</span><span class="tag">PoC ✅</span></div></div></div>
@@ -856,7 +881,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
         Was folgte, war eine Frage nach der anderen. Warum wird dieselbe Zeit in so vielen verschiedenen Darstellungen gespeichert? Warum entstehen beim Umrechnen Fehler, die sich unbemerkt fortpflanzen? Warum gibt es keinen Standard, der Zeit als präzise Zahl — von Nanosekunden bis zu Milliarden Jahren — einheitlich und maschinenlesbar beschreibt, und dabei trotzdem für Menschen lesbar bleibt?
       </p>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;margin-bottom:1.5rem;">
-        Ohne Programmierkenntnisse, aber mit dem Willen die Idee ernsthaft weiterzuverfolgen, entstand ChronoGrid in enger Zusammenarbeit mit KI-Werkzeugen über hunderte von Stunden. Das Ergebnis — 19 normative Dokumente, eine vollständige Referenzimplementierung und 229 konforme Tests — übersteigt das, was zu Beginn vorstellbar war.
+        Ohne Programmierkenntnisse, aber mit dem Willen die Idee ernsthaft weiterzuverfolgen, entstand ChronoGrid in enger Zusammenarbeit mit KI-Werkzeugen über hunderte von Stunden. Das Ergebnis — 21 normative Dokumente, eine vollständige Referenzimplementierung und 229 konforme Tests — übersteigt das, was zu Beginn vorstellbar war.
       </p>
       <p style="font-size:1rem;color:var(--ice-dim);line-height:1.85;">
         ChronoGrid sucht jetzt den akademischen Dialog: Ist der Ansatz formal korrekt? Ist er normierungsfähig? Die Antwort auf diese Fragen soll nicht intern gegeben werden — sondern von Fachleuten, die das Projekt unabhängig beurteilen.
@@ -894,7 +919,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
     </div>
     <p class="fd">Ein formales, universelles Zeitstandardisierungsprojekt mit dem Ziel der internationalen Normierung über ASI/ON → CEN/CENELEC → ISO TC 154. Entwickelt in Neunkirchen, Niederösterreich, Österreich.</p>
     <div class="fm">
-      <div>Spezifikationsstack: <span>19 Dokumente · CG-STD-0000 bis CG-APP-0910</span></div>
+      <div>Spezifikationsstack: <span>21 Dokumente · CG-STD-0000 bis CG-APP-0910</span></div>
       <div>Konformität: <span>229/229 cg-testkit CLI (101 L1 · 96 L2 · 32 L3) + 80/80 Vitest · Mai 2026 · CG-CONF-002</span></div>
       <div>API: <span>28 REST-Endpoints (OpenAPI 3.1) · GraphQL 70 Typen</span></div>
       <div>URI-Schema: <span>cgua:// (IANA-Draft CG-IANA-DRAFT-001 · RFC 7595)</span></div>
@@ -914,7 +939,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
       <div>FFG Basisprogramm</div>
       <br>
       <div><strong>Dokumentenstand</strong></div>
-      <div>30. Mai 2026 · v6.2</div>
+      <div>15. Juni 2026 · v6.5</div>
       <br>
       <div><strong>Kontakt</strong></div>
       <div>Mühlfeldstraße 3</div>
@@ -953,6 +978,8 @@ const cgConfig = {
     '0500':{ ver:'v0.3', status:'DRAFT'       },
     '0600':{ ver:'v0.9', status:'DRAFT'       },
     '0700':{ ver:'v1.1', status:'Freigegeben' },
+    '0620':{ ver:'v1.0', status:'Freigegeben' },
+    '0640':{ ver:'v1.0', status:'Freigegeben' },
     '0800':{ ver:'v0.2', status:'DRAFT'       },
     '0900':{ ver:'v0.1', status:'DRAFT'       },
     '0910':{ ver:'v0.1', status:'DRAFT', poc:true },
@@ -962,14 +989,14 @@ const cgConfig = {
            commit:'c655123', commitDate:'26.05.2026' },
   // ─── Projektstand ────────────────────────────────────────────
   stand: {
-    datum:   '29. Mai 2026',
-    version: 'v6.2',
+    datum:   '15. Juni 2026',
+    version: 'v6.5',
     phase:   'Phase 3 aktiv',
     phase2:  'ausstehend',           // externe Verifikation ausstehend (AP1)
     draftCount: 0,                   // DRAFTs in CG-STD-0000
     lintVer: 'v1.6',
     apiEndpoints: 28,
-    normalDocs: 21,                  // 9 STD + CG-ORG + 10 APP + Übersicht + Briefing
+    normalDocs: 21,                  // 8 CG-STD + 1 CG-ORG + 11 CG-APP
   },
   // ─── Nächste Schritte ────────────────────────────────────────
   next: ['OCG-Paper v0.7','IANA cgua://','RISC → TU Wien → BEV','Sprint 11-B'],
@@ -1006,9 +1033,9 @@ tick();setInterval(tick,1000);
 // ── STAT POPUPS ───────────────────────────────────────────
 const statData = {
   docs: {
-    id:'Spezifikationsstack', val:'19', title:'Normative Dokumente',
-    body:'8 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100) + 1 CG-ORG-2100 und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen. Alle 9 normativen Dokumente Freigegeben, 0 DRAFTs. Dokumentenübersicht und Briefing sind keine normativen Dokumente und nicht im Stack enthalten.',
-    tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','cg-lint.py v1.6','0 Fehler']
+    id:'Spezifikationsstack', val:'21', title:'Normative Dokumente',
+    body:'8 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100) + 1 CG-ORG-2100 und 11 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910, inkl. CG-APP-0620 v1.0 Präzisionsphysik/Metrologie und CG-APP-0640 v1.0 Geodäsie/LIDAR/VLBI). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen. Stand: 15.06.2026. Dokumentenübersicht und Briefing sind keine normativen Dokumente.',
+    tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','CG-APP-0620 NEU','CG-APP-0640 NEU','cg-lint.py v1.6']
   },
   tests: {
     id:'Testsuite gesamt', val:'229', title:'cg-testkit CLI · Level 3 Konform',
@@ -1031,7 +1058,7 @@ const statData = {
     tags:['89-Bit Adressraum','cgua.test.ts','7 Resolver-Typen','CG-E-010.008','Vitest']
   },
   arith: {
-    id:'ARITH-Domain · cg-zeitarithmetik.ts', val:'46', title:'ARITH-Tests konform',
+    id:'ARITH-Domain · cg-zeitarithmetik.ts', val:'50', title:'ARITH-Tests konform',
     body:'50/50 T-ARITH-Tests — Commit 1260f06, 07. Mai 2026. Prüfen alle 6 Operationen (add/subtract/multiply/divide/modulo/power) mit ℤ∞ BigInt: kein Float, kein Rundungsfehler, I-R3 konform. Vitest gesamt: 80/80 (50 ARITH + 30 CGUA). CTDDL: arith-v1.ctddl.json.',
     tags:['T-ARITH-001–063','ℤ∞ BigInt','I-R3 konform','arith-v1.ctddl.json','Vitest']
   },

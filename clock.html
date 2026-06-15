@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ChronoGrid Clock</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b1220;--teal:#17A589;--teal2:#1abc9c;
+  --gold:#f0c040;--white:#e8f0f8;--dim:#4a6080;
+  --border:rgba(23,165,137,0.25);--abg:rgba(23,165,137,0.09);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{
+  background:var(--navy);color:var(--white);
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;overflow-x:hidden;
+  display:flex;align-items:flex-start;justify-content:center;
+}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(23,165,137,0.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(23,165,137,0.04) 1px,transparent 1px);
+  background-size:50px 50px;pointer-events:none;z-index:0;}
+
+.wrap{
+  position:relative;z-index:1;
+  width:100%;max-width:560px;
+  padding:14px 12px 24px;
+  display:flex;flex-direction:column;gap:8px;
+}
+
+/* ── HEADER ── */
+.hdr{text-align:center;padding:4px 0 2px;}
+.logo{font-family:'Orbitron',monospace;font-size:clamp(18px,5vw,28px);font-weight:900;letter-spacing:.25em;}
+.logo span{color:var(--teal);}
+.sub{font-size:10px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;margin-top:3px;}
+
+/* ── PANEL (shared card style) ── */
+.panel{
+  background:linear-gradient(160deg,rgba(15,26,46,.97),rgba(11,18,32,.99));
+  border:1px solid var(--border);border-radius:4px;
+  position:relative;
+  box-shadow:0 0 30px rgba(23,165,137,.06),inset 0 1px 0 rgba(23,165,137,.15);
+}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+
+/* ── HERO ── */
+.hero{padding:14px 16px 12px;text-align:center;}
+.hero-top{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;}
+.hero-city{font-family:'Orbitron',monospace;font-size:clamp(10px,2.5vw,13px);
+  font-weight:700;letter-spacing:.22em;color:var(--teal);text-transform:uppercase;}
+.hero-badge{font-size:9px;background:rgba(23,165,137,.1);border:1px solid rgba(23,165,137,.22);
+  color:var(--teal2);padding:2px 7px;border-radius:2px;letter-spacing:.1em;}
+
+.hero-time{
+  font-family:'Orbitron',monospace;
+  font-size:clamp(52px,16vw,100px);
+  font-weight:900;color:var(--white);letter-spacing:.03em;line-height:1;
+  text-shadow:0 0 40px rgba(23,165,137,.2);
+}
+.hero-time .secs{color:var(--teal2);font-size:.55em;vertical-align:middle;}
+
+.hero-date{font-family:'Share Tech Mono',monospace;font-size:clamp(10px,2.5vw,13px);
+  color:var(--dim);letter-spacing:.1em;margin-top:5px;}
+
+/* Search row — compact */
+.search-wrap{position:relative;margin:10px auto 2px;width:80%;max-width:340px;}
+.tz-input{width:100%;background:rgba(11,18,32,.85);border:1px solid rgba(23,165,137,.18);
+  border-radius:20px;padding:8px 18px;color:var(--white);
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:.06em;outline:none;transition:border-color .2s;text-align:center;}
+.tz-input:focus{border-color:var(--teal);text-align:left;}
+.tz-input::placeholder{color:var(--dim);}
+.tz-dd{position:absolute;top:calc(100%+6px);left:0;right:0;background:#0d1929;
+  border:1px solid var(--border);border-radius:4px;overflow-y:auto;z-index:50;display:none;}
+.tz-dd.open{display:block;}
+.tz-opt{padding:11px 16px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;
+  color:var(--white);cursor:pointer;letter-spacing:.05em;
+  border-bottom:1px solid rgba(23,165,137,.07);}
+.tz-opt:last-child{border-bottom:none;}
+.tz-opt:hover{background:var(--abg);color:var(--teal2);}
+.tz-opt .co{color:var(--dim);font-size:10px;margin-left:6px;}
+
+/* ── 4 CITIES ── */
+.cities{
+  background:rgba(11,18,32,.55);
+  border:1px solid rgba(23,165,137,.12);border-radius:4px;
+  overflow:hidden;
+}
+.city-row{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;padding:8px 14px;
+  border-bottom:1px solid rgba(23,165,137,.07);
+  gap:8px;
+}
+.city-row:last-child{border-bottom:none;}
+.c-left{}
+.c-name{font-family:'Rajdhani',sans-serif;font-size:clamp(12px,3vw,15px);
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+.c-off{font-size:9px;color:rgba(74,96,128,.55);letter-spacing:.08em;margin-top:1px;}
+.c-time{font-family:'Orbitron',monospace;font-size:clamp(16px,4.5vw,26px);
+  font-weight:700;color:var(--white);letter-spacing:.04em;text-align:right;}
+.c-time .cs{color:var(--teal2);font-size:.7em;}
+.c-date{font-size:9px;color:var(--dim);text-align:right;letter-spacing:.06em;margin-top:2px;}
+
+/* ── CGTA ── */
+.cgta-panel{padding:11px 16px;}
+.cgta-lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;}
+.cgta-str{font-family:'Share Tech Mono',monospace;font-size:clamp(11px,2.8vw,16px);
+  color:var(--teal2);word-break:break-all;line-height:1.3;
+  text-shadow:0 0 14px rgba(23,165,137,.3);}
+.cgta-str .p{color:var(--dim);}.cgta-str .d{color:var(--gold);}
+.cgta-note{font-size:9px;color:var(--dim);letter-spacing:.06em;margin-top:5px;line-height:1.4;}
+
+/* ── COSMIC ── */
+.cosmic{
+  background:rgba(11,18,32,.55);
+  border:1px solid rgba(240,192,64,.14);border-radius:4px;
+  padding:10px 16px;
+  position:relative;
+}
+.cosmic::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(240,192,64,.3),transparent);}
+.cosmic-ns{font-family:'Share Tech Mono',monospace;font-size:clamp(12px,3vw,18px);
+  color:var(--gold);word-break:break-all;line-height:1.2;
+  text-shadow:0 0 12px rgba(240,192,64,.2);}
+.cosmic-lbl{font-size:9px;color:rgba(240,192,64,.45);letter-spacing:.18em;
+  text-transform:uppercase;margin-top:4px;}
+.cosmic-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,64,.2),transparent);margin:10px 0;}
+.cosmic-gyr{font-family:'Orbitron',monospace;font-size:clamp(14px,4vw,22px);
+  font-weight:700;color:var(--gold);letter-spacing:.06em;
+  text-shadow:0 0 12px rgba(240,192,64,.25);}
+
+/* ── FOOTER ── */
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;
+  font-size:8px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;padding-top:2px;}
+.foot a{color:var(--teal);text-decoration:none;}
+.live{display:inline-flex;align-items:center;gap:4px;}
+.ldot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:bl 1.5s infinite;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.25}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="logo">Chrono<span>Grid</span></div>
+    <div class="sub">Universelle Zeitadressierung</div>
+  </div>
+
+  <!-- HERO LOCAL -->
+  <div class="panel">
+    <div class="hero">
+      <div class="hero-top">
+        <span class="hero-city" id="hero-city">Wien</span>
+        <span class="hero-badge" id="hero-badge">CEST UTC+2</span>
+      </div>
+      <div class="hero-time">
+        <span id="hero-hm">00:00</span><span class="secs">:<span id="hero-s">00</span></span>
+      </div>
+      <div class="hero-date" id="hero-date">—</div>
+
+      <!-- Search only — no pills -->
+      <div class="search-wrap">
+        <input class="tz-input" id="tz-input" type="text"
+          placeholder="Stadt suchen… Wien, Tokyo, New York, Sydney…"
+          autocomplete="off" oninput="tzSearch(this.value)" onblur="setTimeout(closeDD,200)">
+        <div class="tz-dd" id="tz-dd"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 CITIES -->
+  <div class="cities" id="cities"></div>
+
+  <!-- CGTA -->
+  <div class="panel">
+    <div class="cgta-panel">
+      <div class="cgta-lbl">CGTA · TAI — identisch in allen Zeitzonen</div>
+      <div class="cgta-str">
+        <span class="p">CG:</span><span class="d">TAI</span><span class="p">:</span><span id="cgta-val">—</span><span class="p">/v1</span>
+      </div>
+      <div class="cgta-note">Dieselbe Atomzeit — Wien, New York, Tokio, Sydney. Keine Mehrdeutigkeit.</div>
+    </div>
+  </div>
+
+  <!-- COSMIC -->
+  <div class="cosmic">
+    <div class="cosmic-ns" id="cosmic-ns">—</div>
+    <div class="cosmic-lbl">&#9733; Cosmic · Nanosekunden seit dem Urknall</div>
+    <div class="cosmic-divider"></div>
+    <div class="cosmic-gyr" id="cosmic-gyr">—</div>
+    <div class="cosmic-lbl">&#9733; Milliarden Jahre seit dem Urknall &nbsp;(Planck 2018 · 13,787 Gyr)</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <span class="live"><span class="ldot"></span>Live · BigInt ℤ∞</span>
+    <span>SHA-256("TAI:0:1.0") = f060329…b9ce89da</span>
+    <span><a href="https://chronogrid.at/familie" target="_blank">chronogrid.at</a></span>
+  </div>
+
+</div>
+<script>
+const DB=[
+  {city:'Wien',country:'AT',tz:'Europe/Vienna'},
+  {city:'Berlin',country:'DE',tz:'Europe/Berlin'},
+  {city:'München',country:'DE',tz:'Europe/Berlin'},
+  {city:'Zürich',country:'CH',tz:'Europe/Zurich'},
+  {city:'Paris',country:'FR',tz:'Europe/Paris'},
+  {city:'London',country:'GB',tz:'Europe/London'},
+  {city:'Madrid',country:'ES',tz:'Europe/Madrid'},
+  {city:'Rom',country:'IT',tz:'Europe/Rome'},
+  {city:'Stockholm',country:'SE',tz:'Europe/Stockholm'},
+  {city:'Moskau',country:'RU',tz:'Europe/Moscow'},
+  {city:'Istanbul',country:'TR',tz:'Europe/Istanbul'},
+  {city:'Dubai',country:'AE',tz:'Asia/Dubai'},
+  {city:'Mumbai',country:'IN',tz:'Asia/Kolkata'},
+  {city:'Bangkok',country:'TH',tz:'Asia/Bangkok'},
+  {city:'Singapur',country:'SG',tz:'Asia/Singapore'},
+  {city:'Hongkong',country:'HK',tz:'Asia/Hong_Kong'},
+  {city:'Shanghai',country:'CN',tz:'Asia/Shanghai'},
+  {city:'Peking',country:'CN',tz:'Asia/Shanghai'},
+  {city:'Tokio',country:'JP',tz:'Asia/Tokyo'},
+  {city:'Seoul',country:'KR',tz:'Asia/Seoul'},
+  {city:'Sydney',country:'AU',tz:'Australia/Sydney'},
+  {city:'Melbourne',country:'AU',tz:'Australia/Melbourne'},
+  {city:'Auckland',country:'NZ',tz:'Pacific/Auckland'},
+  {city:'Honolulu',country:'US',tz:'Pacific/Honolulu'},
+  {city:'Los Angeles',country:'US',tz:'America/Los_Angeles'},
+  {city:'Denver',country:'US',tz:'America/Denver'},
+  {city:'Chicago',country:'US',tz:'America/Chicago'},
+  {city:'New York',country:'US',tz:'America/New_York'},
+  {city:'Toronto',country:'CA',tz:'America/Toronto'},
+  {city:'São Paulo',country:'BR',tz:'America/Sao_Paulo'},
+  {city:'Buenos Aires',country:'AR',tz:'America/Argentina/Buenos_Aires'},
+  {city:'Nairobi',country:'KE',tz:'Africa/Nairobi'},
+  {city:'Lagos',country:'NG',tz:'Africa/Lagos'},
+  {city:'Johannesburg',country:'ZA',tz:'Africa/Johannesburg'},
+  {city:'Kairo',country:'EG',tz:'Africa/Cairo'},
+  {city:'UTC',country:'',tz:'UTC'},
+];
+
+const FOUR=[
+  {city:'Moskau',    tz:'Europe/Moscow',      label:'UTC+3   · +3 h'},
+  {city:'Dhaka',     tz:'Asia/Dhaka',         label:'UTC+6   · +6 h'},
+  {city:'Tokio',     tz:'Asia/Tokyo',         label:'UTC+9   · +9 h'},
+  {city:'Auckland',  tz:'Pacific/Auckland',   label:'UTC+12 · +12 h'},
+];
+
+const TAI_OFF=37000000000n;
+const URKNALL=434836963622400000000000000n;
+let heroTz='Europe/Vienna';
+
+function pad(n,w=2){return String(n).padStart(w,'0');}
+
+function tzOff(tz){
+  try{
+    const s=new Intl.DateTimeFormat('en',{timeZone:tz,timeZoneName:'short'}).format(new Date());
+    return s.split(' ').slice(1).join(' ');
+  }catch{return '';}
+}
+
+function fmtTime(tz){
+  try{
+    return new Intl.DateTimeFormat('de-DE',{
+      timeZone:tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+    }).format(new Date());
+  }catch{return '--:--:--';}
+}
+
+function fmtDate(tz){
+  try{
+    return new Intl.DateTimeFormat('de-DE',{
+      timeZone:tz,weekday:'short',day:'2-digit',month:'short',year:'numeric'
+    }).format(new Date());
+  }catch{return '';}
+}
+
+function taiNs(){return BigInt(Date.now())*1000000n+TAI_OFF;}
+
+function fmtTai(t){
+  const utcMs=Number(t/1000000n)-37000;
+  const d=new Date(utcMs);
+  const ns=t%1000000000n;
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:${pad(d.getUTCSeconds())}.${String(ns).padStart(9,'0')}`;
+}
+
+function tzSearch(q){
+  const dd=document.getElementById('tz-dd');
+  if(!q){dd.classList.remove('open');return;}
+  const ql=q.toLowerCase();
+  const hits=DB.filter(r=>r.city.toLowerCase().includes(ql)||r.tz.toLowerCase().includes(ql)).slice(0,6);
+  if(!hits.length){dd.classList.remove('open');return;}
+  dd.innerHTML=hits.map(r=>
+    `<div class="tz-opt" onmousedown="pickTz('${r.tz}','${r.city}')">${r.city}<span class="co">${r.country}</span></div>`
+  ).join('');
+  dd.classList.add('open');
+}
+
+function pickTz(tz,city){
+  heroTz=tz;
+  document.getElementById('tz-input').value=city;
+  closeDD();
+}
+
+function closeDD(){document.getElementById('tz-dd').classList.remove('open');}
+
+function renderCities(){
+  document.getElementById('cities').innerHTML=FOUR.map(c=>{
+    const t=fmtTime(c.tz);
+    const hm=t.slice(0,5), ss=t.slice(6,8);
+    return `<div class="city-row">
+      <div class="c-left">
+        <div class="c-name">${c.city}</div>
+        <div class="c-off">${c.label} · ${tzOff(c.tz)}</div>
+      </div>
+      <div>
+        <div class="c-time">${hm}<span class="cs">:${ss}</span></div>
+        <div class="c-date">${fmtDate(c.tz)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function tick(){
+  const t=taiNs();
+  const now=new Date();
+
+  // Hero
+  const ht=fmtTime(heroTz);
+  document.getElementById('hero-hm').textContent=ht.slice(0,5);
+  document.getElementById('hero-s').textContent=ht.slice(6,8);
+  document.getElementById('hero-date').textContent=fmtDate(heroTz);
+  const name=DB.find(r=>r.tz===heroTz)?.city||heroTz.split('/').pop().replace(/_/g,' ');
+  document.getElementById('hero-city').textContent=name;
+  document.getElementById('hero-badge').textContent=tzOff(heroTz);
+
+  // 4 cities
+  renderCities();
+
+  // CGTA
+  document.getElementById('cgta-val').textContent=fmtTai(t);
+
+  // Cosmic
+  const c=URKNALL+t;
+  document.getElementById('cosmic-ns').textContent=
+    c.toString().replace(/\B(?=(\d{3})+(\d))/g,'\u202F')+' ns';
+  // Gyr: c ns / 1e9 / 3600 / 24 / 365.25 / 1e9
+  const gyrFloat = Number(c) / 1e9 / 3.15576e16;
+  document.getElementById('cosmic-gyr').textContent=
+    gyrFloat.toFixed(6).replace('.',',') + ' Milliarden Jahre';
+}
+
+tick();
+setInterval(tick,500);
+</script>
+</body>
+</html>
