@@ -59,8 +59,10 @@ body::before{content:'';position:fixed;inset:0;
   font-size:clamp(52px,16vw,100px);
   font-weight:900;color:var(--white);letter-spacing:.03em;line-height:1;
   text-shadow:0 0 40px rgba(23,165,137,.2);
+  font-variant-numeric:tabular-nums;
 }
-.hero-time .secs{color:var(--teal2);font-size:.55em;vertical-align:middle;}
+.hero-time .secs{color:var(--teal2);font-size:.55em;vertical-align:middle;display:inline-block;font-family:'Share Tech Mono',monospace;letter-spacing:.05em;}
+#hero-s{display:inline-block;min-width:2ch;text-align:center;}
 
 .hero-date{font-family:'Share Tech Mono',monospace;font-size:clamp(10px,2.5vw,13px);
   color:var(--dim);letter-spacing:.1em;margin-top:5px;}
@@ -101,8 +103,9 @@ body::before{content:'';position:fixed;inset:0;
   font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
 .c-off{font-size:9px;color:rgba(74,96,128,.55);letter-spacing:.08em;margin-top:1px;}
 .c-time{font-family:'Orbitron',monospace;font-size:clamp(16px,4.5vw,26px);
-  font-weight:700;color:var(--white);letter-spacing:.04em;text-align:right;}
-.c-time .cs{color:var(--teal2);font-size:.7em;}
+  font-weight:700;color:var(--white);letter-spacing:.04em;text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap;}
+.c-time .cs{color:var(--teal2);font-size:.7em;font-family:'Share Tech Mono',monospace;display:inline-block;min-width:2.1ch;}
 .c-date{font-size:9px;color:var(--dim);text-align:right;letter-spacing:.06em;margin-top:2px;}
 
 /* ── CGTA ── */
@@ -125,14 +128,18 @@ body::before{content:'';position:fixed;inset:0;
   background:linear-gradient(90deg,transparent,rgba(240,192,64,.3),transparent);}
 .cosmic-ns{font-family:'Share Tech Mono',monospace;font-size:clamp(12px,3vw,18px);
   color:var(--gold);word-break:break-all;line-height:1.2;
-  text-shadow:0 0 12px rgba(240,192,64,.2);}
+  text-shadow:0 0 12px rgba(240,192,64,.2);
+  font-variant-numeric:tabular-nums;min-height:2.6em;}
 .cosmic-lbl{font-size:9px;color:rgba(240,192,64,.45);letter-spacing:.18em;
   text-transform:uppercase;margin-top:4px;}
 .cosmic-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,64,.2),transparent);margin:10px 0;}
 .cosmic-gyr{font-family:'Orbitron',monospace;font-size:clamp(14px,4vw,22px);
   font-weight:700;color:var(--gold);letter-spacing:.06em;
-  text-shadow:0 0 12px rgba(240,192,64,.25);}
+  text-shadow:0 0 12px rgba(240,192,64,.25);
+  font-variant-numeric:tabular-nums;min-height:1.4em;display:block;}
 
+[class^='city-hm'],[id^='city-hm']{display:inline-block;min-width:2.5ch;}
+[id^='city-ss']{display:inline-block;min-width:1.2ch;}
 /* ── FOOTER ── */
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;
   font-size:8px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;padding-top:2px;}
@@ -159,7 +166,7 @@ body::before{content:'';position:fixed;inset:0;
         <span class="hero-badge" id="hero-badge">CEST UTC+2</span>
       </div>
       <div class="hero-time">
-        <span id="hero-hm">00:00</span><span class="secs">:<span id="hero-s">00</span></span>
+        <span id="hero-hm" style="display:inline-block;min-width:2.6ch;">00:00</span><span class="secs" style="display:inline-block;white-space:nowrap;">:<span id="hero-s" style="display:inline-block;min-width:1.3ch;text-align:center;">00</span></span>
       </div>
       <div class="hero-date" id="hero-date">—</div>
 
@@ -309,21 +316,28 @@ function pickTz(tz,city){
 
 function closeDD(){document.getElementById('tz-dd').classList.remove('open');}
 
-function renderCities(){
-  document.getElementById('cities').innerHTML=FOUR.map(c=>{
-    const t=fmtTime(c.tz);
-    const hm=t.slice(0,5), ss=t.slice(6,8);
+function initCities(){
+  document.getElementById('cities').innerHTML=FOUR.map((c,i)=>{
     return `<div class="city-row">
       <div class="c-left">
         <div class="c-name">${c.city}</div>
         <div class="c-off">${c.label} · ${tzOff(c.tz)}</div>
       </div>
       <div>
-        <div class="c-time">${hm}<span class="cs">:${ss}</span></div>
-        <div class="c-date">${fmtDate(c.tz)}</div>
+        <div class="c-time"><span id="city-hm-${i}">--:--</span><span class="cs">:<span id="city-ss-${i}">--</span></span></div>
+        <div class="c-date" id="city-dt-${i}"></div>
       </div>
     </div>`;
   }).join('');
+}
+
+function updateCities(){
+  FOUR.forEach((c,i)=>{
+    const t=fmtTime(c.tz);
+    document.getElementById('city-hm-'+i).textContent=t.slice(0,5);
+    document.getElementById('city-ss-'+i).textContent=t.slice(6,8);
+    document.getElementById('city-dt-'+i).textContent=fmtDate(c.tz);
+  });
 }
 
 function tick(){
@@ -340,7 +354,7 @@ function tick(){
   document.getElementById('hero-badge').textContent=tzOff(heroTz);
 
   // 4 cities
-  renderCities();
+  updateCities();
 
   // CGTA
   document.getElementById('cgta-val').textContent=fmtTai(t);
@@ -355,6 +369,7 @@ function tick(){
     gyrFloat.toFixed(6).replace('.',',') + ' Milliarden Jahre';
 }
 
+initCities();
 tick();
 setInterval(tick,500);
 </script>
