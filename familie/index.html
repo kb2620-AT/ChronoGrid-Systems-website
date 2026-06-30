@@ -317,7 +317,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <h1 class="fu fu2">Der erste<br>formale<br><em>Zeitstandard</em></h1>
   <p class="hero-sub fu fu3">Bestehende Standards lösen Teilprobleme: ISO 8601 definiert Notation, POSIX definiert Systemzeit, OWL-Time definiert Ontologie. Keiner löst alle vier Dimensionen gleichzeitig — formale Beschreibung, deterministische Arithmetik, kryptographische Verankerung und langzeitstabile Adressierung. <strong>ChronoGrid schließt diese Lücke normativ.</strong></p>
   <div class="stat-kacheln">
-    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">21</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">8 STD + 1 ORG + 11 APP</div><div class="stat-k-hint">▸ Details</div></div>
+    <div class="stat-k" onclick="openStatPopup('docs')"><div class="stat-k-val">21</div><div class="stat-k-lbl">Normative Dokumente</div><div class="stat-k-sub">9 STD + 12 APP</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('tests')"><div class="stat-k-val">229</div><div class="stat-k-lbl">Tests konform</div><div class="stat-k-sub">cg-testkit CLI · Level 3</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('l2')"><div class="stat-k-val">96</div><div class="stat-k-lbl">Level-2-Tests</div><div class="stat-k-sub">96/96 · 01.05.2026</div><div class="stat-k-hint">▸ Details</div></div>
     <div class="stat-k" onclick="openStatPopup('l3')"><div class="stat-k-val">32</div><div class="stat-k-lbl">Level-3-Tests</div><div class="stat-k-sub">32/32 · cg-testkit CLI</div><div class="stat-k-hint">▸ Details</div></div>
@@ -792,7 +792,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="timeline">
     <div class="tl-track-wrap">
       <div class="tl-track">
-        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Spezifikations-stack · 22 Dokumente</div><div class="tl-date">Apr. 2026</div></div>
+        <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Spezifikations-stack · 21 Dokumente</div><div class="tl-date">Apr. 2026</div></div>
         <div class="tl-step sdone"><div class="tl-dot done">✓</div><div class="tl-label">Referenz-implementierung konform</div><div class="tl-date">Apr. 2026</div></div>
         <div class="tl-step"><div class="tl-dot">◌</div><div class="tl-label">Externe Verifikation · ausstehend</div><div class="tl-date">AP1</div></div>
         <div class="tl-step"><div class="tl-dot plan">○</div><div class="tl-label">ASI/ON Erst-einreichung</div><div class="tl-date">Nach Verif.</div></div>
@@ -839,7 +839,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--navy-border);paddi
   <div class="stag">Spezifikationsstack · Stand 1. Mai 2026</div>
   <h2>21 normative<br><em>Dokumente</em></h2>
   <div class="divider"></div>
-  <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100) und 10 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen.</p>
+  <p class="lead">9 normative Spezifikationen (CG-STD-* + CG-ORG-2100) und 12 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen.</p>
   <div class="spec-grid">
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-0000</div><div class="scard-title">Formale Grundlagen</div><div class="scard-desc">Axiomatik, CGTA 6-Tupel, 4 Theoreme, BigInt-Arithmetik, Klasse-A/B Mapping, Anhang B: Schaltsekunden-Testvektor</div><div class="scard-ver"><span class="ok">v0.8 Freigegeben</span> · Schicht 0 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Legt die mathematischen Grundlagen des gesamten Stacks fest. Definiert das CGTA 6-Tupel (D, t, z, v, h, σ) und das TimeDomain 8-Tupel. Enthält alle 18 formalen Aussagen selbstgeprüft; externe Verifikation ausstehend (AP1). 0 DRAFT-Theoreme verbleiben. Normative Invarianten I-E1–I-E9. Anhang B: Schaltsekunden-Testvektor 2016 (normativ).</p><div class="tags"><span class="tag">CGTA 6-Tupel</span><span class="tag">ℤ∞ BigInt</span><span class="tag">Klasse A/B</span><span class="tag">0 DRAFTs · externe Verifikation ausstehend</span><span class="tag">I-E1–I-E9</span></div></div></div>
     <div class="scard" onclick="toggleScard(this)"><div class="scard-id">CG-STD-1000</div><div class="scard-title">Terminologie</div><div class="scard-desc">Normatives Glossar: CGTA, CTDDL, MachineID, Klasse-A/B, Weltlinie, Ephemeride, CIP-Definitionen</div><div class="scard-ver"><span class="ok">v1.4 Freigegeben</span> · Schicht 1 <span class="scard-chevron">▼</span></div><div class="scard-expand"><p>Normatives Glossar mit eindeutigen Definitionen für alle Kernbegriffe. Verhindert Mehrdeutigkeit bei der Implementierung. Definiert u.a. Weltlinie (relativistischer Pfad), Ephemeride (Bahnparameter), CIP (Change Impact Process), Klasse-A/B Mapping.</p><div class="tags"><span class="tag">Weltlinie</span><span class="tag">Ephemeride</span><span class="tag">CIP</span><span class="tag">MachineID</span></div></div></div>
@@ -1034,7 +1034,7 @@ tick();setInterval(tick,1000);
 const statData = {
   docs: {
     id:'Spezifikationsstack', val:'21', title:'Normative Dokumente',
-    body:'8 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100) + 1 CG-ORG-2100 und 11 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910, inkl. CG-APP-0620 v1.0 Präzisionsphysik/Metrologie und CG-APP-0640 v1.0 Geodäsie/LIDAR/VLBI). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen. Stand: 15.06.2026. Dokumentenübersicht und Briefing sind keine normativen Dokumente.',
+    body:'9 normative Spezifikationen (CG-STD-0000 bis CG-STD-6100 + CG-ORG-2100) und 12 Anwendungsdokumente (CG-APP-0100 bis CG-APP-0910, inkl. CG-APP-0620 v1.0 Präzisionsphysik/Metrologie und CG-APP-0640 v1.0 Geodäsie/LIDAR/VLBI). Konsistenz geprüft durch cg-lint.py v1.6 — 0 Fehler, 0 Warnungen. Stand: 15.06.2026. Dokumentenübersicht und Briefing sind keine normativen Dokumente.',
     tags:['CG-STD-0000–6100','CG-ORG-2100','CG-APP-0100–0910','CG-APP-0620 NEU','CG-APP-0640 NEU','cg-lint.py v1.6']
   },
   tests: {
