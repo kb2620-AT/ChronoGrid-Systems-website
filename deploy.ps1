@@ -2,7 +2,7 @@ param(
     [string]$Nachricht = ""
 )
 
-$RepoPath = "G:\Meine Ablage\ChronoGrid\Website\chronogrid-website"
+$RepoPath = $PSScriptRoot
 Set-Location $RepoPath
 
 if ($Nachricht -eq "") {
